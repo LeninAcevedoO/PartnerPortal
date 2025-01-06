@@ -1,0 +1,56 @@
+
+############################ Troubleshot doc ################################
+
+********************** GCloud deploy **********************
+
+----------------- V2 ---------------
+
+1.- Pararme sobre la carpeta Angular
+2.- Ejecutar el comando "ng build"
+3.- Copiar la carpeta completa de Angular/dist/infomedia => App/angular/dist/infomedia
+4.- Pararme en la carpeta App
+5.- Ejecutar el comando:
+gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/ && gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/source/ && gcloud run deploy wre-poc-service;
+
+----------------- v1 ---------------
+
+1.- Pararme sobre la carpeta Angular
+2.- Ejecutar el comando "ng build"
+3.- Copiar la carpeta completa de Angular/dist/infomedia => App/angular/dist/infomedia
+4.- Cambiar en App/angular/dist/infomedia/index.html la etiqueta  <title>WRE v0.x.x</title> a la versión correspendiente
+5.- Pararme en la carpeta App
+6.- Ejecutar elos siguientes comandos en este orden:
+    a.- gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/
+    b.- gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/source/
+    c.- gcloud run deploy wre-poc-service;
+    d.- Cuando solicite la ruta source code location, simplemente dar enter
+    e.- Servidor, actualmente esta usando el "32.- US-Cental.1" pero puede cambiar en cualquier momento
+    f.- Esperar el deploy, tarda aproximadamente 1 a 2 minutos
+    g.- En caso de dar error de credenciales seguir los pasos de "GCloud credentials"
+    h.- gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/
+    i.- gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/source/ 
+
+
+NOTA: Ejecutamos el clena caché antes y después del deploy porque algunas veces no lo limpia correcto y se queda alguna versión pegada.
+
+********************** GCloud credentials **********************
+En caso de error de credenciales ejecutar el siguiente comando con la ruta del json de credenciales, Git protege esta parte y no permite subirlo. 
+
+export GOOGLE_APPLICATION_CREDENTIALS="/Users/lenininfomedia/Documents/Repos/API_WRE/wre-poc-f25a5217302f.json"
+
+********************** GCLoud Cache methos **********************
+
+// estos si jalaron :)
+gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/
+gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/source/
+
+// estos no :(
+
+gsutil -m setmeta -r -h "Cache-Control:no-store" gs://wre-poc_cloudbuild/source/
+gsutil -m setmeta -r -h "Cache-Control:no-store" gs://wre-poc_cloudbuild/
+
+
+
+********************** Referencias de Deploy **********************
+
+gcloud config set run/region us-central1

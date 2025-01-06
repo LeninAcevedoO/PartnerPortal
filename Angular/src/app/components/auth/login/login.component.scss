@@ -1,0 +1,56 @@
+.w-full {
+  width: 100%;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.min-h-full {
+  min-height: 100vh;
+}
+
+.carder {
+  width: 500px;
+  max-width: 95%;
+  text-align: center;
+  padding: 16px;
+}
+
+.txtClipped {
+  scale: 3;
+  background: linear-gradient(90deg, rgba(163, 161, 161, 0.1)0, rgba(0, 131, 255, 1) 50%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+.containerFit {
+  margin-top: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+button.mat-icon-button {
+  margin-right: 8px;
+}
+
+button.mat-icon-button .mat-icon {
+  color: blue;
+}
+
+.btnContainer {
+  justify-content: end;
+}
+
+.btnLogin {
+  background: linear-gradient(90deg, #743fa9, #2b72df, #2b9adf);
+  color: white !important;
+  width: 100%;
+  font-size: 1.2rem;
+}
