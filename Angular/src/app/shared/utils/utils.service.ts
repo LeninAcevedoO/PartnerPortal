@@ -66,6 +66,7 @@ export class UtilsService {
     return plainText;
   }
 
+
   encryptAES(plainText: string, key: string, iv: string): string {
     const keyBytes = CryptoJS.enc.Utf8.parse(key);
     const ivBytes = CryptoJS.enc.Utf8.parse(iv);
