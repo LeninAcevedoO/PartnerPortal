@@ -28,27 +28,27 @@ export class UtilsService {
   getLocalIPv4() {
     return new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resp => {
-        window.RTCPeerConnection = window.RTCPeerConnection
+        window.RTCPeerConnection = window.RTCPeerConnection;
         let pc = new RTCPeerConnection({ iceServers: [] }), noop = function () { };
-        pc.createDataChannel('');//create a bogus data channel
-        pc.createOffer(pc.setLocalDescription.bind(pc), noop);// create offer and set local description
+        pc.createDataChannel(''); // create a bogus data channel
+        pc.createOffer(pc.setLocalDescription.bind(pc), noop); // create offer and set local description
         pc.onicecandidate = function (ice) {
           if (ice && ice.candidate && ice.candidate.candidate) {
-            let myIP = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate)[1];
-            pc.onicecandidate = noop;
-            resolve({ IPv4: myIP });
+            const candidate = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/.exec(ice.candidate.candidate);
+            if (candidate) {
+              let myIP = candidate[1];
+              pc.onicecandidate = noop;
+              resolve({ IPv4: myIP });
+            }
           }
         };
+        
       },
         err => {
           reject(err);
         });
     });
   }
-
-  // getClientInfo() {
-  //   return this.http.get<any>('https://geolocation-db.com/json/');
-  // }
 
   encryptRSA(plainText: string) {
     let publicKey = '';
@@ -66,29 +66,28 @@ export class UtilsService {
     return plainText;
   }
 
-  encryptAES(plainText: string): string {
-    const key = CryptoJS.enc.Utf8.parse("hf8685nfhfhjs9h8");
-    const iv1 = CryptoJS.enc.Utf8.parse("hf8685nfhfhjs9h8");
-    const encrypted = CryptoJS.AES.encrypt(plainText, key, {
-      keySize: 16,
-      iv: iv1,
-      mode: CryptoJS.mode.ECB,
+
+  encryptAES(plainText: string, key: string, iv: string): string {
+    const keyBytes = CryptoJS.enc.Utf8.parse(key);
+    const ivBytes = CryptoJS.enc.Utf8.parse(iv);
+    const encrypted = CryptoJS.AES.encrypt(plainText, keyBytes, {
+      iv: ivBytes,
+      mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.Pkcs7
     });
 
-    return encrypted + "";
+    return encrypted.toString();
   }
 
-  decryptAES(cipher: string): string {
-    const key = CryptoJS.enc.Utf8.parse("hf8685nfhfhjs9h8");
-    const iv1 = CryptoJS.enc.Utf8.parse("hf8685nfhfhjs9h8");
-    const plainText = CryptoJS.AES.decrypt(cipher, key, {
-      keySize: 16,
-      iv: iv1,
-      mode: CryptoJS.mode.ECB,
+  decryptAES(cipher: string, key: string, iv: string): string {
+    const keyBytes = CryptoJS.enc.Utf8.parse(key);
+    const ivBytes = CryptoJS.enc.Utf8.parse(iv);
+    const decrypted = CryptoJS.AES.decrypt(cipher, keyBytes, {
+      iv: ivBytes,
+      mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.Pkcs7
     });
 
-    return plainText.toString(CryptoJS.enc.Utf8);
+    return decrypted.toString(CryptoJS.enc.Utf8);
   }
 }
