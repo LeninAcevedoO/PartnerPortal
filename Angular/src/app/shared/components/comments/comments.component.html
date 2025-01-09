@@ -1,0 +1,12 @@
+<div class="comments-container">
+  <form (ngSubmit)="onSubmit()" #commentsForm="ngForm">
+    <textarea
+      [(ngModel)]="commentText"
+      name="comment"
+      rows="4"
+      required
+      [placeholder]="placeholder"
+    ></textarea>
+      <button type="submit" [disabled]="!commentsForm.valid">Submit</button> 
+  </form>
+</div>

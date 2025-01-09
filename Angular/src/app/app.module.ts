@@ -26,7 +26,8 @@ import { LoginComponent } from './components/auth/login/login.component';
 // ----------------------- Modules --------------------------------------
 import {MatTreeModule} from  '@angular/material/tree' ;
 import {MatIconModule} from  '@angular/material/icon' ;
-import {MatButtonModule} from  '@angular/material/button' ;
+import {MatButtonModule} from  '@angular/material/button';
+import { CommentsComponent } from './shared/components/comments/comments.component' ;
 
 
 
@@ -39,7 +40,8 @@ import {MatButtonModule} from  '@angular/material/button' ;
     // --- User compoents ---
     SingUpComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
