@@ -23,12 +23,10 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
 
       {
-        path: 'administration',
+        path: 'settings',
         loadChildren: () => import('./pages/administration/administration.module').then(m => m.AdministrationModule),
         // canActivateChild: [adminGuard]
       },
-
-      { path: 'settings', component: SettingsComponent },
     ],
     // canActivateChild: [authGuard]
   },
