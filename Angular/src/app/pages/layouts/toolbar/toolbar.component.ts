@@ -1,19 +1,15 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { MatTreeModule } from '@angular/material/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener, MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContextService } from 'src/app/services/services/context.service';
-import { NestedTreeControl } from '@angular/cdk/tree';  // Importa NestedTreeControl para gestionar la expansión de los nodos
+import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';  // Importa NestedTreeControl para gestionar la expansión de los nodos
 import { MatTreeNestedDataSource } from '@angular/material/tree';  // Importa MatTreeNestedDataSource
 
-interface FoodNode {
-  name: string;
-  children?: FoodNode[];
-}
 
-const TREE_DATA: FoodNode[] = [
+const TREE_DATA: any[] = [
   {
     name: 'Fruit',
     children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
@@ -43,11 +39,34 @@ export class ToolbarComponent {
   opened = false;
   isAuth = false;
 
-  treeControl = new NestedTreeControl<FoodNode>((node) => node.children);
-  dataSource = new MatTreeNestedDataSource<FoodNode>();
 
-  childrenAccessor = (node: FoodNode) => node.children ?? [];
-  hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
+  //#region Mat tree menu
+
+  private _transformer = (node: any, level: number) => {
+    return {
+      expandable: !!node.children && node.children.length > 0,
+      name: node.name,
+      level: level,
+    };
+  };
+
+  treeControl = new FlatTreeControl<any>(
+    node => node.level,
+    node => node.expandable,
+  );
+
+  treeFlattener = new MatTreeFlattener(
+    this._transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.children,
+  );
+
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  hasChild = (_: number, node: any) => node.expandable;
+  
+  //#endregion
 
   constructor(
     private toatr: ToastrService,

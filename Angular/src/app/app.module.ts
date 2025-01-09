@@ -24,9 +24,7 @@ import { CustomCurrencyPipe } from './shared/pipes/custom-currency.pipe';
 import { SingUpComponent } from './components/auth/sing-up/sing-up.component';
 import { LoginComponent } from './components/auth/login/login.component';
 // ----------------------- Modules --------------------------------------
-import {MatTreeModule} from  '@angular/material/tree' ;
-import {MatIconModule} from  '@angular/material/icon' ;
-import {MatButtonModule} from  '@angular/material/button';
+
 import { CommentsComponent } from './shared/components/comments/comments.component' ;
 
 
@@ -50,9 +48,6 @@ import { CommentsComponent } from './shared/components/comments/comments.compone
     AppRoutingModule,
     CommonModule,
     SharedModule,
-    MatTreeModule,
-    MatIconModule,
-    MatButtonModule,
   ],
   providers: [
     ContextService,
