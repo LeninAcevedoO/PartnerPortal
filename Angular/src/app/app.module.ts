@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared/shared.module';
+
 //------------------------- Interceptors ---------------------------------
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SpinnerInterceptor } from './services/interceptors/spinner.interceptor';
@@ -22,6 +23,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { CustomCurrencyPipe } from './shared/pipes/custom-currency.pipe';
 import { SingUpComponent } from './components/auth/sing-up/sing-up.component';
 import { LoginComponent } from './components/auth/login/login.component';
+// ----------------------- Modules --------------------------------------
+import {MatTreeModule} from  '@angular/material/tree' ;
+import {MatIconModule} from  '@angular/material/icon' ;
+import {MatButtonModule} from  '@angular/material/button';
+import { CommentsComponent } from './shared/components/comments/comments.component' ;
 
 
 
@@ -34,7 +40,8 @@ import { LoginComponent } from './components/auth/login/login.component';
     // --- User compoents ---
     SingUpComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +50,9 @@ import { LoginComponent } from './components/auth/login/login.component';
     AppRoutingModule,
     CommonModule,
     SharedModule,
+    MatTreeModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   providers: [
     ContextService,
