@@ -10,5 +10,11 @@ import { convertFileToDataUri } from 'src/app/shared/utils/utils.functions';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+  constructor(private toastr: ToastrService) {}
+    onCommentReceived(comment: string) {
+    
+    console.log('Comment received:', comment);
 
+    this.toastr.success('Comment submitted successfully', 'Thank you!');
+  }
 }
