@@ -9,23 +9,27 @@ export class ContextService {
   }
 
   isAuth() {
-    if (Number(localStorage.getItem('id')) > 0)
+    if (Number(sessionStorage.getItem('id')) > 0)
       return true;
     else
       return false;
   }
 
+  theRol() {
+    return Number(btoa(String(sessionStorage.getItem('rol'))));
+  }
+
   setInformation(data?: any) {
     if (data) {
-      localStorage.setItem('id', data.id_person);
-      localStorage.setItem('first_name', data.first_name);
-      localStorage.setItem('last_name', data.last_name);
-      localStorage.setItem('email', data.email);
-      localStorage.setItem('roles', JSON.stringify(data.role));
+      sessionStorage.setItem('id', data.id_person);
+      sessionStorage.setItem('first_name', data.first_name);
+      sessionStorage.setItem('last_name', data.last_name);
+      sessionStorage.setItem('email', data.email);
+      sessionStorage.setItem('roles', JSON.stringify(data.role));
     }
   }
 
   logout() {
-    localStorage.clear();
+    sessionStorage.clear();
   }
 }
