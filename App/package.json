@@ -12,7 +12,6 @@
   "author": "Infomedia_LeAc",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/bigquery": "^7.8.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
