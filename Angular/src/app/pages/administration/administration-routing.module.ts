@@ -23,8 +23,7 @@ const routes: Routes = [
       { path: 'links', component: MediaLinksListComponent },
       { path: 'product-details', component: ProductsDetailsListComponent },
       
-      { path: 'catalogs', component: CatalogsComponent },
-      { path: 'catalogs/enterprices', component: EnterpriceListComponent },
+      { path: 'catalogs/companies', component: EnterpriceListComponent },
       { path: 'catalogs/roles', component:  RolesListComponent},
       { path: 'catalogs/attention', component: StatusAtendantListComponent },
     ]

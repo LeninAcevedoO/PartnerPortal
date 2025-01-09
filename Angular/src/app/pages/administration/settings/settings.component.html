@@ -1,10 +1,26 @@
 <div class="w-full flex-center min-h-full CardsContainer">
-    <mat-card class="OptionsCard" *ngFor="let option of options" (click)="navigate(option.route)">
-        <mat-card-title><h1 class="CardTitle">{{option.title}}</h1></mat-card-title>
-        <mat-card-content>
-            <mat-icon class="IconCard">
-                {{option.icon}}
-            </mat-icon>
-        </mat-card-content>
-    </mat-card>
+    <div *ngIf="!isCat; else catsOptionsCards" class="w-full flex-center min-h-full CardsContainer">
+        <mat-card class="OptionsCard" *ngFor="let option of options" (click)="navigate(option.route)">
+            <mat-card-title><h1 class="CardTitle">{{option.title}}</h1></mat-card-title>
+            <mat-card-content>
+                <mat-icon class="IconCard">
+                    {{option.icon}}
+                </mat-icon>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <ng-template #catsOptionsCards>
+        <mat-card class="OptionsCard" *ngFor="let option of catsOptions" (click)="navigate(option.route)">
+            <mat-card-title><h1 class="CardTitle">{{option.title}}</h1></mat-card-title>
+            <mat-card-content>
+                <mat-icon class="IconCard">
+                    {{option.icon}}
+                </mat-icon>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
 </div>
+
+<button mat-fab color="warn" class="downLButton" (click)="isCat=false;" *ngIf="isCat">
+    <mat-icon>arrow_back</mat-icon>
+</button>

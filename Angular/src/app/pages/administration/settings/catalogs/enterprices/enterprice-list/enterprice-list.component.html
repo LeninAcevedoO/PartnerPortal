@@ -1,1 +1,24 @@
-<p>enterprice-list works!</p>
+<div class="w-full flex-center min-h-full">
+    <mat-card class="MainCard">
+        <mat-card-title>
+            <div class="w-full flex-center title-container">
+                <h1 class="MainTitle">Companies list</h1>
+            </div>
+        </mat-card-title>
+        <mat-card-content>
+            <table class="main-table">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-icon-button matTooltip="Refresh information">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<button mat-fab color="warn" class="downLButton" routerLink="/settings">
+    <mat-icon>arrow_back</mat-icon>
+</button>

@@ -11,9 +11,9 @@
 }
 
 .CardTitle {
-    font-size: 50px;
-    text-align: center;
-    line-height: 2.8rem;
+  font-size: 50px;
+  text-align: center;
+  line-height: 2.8rem;
 }
 
 .IconCard {
@@ -29,6 +29,12 @@
 }
 
 .CardsContainer:has(.OptionsCard:hover) .OptionsCard:not(:hover) {
-    transform: scale(0.95);
-    filter: blur(2px);
-  }
+  transform: scale(0.95);
+  filter: blur(2px);
+}
+
+.downLButton {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+}

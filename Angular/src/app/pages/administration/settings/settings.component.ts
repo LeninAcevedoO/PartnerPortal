@@ -16,10 +16,21 @@ export class SettingsComponent {
     {title: 'Management comments', icon: 'report', route: '/settings/management-comments', badge: 0},
   ];
 
+  catsOptions = [
+    {title: 'Roles', icon: 'badge', route: '/settings/catalogs/roles', badge: 0},
+    {title: 'Companies', icon: 'apartment', route: '/settings/catalogs/companies', badge: 0},
+    {title: 'Attention status', icon: 'play_lesson', route: '/settings/catalogs/attention', badge: 0},
+  ];
+
+  isCat = false;
+
   constructor(private router: Router) { }
 
   navigate(route: any) {
-    this.router.navigate([route]);
+    if (route === '/settings/catalogs') {
+      this.isCat = true;
+    } else 
+      this.router.navigate([route]);
   }
 
 }

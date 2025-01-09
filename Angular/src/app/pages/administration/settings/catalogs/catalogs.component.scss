@@ -1,40 +1,34 @@
-.CardsContainer {
-  gap: 1rem;
-}
+// .CardsContainer {
+//   gap: 1rem;
+// }
 
-.OptionsCard {
-  width: 350px;
-  max-width: 95%;
-  height: 350px;
-  transition: all ease-in-out 300ms;
-  border-radius: 20px !important;
-}
+// .OptionsCard {
+//   width: 350px;
+//   max-width: 95%;
+//   height: 350px;
+//   transition: all ease-in-out 300ms;
+//   border-radius: 20px !important;
+// }
 
-.CardTitle {
-  font-size: 50px;
-  text-align: center;
-  line-height: 2.5rem;
-}
+// .CardTitle {
+//   font-size: 50px;
+//   text-align: center;
+//   line-height: 2.5rem;
+// }
 
-.IconCard {
-  scale: 9;
-  transform: translate(60%, 40%);
-}
+// .IconCard {
+//   scale: 9;
+//   transform: translate(60%, 40%);
+// }
 
-.OptionsCard:hover {
-  scale: 1.05;
-  filter: blur(0);
-  box-shadow: 1px 1px 5px var(--secondary-color);
-  cursor: pointer;
-}
+// .OptionsCard:hover {
+//   scale: 1.05;
+//   filter: blur(0);
+//   box-shadow: 1px 1px 5px var(--secondary-color);
+//   cursor: pointer;
+// }
 
-.CardsContainer:has(.OptionsCard:hover) .OptionsCard:not(:hover) {
-  transform: scale(0.95);
-  filter: blur(2px);
-}
-
-.downLButton {
-    position: fixed;
-    left: 1rem;
-    bottom: 1rem;
-}
+// .CardsContainer:has(.OptionsCard:hover) .OptionsCard:not(:hover) {
+//   transform: scale(0.95);
+//   filter: blur(2px);
+// }
