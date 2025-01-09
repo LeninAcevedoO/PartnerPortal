@@ -26,7 +26,7 @@ const routes: Routes = [
       { path: 'catalogs', component: CatalogsComponent },
       { path: 'catalogs/enterprices', component: EnterpriceListComponent },
       { path: 'catalogs/roles', component:  RolesListComponent},
-      { path: 'catalogs/atendant', component: StatusAtendantListComponent },
+      { path: 'catalogs/attention', component: StatusAtendantListComponent },
     ]
   },
 ];

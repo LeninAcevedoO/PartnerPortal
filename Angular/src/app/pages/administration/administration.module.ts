@@ -15,6 +15,7 @@ import { NewRolComponent } from './settings/catalogs/roles/new-rol/new-rol.compo
 import { StatusAtendantListComponent } from './settings/catalogs/status-atendant/status-atendant-list/status-atendant-list.component';
 import { StatusNewAtendantComponent } from './settings/catalogs/status-atendant/status-new-atendant/status-new-atendant.component';
 import { CatalogsComponent } from './settings/catalogs/catalogs.component';
+import { SharedModule } from 'src/app/shared/shared/shared.module';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { CatalogsComponent } from './settings/catalogs/catalogs.component';
   ],
   imports: [
     CommonModule,
-    AdministrationRoutingModule
+    AdministrationRoutingModule,
+    SharedModule
   ]
 })
 export class AdministrationModule { }

@@ -1,1 +1,14 @@
-<p>catalogs works!</p>
+<div class="w-full flex-center min-h-full CardsContainer">
+    <mat-card class="OptionsCard" *ngFor="let option of options" (click)="navigate(option.route)">
+        <mat-card-title><h1 class="CardTitle">{{option.title}}</h1></mat-card-title>
+        <mat-card-content>
+            <mat-icon class="IconCard">
+                {{option.icon}}
+            </mat-icon>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<button mat-fab color="warn" class="downLButton" routerLink="/settings">
+    <mat-icon>arrow_back</mat-icon>
+</button>
