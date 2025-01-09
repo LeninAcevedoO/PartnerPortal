@@ -92,3 +92,12 @@ html,
 .Back{
   font-size: 15px;
 }
+
+.mat-nested-tree-node ul {
+  display: none;
+}
+
+.mat-nested-tree-node.mat-expanded ul {
+  display: block;
+}
+
