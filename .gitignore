@@ -29,3 +29,4 @@ Angular/.angular/*
 
 # Node ignores
 App/node_modules/*
+App/package-lock.json
