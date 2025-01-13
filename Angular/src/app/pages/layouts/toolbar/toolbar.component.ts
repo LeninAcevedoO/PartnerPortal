@@ -11,22 +11,26 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';  // Importa Ma
 
 const TREE_DATA: any[] = [
   {
-    name: 'Fruit',
-    children: [{ name: 'Apple' }, { name: 'Banana' }, { name: 'Fruit loops' }],
-  },
-  {
-    name: 'Vegetables',
+    name: 'Options',
     children: [
-      {
-        name: 'Green',
-        children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
-      },
-      {
-        name: 'Orange',
-        children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
-      },
-    ],
+      { name: 'Home' }, 
+      { name: 'AI Assistnt' }, 
+      { name: 'Dashboard' }, 
+      { name: 'Settings'}],
   },
+  // {
+  //   name: 'Vegetables',
+  //   children: [
+  //     {
+  //       name: 'Green',
+  //       children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
+  //     },
+  //     {
+  //       name: 'Orange',
+  //       children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
+  //     },
+  //   ],
+  // },
 ];
 
 @Component({
