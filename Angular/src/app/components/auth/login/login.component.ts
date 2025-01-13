@@ -31,7 +31,7 @@ export class LoginComponent {
 
   login() {
     if (this.clientCredentials.invalid) {
-      this.toastr.warning('Faltan campos por llenar', 'Incompleto');
+      this.toastr.warning('There are missing fields to fill out', 'Incomplete');
       return;
     }
     const clientCredentials = {
