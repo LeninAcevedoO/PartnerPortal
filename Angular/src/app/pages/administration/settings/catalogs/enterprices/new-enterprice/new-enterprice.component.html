@@ -1,15 +1,91 @@
 <mat-dialog-content>
-    <mat-card class="MainCard">
-        <mat-card-title>{{titulo}}</mat-card-title>
-        <mat-card-content>
-            <form [formGroup]="formEnterprice" (ngSubmit)="AddEditEnterpice()" class="w-full flex-center">
-                <div class="w-full flex-center buttonsContainer">
-                    <button type="button" mat-raised-button color="warn" matTooltip="Close" (click)="onNoClick()">
-                        <mat-icon>close</mat-icon> Close</button>
-                    <button type="submit" mat-raised-button color="primary" matTooltip="save">
-                        <mat-icon>save</mat-icon>Save</button>
-                </div>
-            </form>
-        </mat-card-content>
-    </mat-card>
+  <mat-card class="MainCard">
+    <mat-card-title>{{ titulo }}</mat-card-title>
+    <mat-card-content>
+      <form
+        [formGroup]="formEnterprice"
+        (ngSubmit)="AddEditEnterpice()"
+        class="w-full flex-center formClass"
+      >
+        <mat-form-field appearance="outline" class="w-49">
+          <mat-label>Commercial name</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="company_name"
+            placeholder="Commercial name"
+            max="128"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-49">
+          <mat-label>Legal name</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="legal_name"
+            placeholder="Legal name"
+            max="256"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-49">
+          <mat-label>E-mail</mat-label>
+          <input
+            type="email"
+            matInput
+            formControlName="company_email"
+            placeholder="E-mail"
+            max="256"
+          />
+          <span
+            style="color: red"
+            *ngIf="formEnterprice.controls['company_email'].hasError('email')"
+            >The email isn't valid.</span
+          >
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-49">
+          <mat-label>Phone number</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="phone_number"
+            placeholder="Phone number"
+            max="24"
+            (keypress)="
+              validateNumbers(formEnterprice.value.phone_number, $event)
+            "
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Adress</mat-label>
+          <textarea
+            type="text"
+            matInput
+            formControlName="address"
+            placeholder="Adress"
+            max="512"
+            rows="3"
+          ></textarea>
+        </mat-form-field>
+        <div class="w-full flex-center buttonsContainer">
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            matTooltip="Close"
+            (click)="onNoClick()"
+          >
+            <mat-icon>close</mat-icon> Close
+          </button>
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            matTooltip="save"
+          >
+            <mat-icon>save</mat-icon>Save
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </mat-dialog-content>

@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const {
-    ConnectionTest, login, authValidator, getEnterprices
+    ConnectionTest, login, authValidator, getEnterprices, getEnterprice, setEnterprice, updateEnterprice, 
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -13,6 +13,9 @@ router.post(`${urlBase}/activity`, authValidator, login);
 
 
 router.get(`${urlBase}/enterprice`, authValidator, getEnterprices);
+router.get(`${urlBase}/enterprice/:idEnterprice`, authValidator, getEnterprice);
+router.post(`${urlBase}/enterprices`, authValidator, setEnterprice);
+router.put(`${urlBase}/enterprice`, authValidator, updateEnterprice);
 router.get(`${urlBase}/enterprice/${idEnterprice}`, authValidator, getEnterprices);
 
 

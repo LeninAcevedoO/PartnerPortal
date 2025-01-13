@@ -88,7 +88,7 @@ export class MainService {
     }
 
     updateEnterprice  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice/${user.idUser}`, {});
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice`, {});
     }
 
     updateEnterpriceStatus  = async(user: any) => {

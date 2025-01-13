@@ -16,7 +16,7 @@ export function validarNumeros(event: KeyboardEvent, value: any): boolean {
 export function validarSoloTexto(event: KeyboardEvent, value: any): boolean {
     const valorActual = value;
 
-    if (event.key === 'Backspace')
+    if (event.key === 'Backspace' || event.key === 'tab')
         return true;
     const nuevoValor = valorActual + event.key;
     const patronRegex: RegExp = /^[a-zA-Z\s]+$/;

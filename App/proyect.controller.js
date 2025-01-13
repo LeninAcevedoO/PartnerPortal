@@ -69,15 +69,75 @@ const authValidator = async (req, res, next) => {
 
 const getEnterprices = async (req, res) => {
   try {
-    const result = await pool.request()
-      .input("Usuario", req.params.idEnterprice)
-      .input("Token", token)
-      .input("IdEmpresa", idEmpresa)
-      .execute("spr_pp_getLogin");
+    const result = await pool.request().execute("spr_pp_getEnterprices");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
     return ApiResponse(null, res, "Error getting enterprices");
+  }
+};
+
+const getEnterprice = async (req, res) => {
+  try {
+    const result = await pool
+      .request()
+      .input("idEnterpice", req.params.idEnterprice)
+      .execute("spr_pp_getEnterprice");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting enterprice");
+  }
+};
+
+const setEnterprice = async (req, res) => {
+  try {
+    const result = await pool
+      .request()
+      .input("idEnterpice", req.body.idEnterprice)
+      .input("company_name", req.body.company_name)
+      .input("legal_name", req.body.legal_name)
+      .input("company_email", req.body.company_email)
+      .input("phone_number", req.body.phone_number)
+      .input("address", req.body.address)
+      .execute("spr_pp_setEnterprices");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error adding enterprice");
+  }
+};
+
+const updateEnterprice = async (req, res) => {
+  try {
+    const result = await pool
+      .request()
+      .input("enterpice_id", req.params.enterpice_id)
+      .input("idEnterpice", req.body.idEnterprice)
+      .input("company_name", req.body.company_name)
+      .input("legal_name", req.body.legal_name)
+      .input("company_email", req.body.company_email)
+      .input("phone_number", req.body.phone_number)
+      .input("address", req.body.address)
+      .execute("spr_pp_undateEnterprices");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error updating enterprice");
+  }
+};
+
+const updateEnterpriceStatus = async (req, res) => {
+  try {
+    const result = await pool
+      .request()
+      .input("enterpice_id", req.params.enterpice_id)
+      .input("status", req.body.status)
+      .execute("spr_pp_updateEnterpricesStatus");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error update enterprice status");
   }
 };
 
@@ -89,4 +149,8 @@ module.exports = {
   login,
   authValidator,
   getEnterprices,
+  getEnterprice,
+  setEnterprice,
+  updateEnterprice,
+  updateEnterpriceStatus,
 };

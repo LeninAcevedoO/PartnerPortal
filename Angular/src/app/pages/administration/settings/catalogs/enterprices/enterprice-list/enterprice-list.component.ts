@@ -12,7 +12,7 @@ import { Resultado } from "src/app/shared/models/general.model";
 })
 export class EnterpriceListComponent {
   buscador = "";
-  enterprices: any[] = [{ enterpice_id: 1, status: true }];
+  enterprices: any[] = [];
 
   constructor(
     private _service: MainService,
@@ -32,9 +32,10 @@ export class EnterpriceListComponent {
   };
 
   changeEnterpriceStatus = async (enterprice: any, toStatus: any) => {
+    console.log(toStatus)
     let enterpiceStatus = {
       enterpice_id: enterprice.id,
-      status: toStatus,
+      status: Number(toStatus),
     };
     this.toastr.info('status: '+ toStatus);
 
@@ -51,7 +52,7 @@ export class EnterpriceListComponent {
     );
   };
 
-  openAddEditEnrprice(data?: any) {
+  openAddEditEnterprice(data?: any) {
     this.dialog
       .open(NewEnterpriceComponent, {
         panelClass: "post-dialog-container",

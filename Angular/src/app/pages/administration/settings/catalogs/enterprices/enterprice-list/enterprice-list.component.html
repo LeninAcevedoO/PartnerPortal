@@ -32,19 +32,23 @@
           <th>Enterpice Id</th>
           <th>Comercial name</th>
           <th>Legal name</th>
-          <th>Representat</th>
+          <th>E-mail</th>
+          <th>Phone number</th>
+          <th>Adress</th>
           <th>Status</th>
           <th>Actions</th>
         </thead>
         <tbody *ngIf="enterprices.length > 0">
           <tr *ngFor="let enterpice of enterprices | buscadorGenerico: buscador" class="hvrPush">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{enterpice.enterprice_id}}</td>
+            <td>{{enterpice.company_name}}</td>
+            <td>{{enterpice.legal_name}}</td>
+            <td>{{enterpice.company_email}}</td>
+            <td>{{enterpice.phone_number}}</td>
+            <td>{{enterpice.address}}</td>
             <td> <mat-slide-toggle [checked]="enterpice.status" (toggleChange)="changeEnterpriceStatus(enterpice, $event)">{{enterpice.status ? 'disable' : 'enable'}}</mat-slide-toggle></td>
             <td>
-                <button mat-icon-button matTooltip="Edit" class="editBtn" (click)="openAddEditEnrprice(enterpice)">
+                <button mat-icon-button matTooltip="Edit" class="editBtn" (click)="openAddEditEnterprice(enterpice)">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button matTooltip="Edit" color="warn" (click)="changeEnterpriceStatus(enterpice, 0)">
@@ -74,7 +78,7 @@
   mat-fab
   color="primary"
   class="downRButton"
-  (click)="openAddEditEnrprice()"
+  (click)="openAddEditEnterprice()"
 >
   +<mat-icon>apartment</mat-icon>
 </button>
