@@ -1,1 +1,15 @@
-<p>new-enterprice works!</p>
+<mat-dialog-content>
+    <mat-card class="MainCard">
+        <mat-card-title>{{titulo}}</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="formEnterprice" (ngSubmit)="AddEditEnterpice()" class="w-full flex-center">
+                <div class="w-full flex-center buttonsContainer">
+                    <button type="button" mat-raised-button color="warn" matTooltip="Close" (click)="onNoClick()">
+                        <mat-icon>close</mat-icon> Close</button>
+                    <button type="submit" mat-raised-button color="primary" matTooltip="save">
+                        <mat-icon>save</mat-icon>Save</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</mat-dialog-content>

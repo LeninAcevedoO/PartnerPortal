@@ -1,24 +1,80 @@
 <div class="w-full flex-center min-h-full">
-    <mat-card class="MainCard">
-        <mat-card-title>
-            <div class="w-full flex-center title-container">
-                <h1 class="MainTitle">Companies list</h1>
-            </div>
-        </mat-card-title>
-        <mat-card-content>
-            <table class="main-table">
-                <thead></thead>
-                <tbody></tbody>
-            </table>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-icon-button matTooltip="Refresh information">
-                <mat-icon>refresh</mat-icon>
-            </button>
-        </mat-card-actions>
-    </mat-card>
+  <mat-card class="MainCard">
+    <mat-card-title>
+      <div class="w-full flex-center title-container">
+        <h1 class="MainTitle">Companies</h1>
+        <mat-form-field appearance="outline" class="finder" *ngIf="enterprices.length > 0">
+          <mat-label>Finder</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Let's find something"
+            [(ngModel)]="buscador"
+          />
+          <button mat-icon-button matPrefix>
+            <mat-icon>search</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matSuffix
+            color="warn"
+            *ngIf="buscador"
+            (click)="buscador = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <table class="MainTable">
+        <thead>
+          <th>Enterpice Id</th>
+          <th>Comercial name</th>
+          <th>Legal name</th>
+          <th>Representat</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </thead>
+        <tbody *ngIf="enterprices.length > 0">
+          <tr *ngFor="let enterpice of enterprices | buscadorGenerico: buscador" class="hvrPush">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td> <mat-slide-toggle [checked]="enterpice.status" (toggleChange)="changeEnterpriceStatus(enterpice, $event)">{{enterpice.status ? 'disable' : 'enable'}}</mat-slide-toggle></td>
+            <td>
+                <button mat-icon-button matTooltip="Edit" class="editBtn" (click)="openAddEditEnrprice(enterpice)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Edit" color="warn" (click)="changeEnterpriceStatus(enterpice, 0)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="enterprices.length <= 0" class="w-full flex-center">
+        <h1 class="noDataText">There's no information</h1>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-icon-button matTooltip="Refresh information">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
 
 <button mat-fab color="warn" class="downLButton" routerLink="/settings">
-    <mat-icon>arrow_back</mat-icon>
+  <mat-icon>arrow_back</mat-icon>
+</button>
+
+<button
+  mat-fab
+  color="primary"
+  class="downRButton"
+  (click)="openAddEditEnrprice()"
+>
+  +<mat-icon>apartment</mat-icon>
 </button>
