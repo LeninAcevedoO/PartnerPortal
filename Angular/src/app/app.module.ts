@@ -26,6 +26,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 // ----------------------- Modules --------------------------------------
 
 import { CommentsComponent } from './shared/components/comments/comments.component' ;
+import { Page404Component } from './shared/components/page-404/page-404.component';
 
 
 
@@ -39,7 +40,8 @@ import { CommentsComponent } from './shared/components/comments/comments.compone
     SingUpComponent,
     HomeComponent,
     LoginComponent,
-    CommentsComponent
+    CommentsComponent,
+    Page404Component
   ],
   imports: [
     BrowserModule,

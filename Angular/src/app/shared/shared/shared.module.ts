@@ -25,7 +25,6 @@ const GenericComponents = [
   BuscadorGenericoPipe,
   CardPipe,
   CustomCurrencyPipe,
-  Page404Component,
   PhoneNumberPipe,
 ]
 
