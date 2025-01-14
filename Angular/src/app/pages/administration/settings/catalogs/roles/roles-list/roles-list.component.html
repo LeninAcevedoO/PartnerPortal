@@ -1,1 +1,83 @@
-<p>roles-list works!</p>
+<div class="w-full flex-center min-h-full">
+    <mat-card class="MainCard">
+      <mat-card-title>
+        <div class="w-full flex-center title-container">
+          <h1 class="MainTitle">Roles</h1>
+          <mat-form-field appearance="outline" class="finder" *ngIf="roles.length > 0">
+            <mat-label>Finder</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="Let's find something"
+              [(ngModel)]="buscador"
+            />
+            <button mat-icon-button matPrefix>
+              <mat-icon>search</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matSuffix
+              color="warn"
+              *ngIf="buscador"
+              (click)="buscador = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+        <table class="MainTable">
+          <thead>
+            <th>Rol Id</th>
+            <th>Rol name</th>
+            <th>Rol Description</th>
+          </thead>
+          <tbody *ngIf="roles.length > 0">
+            <tr *ngFor="let rol of roles | buscadorGenerico: buscador" class="hvrPush">
+              <td>{{rol.rol_id}}</td>
+              <td>{{rol.rol_name}}</td>
+              <td>{{rol.rol_description}}</td>
+              <td> <mat-slide-toggle [checked]="rol.status" (toggleChange)="changeRolStatus(rol, $event)">{{rol.status ? 'disable' : 'enable'}}</mat-slide-toggle></td>
+              <td>
+                  <button mat-icon-button matTooltip="Edit" class="editBtn" (click)="openAddEditRol(rol)">
+                      <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button matTooltip="Edit" color="warn" (click)="changeRolStatus(rol, 0)">
+                      <mat-icon>delete</mat-icon>
+                  </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="roles.length <= 0" class="w-full flex-center">
+          <h1 class="noDataText">There's no information</h1>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button matTooltip="Refresh information">
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <button 
+    mat-fab 
+    matTooltip="Back"
+    color="warn" 
+    class="downLButton" 
+    routerLink="/settings">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  
+  <button
+    mat-fab
+    matTooltip="Add"
+    color="primary"
+    class="downRButton"
+    (click)="openAddEditRol()"
+  >
+    <mat-icon>person_add</mat-icon>
+  </button>
+  

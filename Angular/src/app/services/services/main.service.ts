@@ -95,6 +95,28 @@ export class MainService {
       return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice/${user.idUser}/status/${user.idEstatus}`, {});
     }
 
+    //#region Roles
+    getRoles = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/rol`);
+    }
+
+    getRol = async(idRol: any) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/rol/${idRol}`);
+    }
+
+    setRol= async(user: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/rol`, user);
+    }
+
+    updateRol  = async(user: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/rol`, {});
+    }
+
+    updateRoleStatus  = async(user: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/rol/${user.idUser}/status/${user.idEstatus}`, {});
+    }
+
+
     //#endregion
 
     //#region Product Details
