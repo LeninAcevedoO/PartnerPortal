@@ -3,7 +3,7 @@
     <mat-card-title>
       <div class="w-full flex-center title-container">
         <h1 class="MainTitle">Companies</h1>
-        <mat-form-field appearance="outline" class="finder" *ngIf="enterprices.length > 0">
+        <mat-form-field appearance="outline" class="finder" *ngIf="enterprices">
           <mat-label>Finder</mat-label>
           <input
             type="text"
@@ -27,7 +27,7 @@
       </div>
     </mat-card-title>
     <mat-card-content>
-      <table class="MainTable">
+      <table class="MainTable" *ngIf="enterprices">
         <thead>
           <th>Enterpice Id</th>
           <th>Comercial name</th>
@@ -38,15 +38,15 @@
           <th>Status</th>
           <th>Actions</th>
         </thead>
-        <tbody *ngIf="enterprices.length > 0">
+        <tbody>
           <tr *ngFor="let enterpice of enterprices | buscadorGenerico: buscador" class="hvrPush">
-            <td>{{enterpice.enterprice_id}}</td>
+            <td>{{enterpice.company_id}}</td>
             <td>{{enterpice.company_name}}</td>
             <td>{{enterpice.legal_name}}</td>
             <td>{{enterpice.company_email}}</td>
             <td>{{enterpice.phone_number}}</td>
             <td>{{enterpice.address}}</td>
-            <td> <mat-slide-toggle [checked]="enterpice.status" (toggleChange)="changeEnterpriceStatus(enterpice, $event)">{{enterpice.status ? 'disable' : 'enable'}}</mat-slide-toggle></td>
+            <td> <mat-slide-toggle [checked]="enterpice.status_id" (toggleChange)="changeEnterpriceStatus(enterpice, $event)">{{enterpice.status_id ? 'disable' : 'enable'}}</mat-slide-toggle></td>
             <td>
                 <button mat-icon-button matTooltip="Edit" class="editBtn" (click)="openAddEditEnterprice(enterpice)">
                     <mat-icon>edit</mat-icon>
@@ -58,12 +58,12 @@
           </tr>
         </tbody>
       </table>
-      <div *ngIf="enterprices.length <= 0" class="w-full flex-center">
+      <div *ngIf="!enterprices" class="w-full flex-center">
         <h1 class="noDataText">There's no information</h1>
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-icon-button matTooltip="Refresh information">
+      <button mat-icon-button matTooltip="Refresh information" (click)="getEnterprices()">
         <mat-icon>refresh</mat-icon>
       </button>
     </mat-card-actions>

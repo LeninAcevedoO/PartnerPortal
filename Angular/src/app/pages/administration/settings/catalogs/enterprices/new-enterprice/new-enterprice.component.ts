@@ -14,7 +14,7 @@ import { validarNumeros } from "src/app/shared/utils/utils.functions";
 export class NewEnterpriceComponent {
   titulo = "Add new enterprice";
   formEnterprice = new FormGroup({
-    enterpice_id: new FormControl<number>(0),
+    company_id: new FormControl<number>(0),
     company_name: new FormControl<string>('', Validators.required),
     legal_name: new FormControl<string>('', Validators.required),
     company_email: new FormControl<string>('',  [Validators.required, Validators.email]),
@@ -30,7 +30,7 @@ export class NewEnterpriceComponent {
   ) {}
 
   ngOnInit() {
-    if (this.data?.enterpice_id) {
+    if (this.data?.company_id) {
       this.formEnterprice.patchValue(this.data);
       this.titulo = "Edit enterprice";
     }
@@ -41,7 +41,7 @@ export class NewEnterpriceComponent {
       this.toastr.warning('The form is not valid, try again', 'Form not valid');
       return;
     }
-    if (this.formEnterprice.value.enterpice_id) this.EditEnterpice();
+    if (this.formEnterprice.value.company_id) this.EditEnterpice();
     else this.AddEnterpice();
   }
 

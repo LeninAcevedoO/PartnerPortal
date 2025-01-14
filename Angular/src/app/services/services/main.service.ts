@@ -83,12 +83,12 @@ export class MainService {
       return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice/${idEnterprice}`);
     }
 
-    setEnterprice= async(user: any) => {
-      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice`, user);
+    setEnterprice= async(enterprice: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice`, enterprice);
     }
 
-    updateEnterprice  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice`, {});
+    updateEnterprice  = async(enterprice: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice`, enterprice);
     }
 
     updateEnterpriceStatus  = async(user: any) => {

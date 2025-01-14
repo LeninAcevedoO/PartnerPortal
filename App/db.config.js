@@ -1,5 +1,3 @@
-const sql = require('mssql');
-
 const config = {
   user: 'sqlserver',
   password: '{kSc(&10J7O7p;<l',
@@ -7,7 +5,7 @@ const config = {
   database: 'pp_db',
   options: {
     encrypt: true,
-    enableArithAbort: true,
+    trustServerCertificate: true
   },
 };
 

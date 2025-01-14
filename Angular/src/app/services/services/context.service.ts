@@ -7,8 +7,8 @@ export class ContextService {
 
   private warningTimer: any;
   private logoutTimer: any;
-  private warningTime: number = 30000;
-  private logoutTime: number = 60000; 
+  private warningTime: number = 600000;
+  private logoutTime: number = 660000; 
 
   constructor() {}
 

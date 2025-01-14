@@ -13,10 +13,10 @@ router.post(`${urlBase}/activity`, authValidator, login);
 
 
 router.get(`${urlBase}/enterprice`, authValidator, getEnterprices);
-router.get(`${urlBase}/enterprice/:idEnterprice`, authValidator, getEnterprice);
-router.post(`${urlBase}/enterprices`, authValidator, setEnterprice);
+router.get(`${urlBase}/enterprice/:company_id`, authValidator, getEnterprice);
+router.post(`${urlBase}/enterprice`, authValidator, setEnterprice);
 router.put(`${urlBase}/enterprice`, authValidator, updateEnterprice);
-router.get(`${urlBase}/enterprice/${idEnterprice}`, authValidator, getEnterprices);
+router.get(`${urlBase}/enterprice/:company_id`, authValidator, getEnterprices);
 
 
 module.exports = router;

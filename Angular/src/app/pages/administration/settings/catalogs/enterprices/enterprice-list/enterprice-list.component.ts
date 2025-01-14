@@ -20,8 +20,8 @@ export class EnterpriceListComponent {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit = async () => {
-    await this.getEnterprices();
+  ngOnInit(){
+    this.getEnterprices();
   };
 
   getEnterprices = async () => {
@@ -34,7 +34,7 @@ export class EnterpriceListComponent {
   changeEnterpriceStatus = async (enterprice: any, toStatus: any) => {
     console.log(toStatus)
     let enterpiceStatus = {
-      enterpice_id: enterprice.id,
+      company_id: enterprice.company_id,
       status: Number(toStatus),
     };
     this.toastr.info('status: '+ toStatus);
