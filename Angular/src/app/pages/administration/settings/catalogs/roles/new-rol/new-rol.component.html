@@ -1,1 +1,54 @@
-<p>new-rol works!</p>
+<mat-dialog-content>
+    <mat-card class="MainCard">
+      <mat-card-title>{{ titulo }}</mat-card-title>
+      <mat-card-content>
+        <form
+          [formGroup]="formRol"
+          (ngSubmit)="AddEditRol()"
+          class="w-full flex-center formClass"
+        >
+          <mat-form-field appearance="outline" class="w-49">
+            <mat-label>Rol name</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="rol_name"
+              placeholder="Rol name"
+              max="128"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-49">
+            <mat-label>Description</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="rol_description"
+              placeholder="Description"
+              max="256"
+            />
+          </mat-form-field>
+    
+          <div class="w-full flex-center buttonsContainer">
+            <button
+              type="button"
+              mat-raised-button
+              color="warn"
+              matTooltip="Close"
+              (click)="onNoClick()"
+            >
+              <mat-icon>close</mat-icon> Close
+            </button>
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              matTooltip="save"
+            >
+              <mat-icon>save</mat-icon>Save
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-dialog-content>
+  
