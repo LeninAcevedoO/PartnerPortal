@@ -5,8 +5,12 @@ import { Injectable } from '@angular/core';
 })
 export class ContextService {
 
-  constructor() {
-  }
+  private warningTimer: any;
+  private logoutTimer: any;
+  private warningTime: number = 30000;
+  private logoutTime: number = 60000; 
+
+  constructor() {}
 
   isAuth() {
     if (Number(sessionStorage.getItem('id')) > 0)
@@ -29,7 +33,24 @@ export class ContextService {
     }
   }
 
-  logout() {
+  logout(): void {
     sessionStorage.clear();
+    this.clearTimers(); 
+  }
+
+  resetInactivityTimer(onWarning: () => void, onLogout: () => void): void {
+    this.clearTimers(); 
+
+    this.warningTimer = setTimeout(() => {
+      onWarning(); 
+      this.logoutTimer = setTimeout(() => {
+        onLogout(); 
+      }, this.logoutTime - this.warningTime);
+    }, this.warningTime);
+  }
+
+  clearTimers(): void {
+    clearTimeout(this.warningTimer);
+    clearTimeout(this.logoutTimer);
   }
 }

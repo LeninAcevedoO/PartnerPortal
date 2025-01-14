@@ -2,3 +2,4 @@
 <ngx-spinner size="medium" color="#3FA5B5" type="ball-grid-pulse" [fullScreen]="true">
     <p style="color: white">Powered by Resultant</p>
 </ngx-spinner>
+<app-auto-logout *ngIf="showWarning" (continueSession)="handleContinueSession()"></app-auto-logout>

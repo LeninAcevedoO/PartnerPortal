@@ -27,6 +27,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 
 import { CommentsComponent } from './shared/components/comments/comments.component' ;
 import { Page404Component } from './shared/components/page-404/page-404.component';
+import { AutoLogoutComponent } from './shared/components/auto-logout/auto-logout.component';
 
 
 
@@ -41,7 +42,8 @@ import { Page404Component } from './shared/components/page-404/page-404.componen
     HomeComponent,
     LoginComponent,
     CommentsComponent,
-    Page404Component
+    Page404Component,
+    AutoLogoutComponent,
   ],
   imports: [
     BrowserModule,
