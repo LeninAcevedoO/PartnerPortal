@@ -2,9 +2,9 @@ const sql = require('mssql');
 
 const config = {
   user: 'sqlserver',
-  password: 'PH,ZU&&L{5n.S/89',
-  server: '34.59.217.201',
-  database: 'doc_db',
+  password: '{kSc(&10J7O7p;<l',
+  server: '34.67.138.191',
+  database: 'pp_db',
   options: {
     encrypt: true,
     enableArithAbort: true,
