@@ -22,27 +22,25 @@ export class EnterpriceListComponent {
 
   ngOnInit(){
     this.getEnterprices();
-  };
+  }
 
-  getEnterprices = async () => {
-    (await this._service.getEnterprices()).subscribe((resp: Resultado) => {
+  getEnterprices() {
+    this._service.getEnterprices().subscribe((resp: Resultado) => {
       if (resp.success == "true") this.enterprices = resp.data;
       else this.toastr.error(resp.message, "Error");
     });
   };
 
   changeEnterpriceStatus = async (enterprice: any, toStatus: any) => {
-    console.log(toStatus)
     let enterpiceStatus = {
       company_id: enterprice.company_id,
-      status: Number(toStatus),
+      status_id: [0,2].includes(toStatus) ? toStatus : Number(toStatus.checked),
     };
-    this.toastr.info('status: '+ toStatus);
 
     (await this._service.updateEnterpriceStatus(enterpiceStatus)).subscribe(
       (resp: Resultado) => {
         if (resp.success == "true") {
-          this.enterprices = resp.data;
+          this.getEnterprices();
           this.toastr.success(
             "The enterprice status was changed successfully",
             "Success"
@@ -60,7 +58,7 @@ export class EnterpriceListComponent {
       })
       .afterClosed()
       .subscribe((x: boolean) => {
-        if (x == true) this.getEnterprices();
+        if (x) this.getEnterprices();
       });
   }
 }

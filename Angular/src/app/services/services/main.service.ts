@@ -75,7 +75,7 @@ export class MainService {
 
     //#region Enterprice
 
-    getEnterprices = async() => {
+    getEnterprices(): Observable<Resultado> {
       return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice`);
     }
 
@@ -91,8 +91,8 @@ export class MainService {
       return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice`, enterprice);
     }
 
-    updateEnterpriceStatus  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice/${user.idUser}/status/${user.idEstatus}`, {});
+    updateEnterpriceStatus  = async(enterprice: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice/${enterprice.company_id}/status/${enterprice.status_id}`, {});
     }
 
     //#region Roles

@@ -142,8 +142,9 @@ const updateEnterpriceStatus = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("enterpice_id", req.params.enterpice_id)
-      .input("status", req.body.status)
+      .input("company_id", req.params.company_id)
+      .input("status_id", req.params.status)
+      .input("modified_by", 0)
       .execute("spr_pp_updateEnterpricesStatus");
     return ApiResponse(result, res);
   } catch (e) {
