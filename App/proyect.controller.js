@@ -155,6 +155,91 @@ const updateEnterpriceStatus = async (req, res) => {
 
 //#endregion
 
+//#region Users
+
+const getUsers = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request().execute("spr_pp_getusers");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting users");
+  }
+};
+
+const getUser = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("company_id", req.params.company_id)
+      .execute("spr_pp_getuser");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting user");
+  }
+};
+
+const setUser = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("company_name", req.body.company_name)
+      .input("legal_name", req.body.legal_name)
+      .input("company_email", req.body.company_email)
+      .input("phone_number", req.body.phone_number)
+      .input("address", req.body.address)
+      .input("modified_by", -1)
+      .execute("spr_pp_insertusers");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error adding user");
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    console.log(req)
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("company_id", req.body.company_id)
+      .input("company_name", req.body.company_name)
+      .input("legal_name", req.body.legal_name)
+      .input("company_email", req.body.company_email)
+      .input("phone_number", req.body.phone_number)
+      .input("address", req.body.address)
+      .input("modified_by", 0)
+      .execute("spr_pp_updateusers");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error updating user");
+  }
+};
+
+const updateUserStatus = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("company_id", req.params.company_id)
+      .input("status_id", req.params.status)
+      .input("modified_by", 0)
+      .execute("spr_pp_updateEnterpricesStatus");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error update user status");
+  }
+};
+
+//#endregion
+
 //#endregion
 module.exports = {
   ConnectionTest,
@@ -165,4 +250,9 @@ module.exports = {
   setEnterprice,
   updateEnterprice,
   updateEnterpriceStatus,
+  getUsers, 
+  getUser, 
+  setUser, 
+  updateUser, 
+  updateUserStatus
 };

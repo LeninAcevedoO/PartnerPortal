@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { ChangeDetectorRef, Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 import { MainService } from "src/app/services/services/main.service";
@@ -17,24 +17,29 @@ export class EnterpriceListComponent {
   constructor(
     private _service: MainService,
     private toastr: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cdRef: ChangeDetectorRef
   ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.getEnterprices();
   }
 
   getEnterprices() {
     this._service.getEnterprices().subscribe((resp: Resultado) => {
-      if (resp.success == "true") this.enterprices = resp.data;
-      else this.toastr.error(resp.message, "Error");
+      if (resp.success == "true") {
+        this.enterprices = resp.data;
+        this.cdRef.detectChanges();
+      } else this.toastr.error(resp.message, "Error");
     });
-  };
+  }
 
   changeEnterpriceStatus = async (enterprice: any, toStatus: any) => {
     let enterpiceStatus = {
       company_id: enterprice.company_id,
-      status_id: [0,2].includes(toStatus) ? toStatus : Number(toStatus.checked),
+      status_id: [0, 2].includes(toStatus)
+        ? toStatus
+        : Number(toStatus.checked),
     };
 
     (await this._service.updateEnterpriceStatus(enterpiceStatus)).subscribe(

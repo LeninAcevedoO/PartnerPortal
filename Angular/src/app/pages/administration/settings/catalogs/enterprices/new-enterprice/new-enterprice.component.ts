@@ -12,6 +12,7 @@ import { validarNumeros } from "src/app/shared/utils/utils.functions";
   styleUrls: ["./new-enterprice.component.scss"],
 })
 export class NewEnterpriceComponent {
+  
   titulo = "Add new enterprice";
   formEnterprice = new FormGroup({
     company_id: new FormControl<number>(0),

@@ -3,7 +3,7 @@
     <mat-card-title>
       <div class="w-full flex-center title-container">
         <h1 class="MainTitle">Companies</h1>
-        <mat-form-field appearance="outline" class="finder" *ngIf="enterprices">
+        <mat-form-field appearance="outline" class="finder" *ngIf="enterprices.length > 0" >
           <mat-label>Finder</mat-label>
           <input
             type="text"
@@ -27,8 +27,8 @@
       </div>
     </mat-card-title>
     <mat-card-content>
-      <table class="MainTable" *ngIf="enterprices">
-        <thead style="border-bottom: 1px solid black;">
+      <table class="MainTable" *ngIf="enterprices.length > 0">
+        <thead style="border-bottom: 1px solid black">
           <th>Enterpice Id</th>
           <th>Comercial name</th>
           <th>Legal name</th>
@@ -39,22 +39,43 @@
           <th>Actions</th>
         </thead>
         <tbody>
-          <tr *ngFor="let enterpice of enterprices | buscadorGenerico: buscador" class="hvrPush">
-            <td>{{enterpice.company_id}}</td>
-            <td>{{enterpice.company_name}}</td>
-            <td>{{enterpice.legal_name}}</td>
-            <td>{{enterpice.company_email}}</td>
-            <td>{{enterpice.phone_number}}</td>
-            <td>{{enterpice.address}}</td>
-            <td> <mat-slide-toggle [checked]="enterpice.status_id ? true: false" (change)="changeEnterpriceStatus(enterpice, $event)">
-              {{enterpice.status_id ? 'enabled' : 'disabled'}}</mat-slide-toggle></td>
+          <tr
+            *ngFor="let enterpice of enterprices | buscadorGenerico : buscador"
+            class="hvrPush"
+          >
+            <td>{{ enterpice.company_id }}</td>
+            <td>{{ enterpice.company_name }}</td>
+            <td>{{ enterpice.legal_name }}</td>
+            <td>{{ enterpice.company_email }}</td>
+            <td>{{ enterpice.phone_number }}</td>
+            <td>{{ enterpice.address }}</td>
             <td>
-                <button mat-icon-button matTooltip="Edit" class="editBtn" (click)="openAddEditEnterprice(enterpice)">
-                    <mat-icon>edit</mat-icon>
-                </button>
-                <button mat-icon-button matTooltip="Delete" color="warn" (click)="changeEnterpriceStatus(enterpice, 2)">
-                    <mat-icon>delete</mat-icon>
-                </button>
+              <mat-slide-toggle
+                [checked]="enterpice.status_id ? true : false"
+                (change)="changeEnterpriceStatus(enterpice, $event)"
+              >
+                {{
+                  enterpice.status_id ? "enabled" : "disabled"
+                }}</mat-slide-toggle
+              >
+            </td>
+            <td>
+              <button
+                mat-icon-button
+                matTooltip="Edit"
+                class="editBtn"
+                (click)="openAddEditEnterprice(enterpice)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                matTooltip="Delete"
+                color="warn"
+                (click)="changeEnterpriceStatus(enterpice, 2)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -64,14 +85,24 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-icon-button matTooltip="Refresh information" (click)="getEnterprices()">
+      <button
+        mat-icon-button
+        matTooltip="Refresh information"
+        (click)="getEnterprices()"
+      >
         <mat-icon>refresh</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>
 </div>
 
-<button mat-fab color="warn" class="downLButton" routerLink="/settings">
+<button
+  mat-fab
+  color="warn"
+  class="downLButton"
+  routerLink="/settings"
+  matTooltip="Back to settings"
+>
   <mat-icon>arrow_back</mat-icon>
 </button>
 
@@ -80,6 +111,7 @@
   color="primary"
   class="downRButton"
   (click)="openAddEditEnterprice()"
+  matTooltip="Add enterprice"
 >
   +<mat-icon>apartment</mat-icon>
 </button>

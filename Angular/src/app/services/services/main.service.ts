@@ -55,8 +55,8 @@ export class MainService {
       return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/users`);
     }
 
-    getUser = async() => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/users/:idUser`);
+    getUser = async(user_id: any) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/users/${user_id}`);
     }
 
     setUser= async(user: any) => {
@@ -64,11 +64,11 @@ export class MainService {
     }
 
     updateUser  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/users/:idUser`, user);
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/users`, user);
     }
 
     updateUserStatus  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/users/:idUser/status/:idEstatus`, user);
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/users/${user.user_id}/status/${user.status_id}`, user);
     }
 
     //#endregion
@@ -94,6 +94,8 @@ export class MainService {
     updateEnterpriceStatus  = async(enterprice: any) => {
       return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice/${enterprice.company_id}/status/${enterprice.status_id}`, {});
     }
+
+    //#endregion
 
     //#region Roles
     getRoles = async() => {
