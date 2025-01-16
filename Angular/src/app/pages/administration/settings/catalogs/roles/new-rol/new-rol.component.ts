@@ -45,7 +45,7 @@ export class NewRolComponent {
 
   EditRol = async () => {
     let rol = { ...this.formRol.value };
-    (await this._service.updateRol(rol)).subscribe((resp: Resultado) => {
+    (await this._service.updateRole(rol)).subscribe((resp: Resultado) => {
       if(resp.success == 'true') {
         this.toastr.success('The rol was updated successfully', 'Success');
         this.onNoClick(true);
@@ -57,7 +57,7 @@ export class NewRolComponent {
 
   AddRol = async () => {
     let rol = { ...this.formRol.value };
-    (await this._service.setRol(rol)).subscribe((resp: Resultado) => {
+    (await this._service.setRole(rol)).subscribe((resp: Resultado) => {
       if(resp.success == 'true') {
         this.toastr.success('The rol was updated successfully', 'Success');
         this.onNoClick(true);

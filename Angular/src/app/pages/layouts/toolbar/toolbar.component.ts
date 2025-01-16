@@ -15,22 +15,28 @@ const TREE_DATA: any[] = [
     children: [
       { name: 'Home' }, 
       { name: 'AI Assistnt' }, 
-      { name: 'Dashboard' }, 
-      { name: 'Settings'}],
+      { name: 'Dashboard' },
+    ],
   },
-  // {
-  //   name: 'Vegetables',
-  //   children: [
-  //     {
-  //       name: 'Green',
-  //       children: [{ name: 'Broccoli' }, { name: 'Brussels sprouts' }],
-  //     },
-  //     {
-  //       name: 'Orange',
-  //       children: [{ name: 'Pumpkins' }, { name: 'Carrots' }],
-  //     },
-  //   ],
-  // },
+
+  {
+    name: 'Settings',
+    children:[
+      {
+        name: 'Catalogs',
+        children: [
+          {name: 'Roles'}, 
+          {name: 'Companies'}, 
+          {name: 'Attention status'}
+        ]
+      },
+
+      {name: 'Users'},
+      {name: 'Links'},
+      {name: 'Product details'},
+      {name: 'Management comments'},
+    ],
+  },
 ];
 
 @Component({
@@ -92,5 +98,37 @@ export class ToolbarComponent {
     this.router.navigate(['/login']);
   }
 
+  navigate(node: any) {
+    const routes: { [key: string]: string } = {
+      Home: '/home',
+      'AI Assistnt': '/',
+      Dashboard: '/',
+      Roles: '/settings/catalogs/roles',
+      Companies: '/settings/catalogs/companies',
+      'Attention status': '/settings/catalogs/attention',
+      Users: '/settings/users',
+      Links: '/settings/links',
+      'Product details': '/settings/product-details',
+      'Management comments': '/settings/management-comments',
+      Settings: '/settings'
+    };
+
+    const route = routes[node.name];
+    if (route) {
+      this.router.navigate([route]);
+    }
+  }
+
+  onMouseOver(event: MouseEvent): void {
+    const target = event.currentTarget as HTMLElement;
+    target.classList.add('hover-shadow');
+  }
+  
+  onMouseLeave(event: MouseEvent): void {
+    const target = event.currentTarget as HTMLElement;
+    target.classList.remove('hover-shadow');
+  }
+  
+  
 
 }

@@ -240,6 +240,85 @@ const updateUserStatus = async (req, res) => {
 
 //#endregion
 
+//#region Roles
+
+const getRoles = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request().execute("spr_pp_getroles");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting roles");
+  }
+};
+
+const getRole = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("role_id", req.params.role_id)
+      .execute("spr_pp_getRole");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting role");
+  }
+};
+
+const setRole = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("role_name", req.body.role_name)
+      .input("description", req.body.description)
+      .input("modified_by", -1)
+      .execute("spr_pp_insertroles");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error adding role");
+  }
+};
+
+const updateRole = async (req, res) => {
+  try {
+    console.log(req)
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .request()
+      .input("role_name", req.body.role_name)
+      .input("description", req.body.description)
+      .input("modified_by", 0)
+      .execute("spr_pp_updateroles");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error updating roles");
+  }
+};
+
+const updateRoleStatus = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("role_id", req.params.role_id)
+      .input("status_id", req.params.status)
+      .input("modified_by", 0)
+      .execute("spr_pp_updateRolesStatus");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error update role status");
+  }
+};
+
+//#enregion
+
 //#endregion
 module.exports = {
   ConnectionTest,
@@ -254,5 +333,10 @@ module.exports = {
   getUser, 
   setUser, 
   updateUser, 
-  updateUserStatus
+  updateUserStatus,
+  getRoles,
+  getRole,
+  setRole,
+  updateRole,
+  updateRoleStatus,
 };
