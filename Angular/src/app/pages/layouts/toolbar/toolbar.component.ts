@@ -119,4 +119,16 @@ export class ToolbarComponent {
     }
   }
 
+  onMouseOver(event: MouseEvent): void {
+    const target = event.currentTarget as HTMLElement;
+    target.classList.add('hover-shadow');
+  }
+  
+  onMouseLeave(event: MouseEvent): void {
+    const target = event.currentTarget as HTMLElement;
+    target.classList.remove('hover-shadow');
+  }
+  
+  
+
 }
