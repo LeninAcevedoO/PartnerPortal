@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const config = {
-  user: 'sqlserver',
-  password: '{kSc(&10J7O7p;<l',
-  server: '34.67.138.191',
-  database: 'pp_db',
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  server: process.env.DB_SERVER,
+  database: process.env.DB_NAME,
   options: {
     encrypt: true,
     trustServerCertificate: true
