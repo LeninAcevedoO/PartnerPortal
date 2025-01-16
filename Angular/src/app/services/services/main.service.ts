@@ -96,27 +96,27 @@ export class MainService {
     }
 
     //#region Roles
-    getRoles = async() => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/rol`);
+
+    getRoles(): Observable<Resultado> {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/role`);
+    }    
+
+    getRole = async(idRol: any) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/role/${idRol}`);
     }
 
-    getRol = async(idRol: any) => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/rol/${idRol}`);
-    }
-
-    setRol= async(user: any) => {
-      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/rol`, user);
-    }
-
-    updateRol  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/rol`, {});
-    }
-
-    updateRoleStatus  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/rol/${user.idUser}/status/${user.idEstatus}`, {});
+    setRole = async(rol: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/role`, rol);
     }
 
 
+    updateRole  = async(rol: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/role`, rol);
+    }
+
+    updateRoleStatus  = async(rol: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/role/${rol.role_id}/status/${rol.status_id}`, {});
+    }
     //#endregion
 
     //#region Product Details

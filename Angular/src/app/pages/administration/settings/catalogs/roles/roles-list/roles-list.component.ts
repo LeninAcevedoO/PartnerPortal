@@ -19,32 +19,32 @@ export class RolesListComponent {
       private toastr: ToastrService,
       private dialog: MatDialog
     ) {}
+    
   
-    ngOnInit = async () => {
-      await this.getRoles();
-    };
+    ngOnInit(){
+      this.getRoles();
+    }
   
-    getRoles = async () => {
-      (await this._service.getRoles()).subscribe((resp: Resultado) => {
+    getRoles() {
+      this._service.getRoles().subscribe((resp: Resultado) => {
         if (resp.success == "true") this.roles = resp.data;
         else this.toastr.error(resp.message, "Error");
       });
     };
   
+
     changeRolStatus = async (rol: any, toStatus: any) => {
-      console.log(toStatus)
       let rolStatus = {
-        rol_id: rol.id,
-        status: Number(toStatus),
+        rol_id: rol.rol_id,
+        status_id: [0,2].includes(toStatus) ? toStatus : Number(toStatus.checked),
       };
-      this.toastr.info('status: '+ toStatus);
   
-      (await this._service.updateEnterpriceStatus(rolStatus)).subscribe(
+      (await this._service.updateRoleStatus(rolStatus)).subscribe(
         (resp: Resultado) => {
           if (resp.success == "true") {
-            this.roles = resp.data;
+            this.getRoles();
             this.toastr.success(
-              "The rol status was changed successfully",
+              "The enterprice status was changed successfully",
               "Success"
             );
           } else this.toastr.error(resp.message, "Error");
@@ -52,15 +52,15 @@ export class RolesListComponent {
       );
     };
   
-    openAddEditRol(data?: any) {
-      this.dialog
-        .open(NewRolComponent, {
-          panelClass: "post-dialog-container",
-          data: data,
-        })
-        .afterClosed()
-        .subscribe((x: boolean) => {
-          if (x == true) this.getRoles();
-        });
-    }
+  openAddEditRol(data?: any) {
+    this.dialog
+      .open(NewRolComponent, {
+        panelClass: "post-dialog-container",
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((x: boolean) => {
+        if (x) this.getRoles();
+      });
+  }
 }
