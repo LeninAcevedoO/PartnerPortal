@@ -1,8 +1,10 @@
 const { Router } = require("express");
 const {
     ConnectionTest, login, authValidator, 
-    getEnterprices, getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus,
+    getEnterprices, getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, 
+    getUsers, getUser, setUser, updateUser, updateUserStatus,
     getRoles,getRole,setRole,updateRole,updateRoleStatus,
+    getLinks, getLink, setLink, updateLink, updateLinkStatus,
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -25,6 +27,16 @@ router.post(`${urlBase}/activity`, authValidator, login);
 
     //#endregion
 
+    //#region Roles
+
+    router.get(`${urlBase}/role`, authValidator, getRoles);
+    router.get(`${urlBase}/role/:role_id`, authValidator, getRole);
+    router.post(`${urlBase}/role`, authValidator, setRole);
+    router.put(`${urlBase}/role`, authValidator, updateRole);
+    router.put(`${urlBase}/role/:role_id/status/:status`, authValidator, updateRoleStatus);
+
+    //#end Region
+
     //#region Users
 
     router.get(`${urlBase}/users`, authValidator, getUsers);
@@ -35,12 +47,15 @@ router.post(`${urlBase}/activity`, authValidator, login);
 
     //#endregion
 
+    //#region Links
+    
+    router.get(`${urlBase}/links`, authValidator, getLinks);
+    router.get(`${urlBase}/links/:link_id`, authValidator, getLink);
+    router.post(`${urlBase}/links`, authValidator, setLink);
+    router.put(`${urlBase}/links`, authValidator, updateLink);
+    router.put(`${urlBase}/links/:link_id/status/:status`, authValidator, updateLinkStatus);
+
+    //#end Region
+
 //#endregion
-
-router.get(`${urlBase}/role`, authValidator, getRoles);
-router.get(`${urlBase}/role/:role_id`, authValidator, getRole);
-router.post(`${urlBase}/role`, authValidator, setRole);
-router.put(`${urlBase}/role`, authValidator, updateRole);
-router.put(`${urlBase}/role/:role_id/status/:status`, authValidator, updateRoleStatus);
-
 module.exports = router;

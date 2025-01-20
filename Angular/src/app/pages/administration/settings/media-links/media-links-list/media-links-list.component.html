@@ -1,1 +1,108 @@
-<p>media-links-list works!</p>
+<div class="w-full flex-center min-h-full">
+    <mat-card class="MainCard">
+      <mat-card-title>
+        <div class="w-full flex-center title-container">
+          <h1 class="MainTitle">System links</h1>
+          <mat-form-field appearance="outline" class="finder" *ngIf="links.length > 0">
+            <mat-label>Finder</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="Let's find something"
+              [(ngModel)]="buscador"
+            />
+            <button mat-icon-button matPrefix>
+              <mat-icon>search</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matSuffix
+              color="warn"
+              *ngIf="buscador"
+              (click)="buscador = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+        <table class="MainTable" *ngIf="links">
+          <thead style="border-bottom: 1px solid black">
+            <th>Link url</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let user of links | buscadorGenerico : buscador"
+              class="hvrPush"
+            >
+              <td>{{ user.link_url }}</td>
+              <td>{{ user.description }}</td>
+              <td>
+                <mat-slide-toggle
+                  [checked]="user.status_id ? true : false"
+                  (change)="changeLinkStatus(user, $event)"
+                >
+                  {{ user.status_id ? "enabled" : "disabled" }}</mat-slide-toggle
+                >
+              </td>
+              <td>
+                <button
+                  mat-icon-button
+                  matTooltip="Edit"
+                  class="editBtn"
+                  (click)="openAddEditLink(user)"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  matTooltip="Delete"
+                  color="warn"
+                  (click)="changeLinkStatus(user, 2)"
+                >
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!links" class="w-full flex-center">
+          <h1 class="noDataText">There's no information</h1>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-icon-button
+          matTooltip="Refresh information"
+          (click)="getLinks()"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <button
+    mat-fab
+    color="warn"
+    class="downLButton"
+    routerLink="/settings"
+    matTooltip="Back to settings"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  
+  <button
+    mat-fab
+    color="primary"
+    class="downRButton"
+    (click)="openAddEditLink()"
+    matTooltip="Add user"
+  >
+    <mat-icon>person_add</mat-icon>
+  </button>
+  

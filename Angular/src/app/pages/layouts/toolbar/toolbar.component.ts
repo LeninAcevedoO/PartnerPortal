@@ -110,7 +110,7 @@ export class ToolbarComponent {
       Links: '/settings/links',
       'Product details': '/settings/product-details',
       'Management comments': '/settings/management-comments',
-      Settings: '/settings'
+      Settings: '/settings',
     };
 
     const route = routes[node.name];

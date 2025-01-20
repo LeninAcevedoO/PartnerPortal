@@ -49,30 +49,6 @@ export class MainService {
 
   //#region Administration
 
-    //#region Users
-
-    getUsers = async() => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/users`);
-    }
-
-    getUser = async(user_id: any) => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/users/${user_id}`);
-    }
-
-    setUser= async(user: any) => {
-      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/users`, user);
-    }
-
-    updateUser  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/users`, user);
-    }
-
-    updateUserStatus  = async(user: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/users/${user.user_id}/status/${user.status_id}`, user);
-    }
-
-    //#endregion
-
     //#region Enterprice
 
     getEnterprices(): Observable<Resultado> {
@@ -94,8 +70,6 @@ export class MainService {
     updateEnterpriceStatus  = async(enterprice: any) => {
       return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice/${enterprice.company_id}/status/${enterprice.status_id}`, {});
     }
-
-    //#endregion
 
     //#region Roles
 
@@ -141,24 +115,53 @@ export class MainService {
 
     //#endregion
 
+  //#region Users
+
+    getUsers = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/users`);
+    }
+
+    getUser = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/users/:idUser`);
+    }
+
+    setUser= async(user: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/users`, user);
+    }
+
+    updateUser  = async(user: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/users/:idUser`, user);
+    }
+
+    updateUserStatus  = async(user: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/users/:idUser/status/:idEstatus`, user);
+    }
+
+    //#endregion
+
+
     //#region Media Links
 
-    getMediaLinks = async() => {
-      return this.http.get(`${this.UrlBase}/api/pp/v1/links`);
+    getLinks = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/links`);
     }
 
-    getMediaLink = async(idComment: any) => {
-      return this.http.get(`${this.UrlBase}/api/pp/v1/links/${idComment}`);
+    getLink = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/links/:idLink`);
     }
 
-    sendMediaLinks = async(link: any) => {
-      return this.http.post(`${this.UrlBase}/api/pp/v1/links`, link);
+    setLink = async(link: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/links`, link);
     }
 
-    updateMediaLink = async(link: any) => {
-      return this.http.put(`${this.UrlBase}/api/pp/v1/links`, link);
+    updateLink  = async(link: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/links/:idLink`, link);
     }
 
+    updateLinkStatus  = async(link: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/links/:idLink/status/:idEstatus`, link);
+    }
+    
     //#endregion
 
   //#endregion
