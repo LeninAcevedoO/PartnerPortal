@@ -5,8 +5,6 @@ const {
     getUsers, getUser, setUser, updateUser, updateUserStatus,
     getRoles,getRole,setRole,updateRole,updateRoleStatus,
     getLinks, getLink, setLink, updateLink, updateLinkStatus,
-    getEnterprices, getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus,
-    getRoles,getRole,setRole,updateRole,updateRoleStatus, 
     getRequests, getRequest, setRequest, updateRequest,
 } = require("./proyect.controller.js");
 
