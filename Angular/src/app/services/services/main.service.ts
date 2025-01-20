@@ -18,7 +18,7 @@ export class MainService {
   }
 
   logRouteVisit(data: any) {
-    return this.http.post(`${this.UrlBase}/api/pp/v1/activity`, data);
+    return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/activity`, data);
     // .subscribe({
     //   next: () => console.log('Registro enviado con éxito'),
     //   error: (err) => console.error('Error al enviar el registro', err),
@@ -98,19 +98,19 @@ export class MainService {
     //#region Product Details
 
     getProductDetails = async() => {
-      return this.http.get(`${this.UrlBase}/api/pp/v1/products`);
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/products`);
     }
 
-    getProductDetail = async(idComment: any) => {
-      return this.http.get(`${this.UrlBase}/api/pp/v1/products/${idComment}`);
+    getProductDetail = async(idRequest: any) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/products/${idRequest}`);
     }
 
-    sendProductDetails = async(comment: any) => {
-      return this.http.post(`${this.UrlBase}/api/pp/v1/products`, comment);
+    sendProductDetails = async(request: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/products`, request);
     }
 
-    updateProductDetail = async(comment: any) => {
-      return this.http.put(`${this.UrlBase}/api/pp/v1/products`, comment);
+    updateProductDetail = async(request: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/products`, request);
     }
 
     //#endregion

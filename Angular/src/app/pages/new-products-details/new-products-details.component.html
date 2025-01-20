@@ -1,1 +1,66 @@
-<p>new-products-details works!</p>
+<mat-dialog-content>
+  <mat-card class="MainCard">
+    <mat-card-title>{{ titulo }}</mat-card-title>
+    <mat-card-content>
+      <form
+        [formGroup]="formRequest"
+        (ngSubmit)="AddEditEnterpice()"
+        class="w-full flex-center formClass"
+      >
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Request title</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="request_type"
+            placeholder="Request title"
+            max="128"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Description</mat-label>
+          <textarea
+            type="text"
+            matInput
+            formControlName="details"
+            placeholder="Tell us what would you like to know"
+            max="512"
+            rows="3"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="request_status">
+            <mat-option
+              *ngFor="let rs of catsAttentionStatus"
+              [value]="rs.request_id"
+            >
+              {{ rs.request_status }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="w-full flex-center buttonsContainer">
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            matTooltip="Close"
+            (click)="onNoClick()"
+            style="width: 10rem"
+          >
+            <mat-icon>close</mat-icon> Close
+          </button>
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            matTooltip="save"
+            style="width: 10rem"
+          >
+            <mat-icon>save</mat-icon>Save
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>

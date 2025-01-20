@@ -5,6 +5,9 @@ const {
     getUsers, getUser, setUser, updateUser, updateUserStatus,
     getRoles,getRole,setRole,updateRole,updateRoleStatus,
     getLinks, getLink, setLink, updateLink, updateLinkStatus,
+    getEnterprices, getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus,
+    getRoles,getRole,setRole,updateRole,updateRoleStatus, 
+    getRequests, getRequest, setRequest, updateRequest,
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -58,4 +61,25 @@ router.post(`${urlBase}/activity`, authValidator, login);
     //#end Region
 
 //#endregion
+    //#region Roles
+
+    router.get(`${urlBase}/role`, authValidator, getRoles);
+    // router.get(`${urlBase}/role/:role_id`, authValidator, getRole);
+    router.post(`${urlBase}/role`, authValidator, setRole);
+    router.put(`${urlBase}/role`, authValidator, updateRole);
+    router.put(`${urlBase}/role/:role_id/status/:status`, authValidator, updateRoleStatus);
+
+    //#endregion
+
+    //#region Product details / requests
+
+    router.get(`${urlBase}/products`, authValidator, getRequests);
+    router.get(`${urlBase}/products/:request_id`, authValidator, getRequest);
+    router.post(`${urlBase}/products`, authValidator, setRequest);
+    router.put(`${urlBase}/products`, authValidator, updateRequest);
+
+    //#endregion
+
+//#endregion
+
 module.exports = router;
