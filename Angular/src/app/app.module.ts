@@ -28,6 +28,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { CommentsComponent } from './shared/components/comments/comments.component' ;
 import { Page404Component } from './shared/components/page-404/page-404.component';
 import { AutoLogoutComponent } from './shared/components/auto-logout/auto-logout.component';
+import { NewProductsDetailsComponent } from './pages/new-products-details/new-products-details.component';
 
 
 
@@ -44,6 +45,7 @@ import { AutoLogoutComponent } from './shared/components/auto-logout/auto-logout
     CommentsComponent,
     Page404Component,
     AutoLogoutComponent,
+    NewProductsDetailsComponent
   ],
   imports: [
     BrowserModule,

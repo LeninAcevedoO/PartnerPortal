@@ -37,7 +37,7 @@ export class UsersListComponent {
 
   changeUserStatus = async (user: any, toStatus: any) => {
     let userStatus = {
-      company_id: user.company_id,
+      user_id: user.user_id,
       status_id: [0, 2].includes(toStatus)
         ? toStatus
         : Number(toStatus.checked),
