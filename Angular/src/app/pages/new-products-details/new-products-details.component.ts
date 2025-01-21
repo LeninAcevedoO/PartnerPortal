@@ -11,7 +11,8 @@ import { Resultado } from "src/app/shared/models/general.model";
   styleUrls: ["./new-products-details.component.scss"],
 })
 export class NewProductsDetailsComponent {
-  titulo = "Add new information request";
+  
+  titulo = "Request information";
   formRequest = new FormGroup({
     request_id: new FormControl<number>(0),
     request_type: new FormControl<string>("", Validators.required),
@@ -31,7 +32,7 @@ export class NewProductsDetailsComponent {
     this.getCatAttentionStatus();
     if (this.data?.request_id) {
       this.formRequest.patchValue(this.data);
-      this.titulo = "Edit information request";
+      this.titulo = "Update information request";
     }
   }
 

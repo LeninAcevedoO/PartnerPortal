@@ -20,15 +20,14 @@ import { HandleErrorInterceptor } from './services/interceptors/handle-error.int
 import { ToolbarComponent } from './pages/layouts/toolbar/toolbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
-import { CustomCurrencyPipe } from './shared/pipes/custom-currency.pipe';
 import { SingUpComponent } from './components/auth/sing-up/sing-up.component';
 import { LoginComponent } from './components/auth/login/login.component';
 // ----------------------- Modules --------------------------------------
 
-import { CommentsComponent } from './shared/components/comments/comments.component' ;
 import { Page404Component } from './shared/components/page-404/page-404.component';
 import { AutoLogoutComponent } from './shared/components/auto-logout/auto-logout.component';
 import { NewProductsDetailsComponent } from './pages/new-products-details/new-products-details.component';
+import { NewManagementCommentComponent } from './pages/new-management-comment/new-management-comment.component';
 
 
 
@@ -42,7 +41,7 @@ import { NewProductsDetailsComponent } from './pages/new-products-details/new-pr
     SingUpComponent,
     HomeComponent,
     LoginComponent,
-    CommentsComponent,
+    NewManagementCommentComponent,
     Page404Component,
     AutoLogoutComponent,
     NewProductsDetailsComponent

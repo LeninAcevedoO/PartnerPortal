@@ -42,7 +42,7 @@ export class MainService {
   }
 
   getCatAtendant = async() => {
-    return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/catalogs/estatus/atendant`);
+    return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/catalogs/estatus/attendant`);
   }
 
   //#endregion
@@ -137,6 +137,26 @@ export class MainService {
 
     updateProductDetail = async(request: any) => {
       return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/products`, request);
+    }
+
+    //#endregion
+
+    //#region ManagerComments
+
+    getManagerComments = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/comments`);
+    }
+
+    getManagerComment = async(idComment: any) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/comments/${idComment}`);
+    }
+
+    sendManagerComments = async(comment: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/comments`, comment);
+    }
+
+    updateManagerComment = async(comment: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/comments`, comment);
     }
 
     //#endregion

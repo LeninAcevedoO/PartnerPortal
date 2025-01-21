@@ -1,18 +1,28 @@
 const { Router } = require("express");
 const {
-    ConnectionTest, login, authValidator, 
-    getEnterprices, getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus,
-    getRoles,getRole,setRole,updateRole,updateRoleStatus, 
-    getRequests, getRequest, setRequest, updateRequest,
+    ConnectionTest, login, authValidator, getEnterprices, getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus, getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, getComments, getComment, setComment, updateComment, getRoles,getRole,setRole,updateRole,updateRoleStatus, getRequests, getRequest, setRequest, updateRequest,
 } = require("./proyect.controller.js");
 
 const router = Router();
 const urlBase = '/api/pp/v1';
 
+//#region General
+
 router.get(`${urlBase}/ConnectionTest`, ConnectionTest);
 
 router.post(`${urlBase}/login`, login);
 router.post(`${urlBase}/activity`, authValidator, login);
+
+//#endregion
+
+//#region Catalogs
+
+router.post(`${urlBase}/catalogs/enterprices`, authValidator, getCatEnterprices);
+router.post(`${urlBase}/catalogs/roles`, authValidator, getCatRoles);
+router.post(`${urlBase}/catalogs/status/attendant`, authValidator, getCatStatusAttendant);
+router.post(`${urlBase}/catalogs/estatus`, authValidator, getCatStatus);
+
+//#endregion
 
 //#region Administration
 
@@ -54,6 +64,15 @@ router.post(`${urlBase}/activity`, authValidator, login);
     router.put(`${urlBase}/products`, authValidator, updateRequest);
 
     //#endregion
+
+//#endregion
+
+//#region Manager Comments
+
+router.get(`${urlBase}/comments`, authValidator, getComments);
+router.get(`${urlBase}/comments/:comment_id`, authValidator, getComment);
+router.post(`${urlBase}/comments`, authValidator, setComment);
+router.put(`${urlBase}/comments`, authValidator, updateComment);
 
 //#endregion
 
