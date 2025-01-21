@@ -89,6 +89,7 @@
           (mouseleave)="onMouseLeave($event)"
         >
           <button mat-icon-button disabled></button>
+          <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon>
           <span (click)="navigate(node)">{{ node.name }}</span>
         </div>
       </mat-tree-node>
@@ -104,6 +105,7 @@
               {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
             </mat-icon>
           </button>
+          <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon> 
           <span (click)="navigate(node)">{{ node.name }}</span>
         </div>
       </mat-tree-node>

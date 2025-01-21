@@ -11,31 +11,32 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';  // Importa Ma
 
 const TREE_DATA: any[] = [
   {
-    name: 'Options',
+    name: 'Home',
     children: [
-      { name: 'Home' }, 
-      { name: 'AI Assistnt' }, 
-      { name: 'Dashboard' },
+      { name: 'Advertisements' }, 
+      { name: 'About us' }, 
     ],
   },
-
+  {name: 'AI Assistant'},
+  {name:'Dashboard'},
   {
     name: 'Settings',
-    children:[
-      {
-        name: 'Catalogs',
-        children: [
-          {name: 'Roles'}, 
-          {name: 'Companies'}, 
-          {name: 'Attention status'}
-        ]
-      },
+    // children:[
+    //   {
+    //     name: 'Catalogs',
+    //     children: [
+    //       {name: 'Roles'}, 
+    //       {name: 'Companies'}, 
+    //       {name: 'Attention status'}
+    //     ]
+    //   },
 
-      {name: 'Users'},
-      {name: 'Links'},
-      {name: 'Product details'},
-      {name: 'Management comments'},
-    ],
+    //   {name: 'Users'},
+    //   {name: 'Links'},
+    //   {name: 'Product details'},
+    //   {name: 'Management comments'},
+    // ],
+    
   },
 ];
 
@@ -100,16 +101,16 @@ export class ToolbarComponent {
 
   navigate(node: any) {
     const routes: { [key: string]: string } = {
-      Home: '/home',
-      'AI Assistnt': '/',
-      Dashboard: '/',
-      Roles: '/settings/catalogs/roles',
-      Companies: '/settings/catalogs/companies',
-      'Attention status': '/settings/catalogs/attention',
-      Users: '/settings/users',
-      Links: '/settings/links',
-      'Product details': '/settings/product-details',
-      'Management comments': '/settings/management-comments',
+      // Home: '/home',
+      'AI Assistant': '/login',
+      Dashboard: '/login',
+      // Roles: '/settings/catalogs/roles',
+      // Companies: '/settings/catalogs/companies',
+      // 'Attention status': '/settings/catalogs/attention',
+      // Users: '/settings/users',
+      // Links: '/settings/links',
+      // 'Product details': '/settings/product-details',
+      // 'Management comments': '/settings/management-comments',
       Settings: '/settings',
     };
 
@@ -128,6 +129,20 @@ export class ToolbarComponent {
     const target = event.currentTarget as HTMLElement;
     target.classList.remove('hover-shadow');
   }
+
+  getIcon(name: string): string {
+  const iconMap: { [key: string]: string } = {
+    Home: 'home',
+    Advertisements: 'campaign',
+    'About us': 'info',
+    'AI Assistant': 'support_agent',
+    Dashboard: 'dashboard',
+    Settings: 'settings',
+  };
+
+  return iconMap[name] || 'help'; // Devuelve un ícono por defecto si no hay coincidencia
+}
+
   
   
 
