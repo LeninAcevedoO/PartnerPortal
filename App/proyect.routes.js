@@ -44,7 +44,7 @@ router.post(`${urlBase}/catalogs/estatus`, authValidator, getCatStatus);
     router.put(`${urlBase}/role`, authValidator, updateRole);
     router.put(`${urlBase}/role/:role_id/status/:status`, authValidator, updateRoleStatus);
 
-    //#end Region
+    //#endregion
 
     //#region Users
 
@@ -64,9 +64,8 @@ router.post(`${urlBase}/catalogs/estatus`, authValidator, getCatStatus);
     router.put(`${urlBase}/links`, authValidator, updateLink);
     router.put(`${urlBase}/links/:link_id/status/:status`, authValidator, updateLinkStatus);
 
-    //#end Region
+    //#endregion
 
-//#endregion
     //#region Roles
 
     router.get(`${urlBase}/role`, authValidator, getRoles);
@@ -77,14 +76,14 @@ router.post(`${urlBase}/catalogs/estatus`, authValidator, getCatStatus);
 
     //#endregion
 
-    //#region Product details / requests
+//#endregion
 
-    router.get(`${urlBase}/products`, authValidator, getRequests);
-    router.get(`${urlBase}/products/:request_id`, authValidator, getRequest);
-    router.post(`${urlBase}/products`, authValidator, setRequest);
-    router.put(`${urlBase}/products`, authValidator, updateRequest);
+//#region Product details / requests
 
-    //#endregion
+router.get(`${urlBase}/products`, authValidator, getRequests);
+router.get(`${urlBase}/products/:request_id`, authValidator, getRequest);
+router.post(`${urlBase}/products`, authValidator, setRequest);
+router.put(`${urlBase}/products`, authValidator, updateRequest);
 
 //#endregion
 
