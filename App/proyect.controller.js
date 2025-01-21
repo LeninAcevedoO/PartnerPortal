@@ -434,6 +434,91 @@ const updateRequest = async (req, res) => {
   }
 };
 
+//#region Media Links
+
+const getLinks = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request().execute("spr_pp_getlinks");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting links");
+  }
+};
+
+const getLink = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("company_id", req.params.company_id)
+      .execute("spr_pp_getlink");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting link");
+  }
+};
+
+const setLink = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("company_name", req.body.company_name)
+      .input("legal_name", req.body.legal_name)
+      .input("company_email", req.body.company_email)
+      .input("phone_number", req.body.phone_number)
+      .input("address", req.body.address)
+      .input("modified_by", -1)
+      .execute("spr_pp_insertusers");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error adding link");
+  }
+};
+
+const updateLink = async (req, res) => {
+  try {
+    console.log(req)
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("company_id", req.body.company_id)
+      .input("company_name", req.body.company_name)
+      .input("legal_name", req.body.legal_name)
+      .input("company_email", req.body.company_email)
+      .input("phone_number", req.body.phone_number)
+      .input("address", req.body.address)
+      .input("modified_by", 0)
+      .execute("spr_pp_updateusers");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error updating link");
+  }
+};
+
+const updateLinkStatus = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("company_id", req.params.company_id)
+      .input("status_id", req.params.status)
+      .input("modified_by", 0)
+      .execute("spr_pp_updateEnterpricesStatus");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error update link status");
+  }
+};
+
+//#endregion
+
 //#endregion
 
 //#region Manager Comments
@@ -520,6 +605,11 @@ module.exports = {
   setRole,
   updateRole,
   updateRoleStatus,
+  getLinks,
+  getLink,
+  setLink,
+  updateLink,
+  updateLinkStatus,
   getRequests, 
   getRequest, 
   setRequest, 
