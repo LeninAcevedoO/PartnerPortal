@@ -387,7 +387,7 @@ const getRequest = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("company_id", req.params.company_id)
+      .input("request_id", req.params.request_id)
       .execute("spr_pp_getrequest");
     return ApiResponse(result, res);
   } catch (e) {
@@ -419,13 +419,10 @@ const updateRequest = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("company_id", req.body.company_id)
-      .input("company_name", req.body.company_name)
-      .input("legal_name", req.body.legal_name)
-      .input("company_email", req.body.company_email)
-      .input("phone_number", req.body.phone_number)
-      .input("address", req.body.address)
-      .input("modified_by", 0)
+      .input("request_id", req.body.request_id)
+      .input("user_id", -1 ) // req.body.user_id)
+      .input("request_type", req.body.request_type)
+      .input("request_status", req.body.request_status)
       .execute("spr_pp_updatecompanies");
     return ApiResponse(result, res);
   } catch (e) {
@@ -526,7 +523,7 @@ const updateLinkStatus = async (req, res) => {
 const getComments = async (req, res) => {
   try {
     const pool = await sql.connect(dbConfig);
-    const result = await pool.request().execute("spr_pp_getcomments");
+    const result = await pool.request().execute("spr_pp_getmanagercomments");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -538,8 +535,8 @@ const getComment = async (req, res) => {
   try {
     const pool = await sql.connect(dbConfig);
     const result = await pool.request()
-      .input("company_id", req.params.company_id)
-      .execute("spr_pp_getcomment");
+      .input("comment_id", req.params.comment_id)
+      .execute("spr_pp_getmanagercomment");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -552,10 +549,13 @@ const setComment = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool.request()
       .input("user_id", -1 ) // req.body.user_id)
-      .input("comment_type", req.body.comment_type)
-      .input("details", req.body.details)
+      .input("status_assign_id", req.body.status_assign_id)
+      .input("comment_title", req.body.comment_title)
+      .input("comment_content", req.body.comment_content)
+      .input("comment_text", req.body.comment_text)
+      .input("modified_by", req.body.modified_by)
       .input("status_id", req.body.status_id)
-      .execute("spr_pp_insertcomment");
+      .execute("spr_pp_insertmanagementcomment");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -569,14 +569,11 @@ const updateComment = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("company_id", req.body.company_id)
-      .input("company_name", req.body.company_name)
-      .input("legal_name", req.body.legal_name)
-      .input("company_email", req.body.company_email)
-      .input("phone_number", req.body.phone_number)
-      .input("address", req.body.address)
-      .input("modified_by", 0)
-      .execute("spr_pp_updatecompanies");
+      .input("comment_id", req.body.comment_id)
+      .input("comment_status", req.body.comment_status)
+      .input("comment_response", req.body.comment_response)
+      .input("comment_solution", req.body.comment_solution)
+      .execute("spr_pp_updatecomment");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
