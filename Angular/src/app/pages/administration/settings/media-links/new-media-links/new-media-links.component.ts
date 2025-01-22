@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { MainService } from "src/app/services/services/main.service";
 import { Resultado } from "src/app/shared/models/general.model";
 import { validarNumeros } from "src/app/shared/utils/utils.functions";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-new-media-links',
@@ -14,11 +15,16 @@ import { validarNumeros } from "src/app/shared/utils/utils.functions";
 export class NewMediaLinksComponent {
   titulo = "Add system link";
   isShowPsw = false;
-  formuser = new FormGroup({
+  formlink = new FormGroup({
     link_id: new FormControl<number>(0),
+    link_url: new FormControl<string>("", Validators.required),
     description: new FormControl<string>("", Validators.required),
+    expiration_date: new FormControl<Date | null>(null, Validators.required),
   });
 
+  cats: any = {
+    companies: [],
+  };
 
   constructor(
     private _service: MainService,
@@ -29,44 +35,61 @@ export class NewMediaLinksComponent {
   ) {}
 
   ngOnInit() {
-    if (this.data?.user_id) {
-      this.formuser.patchValue(this.data);
-      this.titulo = "Edit user";
+    if (this.data?.link_id) {
+      this.formlink.patchValue(this.data);
+      this.titulo = "Edit link";
     }
     this.getCats();
   }
 
   getCats = async () => {
+    await this.getCatEnterprices();
     this.cdRef.detectChanges();
   };
 
+  getCatEnterprices = async () => {
+    (await this._service.getCatEnterprices()).subscribe((resp: Resultado) => {
+      if (resp.success == "true") this.cats.companies = resp.data;
+      else this.toastr.error(resp.message, "Error");
+    });
+  };
 
-  AddEditUser() {
-    if (this.formuser.invalid) {
+
+
+  AddEditLink() {
+    if (this.formlink.invalid) {
       this.toastr.warning("The form is not valid, try again", "Form not valid");
       return;
     }
-    if (this.formuser.value.link_id) this.EditUser();
-    else this.AddUser();
+    if (this.formlink.value.link_id) this.EditLink();
+    else this.AddLink();
   }
 
-  EditUser = async () => {
-    let user = { ...this.formuser.value };
-    (await this._service.updateUser(user)).subscribe((resp: Resultado) => {
+  AddLink = async () => {
+    let link = {
+      ...this.formlink.value,
+      expiration_date: moment(this.formlink.value.expiration_date).format('YYYY-MM-DD') 
+    };
+  
+    (await this._service.setLink(link)).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
-        this.toastr.success("The user was updated successfully", "Success");
+        this.toastr.success("The link was added successfully", "Success");
         this.onNoClick(true);
       } else {
         this.toastr.error(resp.message, "Error");
       }
     });
   };
-
-  AddUser = async () => {
-    let user = { ...this.formuser.value };
-    (await this._service.setUser(user)).subscribe((resp: Resultado) => {
+  
+  EditLink = async () => {
+    let link = {
+      ...this.formlink.value,
+      expiration_date: moment(this.formlink.value.expiration_date).format('YYYY-MM-DD') 
+    };
+  
+    (await this._service.updateLink(link)).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
-        this.toastr.success("The user was updated successfully", "Success");
+        this.toastr.success("The link was updated successfully", "Success");
         this.onNoClick(true);
       } else {
         this.toastr.error(resp.message, "Error");

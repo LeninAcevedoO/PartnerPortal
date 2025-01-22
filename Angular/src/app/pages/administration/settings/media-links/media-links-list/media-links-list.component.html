@@ -31,22 +31,26 @@
           <thead style="border-bottom: 1px solid black">
             <th>Link url</th>
             <th>Description</th>
+            <th>Media Type</th>
+            <th>Expiration date</th>
             <th>Status</th>
             <th>Actions</th>
           </thead>
           <tbody>
             <tr
-              *ngFor="let user of links | buscadorGenerico : buscador"
+              *ngFor="let link of links | buscadorGenerico : buscador"
               class="hvrPush"
             >
-              <td>{{ user.link_url }}</td>
-              <td>{{ user.description }}</td>
+              <td>{{ link.link_url }}</td>
+              <td>{{ link.description }}</td>
+              <td>{{ link.media_type_id }}</td>
+              <td>{{ link.expiration_date | date: 'yyyy-MM-dd'}}</td>
               <td>
                 <mat-slide-toggle
-                  [checked]="user.status_id ? true : false"
-                  (change)="changeLinkStatus(user, $event)"
+                  [checked]="link.status_id ? true : false"
+                  (change)="changeLinkStatus(link, $event)"
                 >
-                  {{ user.status_id ? "enabled" : "disabled" }}</mat-slide-toggle
+                  {{ link.status_id ? "enabled" : "disabled" }}</mat-slide-toggle
                 >
               </td>
               <td>
@@ -54,7 +58,7 @@
                   mat-icon-button
                   matTooltip="Edit"
                   class="editBtn"
-                  (click)="openAddEditLink(user)"
+                  (click)="openAddEditLink(link)"
                 >
                   <mat-icon>edit</mat-icon>
                 </button>
@@ -62,7 +66,7 @@
                   mat-icon-button
                   matTooltip="Delete"
                   color="warn"
-                  (click)="changeLinkStatus(user, 2)"
+                  (click)="changeLinkStatus(link, 2)"
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
@@ -103,6 +107,6 @@
     (click)="openAddEditLink()"
     matTooltip="Add user"
   >
-    <mat-icon>person_add</mat-icon>
+    <mat-icon>add_link</mat-icon>
   </button>
   

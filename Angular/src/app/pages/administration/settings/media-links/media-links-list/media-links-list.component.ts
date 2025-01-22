@@ -37,24 +37,26 @@ buscador = "";
 
   changeLinkStatus = async (link: any, toStatus: any) => {
     let linkStatus = {
-      company_id: link.company_id,
-      status_id: [0, 2].includes(toStatus)
-        ? toStatus
-        : Number(toStatus.checked),
+      link_id: link.link_id, 
+      status_id: toStatus.checked ? 1 : 0, 
     };
+  
 
     (await this._service.updateLinkStatus(linkStatus)).subscribe(
       (resp: Resultado) => {
         if (resp.success == "true") {
-          this.getLinks();
+          this.getLinks(); 
           this.toastr.success(
-            "The user status was changed successfully",
+            "The link status was changed successfully",
             "Success"
           );
-        } else this.toastr.error(resp.message, "Error");
+        } else {
+          this.toastr.error(resp.message, "Error");
+        }
       }
     );
   };
+  
 
   openAddEditLink(data?: any) {
     this.dialog

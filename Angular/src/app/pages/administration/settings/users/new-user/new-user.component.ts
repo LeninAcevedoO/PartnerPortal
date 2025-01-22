@@ -69,7 +69,7 @@ export class NewUserComponent {
   };
 
   getCatRoles = async () => {
-    (await this._service.getCatRoles()).subscribe((resp: Resultado) => {
+    (await this._service.getCatEstatus()).subscribe((resp: Resultado) => {
       if (resp.success == "true") this.cats.roles = resp.data;
       else this.toastr.error(resp.message, "Error");
     });
@@ -97,10 +97,10 @@ export class NewUserComponent {
   };
 
   AddUser = async () => {
-    let user = { ...this.formuser.value };
-    (await this._service.setUser(user)).subscribe((resp: Resultado) => {
+    let link = { ...this.formuser.value };
+    (await this._service.setLink(link)).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
-        this.toastr.success("The user was updated successfully", "Success");
+        this.toastr.success("The link was updated successfully", "Success");
         this.onNoClick(true);
       } else {
         this.toastr.error(resp.message, "Error");

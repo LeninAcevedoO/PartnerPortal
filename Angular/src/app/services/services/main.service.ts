@@ -190,8 +190,8 @@ export class MainService {
       return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/links`);
     }
 
-    getLink = async() => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/links/:idLink`);
+    getLink = async(idlink: any) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/links/${idlink}`);
     }
 
     setLink = async(link: any) => {
@@ -199,7 +199,7 @@ export class MainService {
     }
 
     updateLink  = async(link: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/links/:idLink`, link);
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/links`, link);
     }
 
     updateLinkStatus  = async(link: any) => {

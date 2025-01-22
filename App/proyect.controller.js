@@ -535,7 +535,7 @@ const getLink = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("company_id", req.params.company_id)
+      .input("link_id", req.params.link_id)
       .execute("spr_pp_getlink");
     return ApiResponse(result, res);
   } catch (e) {
@@ -549,13 +549,13 @@ const setLink = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("company_name", req.body.company_name)
-      .input("legal_name", req.body.legal_name)
-      .input("company_email", req.body.company_email)
-      .input("phone_number", req.body.phone_number)
-      .input("address", req.body.address)
-      .input("modified_by", -1)
-      .execute("spr_pp_insertusers");
+      .input("status_assign_id", req.body.status_assign_id)
+      .input("link_url", req.body.link_url)
+      .input("description", req.body.description)
+      .input("status_id", req.body.status_id)
+      .input("company_id", req.body.company_id)  // Nuevo parámetro
+      .input("expiration_date", req.body.expiration_date)  // Nuevo parámetro
+      .execute("spr_pp_insertlink");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -563,20 +563,22 @@ const setLink = async (req, res) => {
   }
 };
 
+
+
 const updateLink = async (req, res) => {
   try {
     console.log(req)
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
+      .input("link_id", req.body.link_id)
+      .input("status_assign_id", req.body.status_assign_id)
+      .input("link_url", req.body.link_url)
+      .input("description", req.body.description)
       .input("company_id", req.body.company_id)
-      .input("company_name", req.body.company_name)
-      .input("legal_name", req.body.legal_name)
-      .input("company_email", req.body.company_email)
-      .input("phone_number", req.body.phone_number)
-      .input("address", req.body.address)
-      .input("modified_by", 0)
-      .execute("spr_pp_updateusers");
+      .input("expiration_date", req.body.expiration_date)
+      // .input("modified_by", 0)
+      .execute("spr_pp_updatelink");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -589,16 +591,18 @@ const updateLinkStatus = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("company_id", req.params.company_id)
-      .input("status_id", req.params.status)
-      .input("modified_by", 0)
-      .execute("spr_pp_updateEnterpricesStatus");
+      .input("link_id", req.body.link_id)  
+      .input("status_id", req.body.status_id)  
+      .execute("spr_pp_updatelinkstatus");  
+    
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
-    return ApiResponse(null, res, "Error update link status");
+    return ApiResponse(null, res, "Error updating link status");
   }
 };
+
+
 
 //#endregion
 
