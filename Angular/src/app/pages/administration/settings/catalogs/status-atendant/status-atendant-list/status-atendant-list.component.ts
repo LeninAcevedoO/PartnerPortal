@@ -29,12 +29,9 @@ buscador = "";
   getAttentions = async () => {
     (await this._service.getAllAttentionStatus()).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
-        let attColored = resp.data;
-        attColored.forEach((x: any) => {
-          this.attentions.push({...x, invCol: this.invertirColor(x.color)})
-        });
-        this.cdRef.detectChanges();
+        this.attentions = resp.data;
       } else this.toastr.error(resp.message, "Error");
+      this.cdRef.detectChanges();
     });
   }
 

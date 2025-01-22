@@ -36,7 +36,7 @@
               formControlName="charging_order"
               placeholder="Order"
               max="3"
-              (keypress)="validarNumeros(formAttention.value.charging_order, $event)"
+              (keyup)="validarNumeros(formAttention.value.charging_order, $event)"
             />
           </mat-form-field>
           <mat-form-field appearance="outline" class="w-49 inputColor">

@@ -49,7 +49,7 @@
             <td>{{ attention.attention_status_name }}</td>
             <td>{{ attention.charging_order }}</td>
             <td>
-              <mat-chip [style.background-color]="attention.color" [style.color]="attention.invColor">{{attention.color}}</mat-chip>
+              <mat-chip [style.background-color]="attention.color" [style.color]="invertirColor(attention.color)">{{attention.color}}</mat-chip>
             </td>
             <td>
               <mat-slide-toggle
