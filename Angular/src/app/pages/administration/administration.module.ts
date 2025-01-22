@@ -16,6 +16,7 @@ import { StatusAtendantListComponent } from "./settings/catalogs/status-atendant
 import { StatusNewAtendantComponent } from "./settings/catalogs/status-atendant/status-new-atendant/status-new-atendant.component";
 import { CatalogsComponent } from "./settings/catalogs/catalogs.component";
 import { SharedModule } from "src/app/shared/shared/shared.module";
+import { ManagementCommentListComponent } from "./settings/management-comments/management-comment-list/management-comment-list.component";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SharedModule } from "src/app/shared/shared/shared.module";
     StatusAtendantListComponent,
     StatusNewAtendantComponent,
     CatalogsComponent,
+    ManagementCommentListComponent
   ],
   imports: [
     AdministrationRoutingModule,

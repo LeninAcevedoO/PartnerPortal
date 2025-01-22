@@ -1,1 +1,106 @@
-<p>management-comment-list works!</p>
+<div class="w-full flex-center min-h-full">
+  <mat-card class="MainCard">
+    <mat-card-title>
+      <div class="w-full flex-center title-container">
+        <h1 class="MainTitle">Manager comments</h1>
+        <mat-form-field
+          appearance="outline"
+          class="finder"
+          *ngIf="comments.length > 0"
+        >
+          <mat-label>Finder</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Let's find something"
+            [(ngModel)]="buscador"
+          />
+          <button mat-icon-button matPrefix>
+            <mat-icon>search</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matSuffix
+            color="warn"
+            *ngIf="buscador"
+            (click)="buscador = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <table class="MainTable" *ngIf="comments.length > 0">
+        <thead style="border-bottom: 1px solid black">
+          <th>Request Id</th>
+          <th>Request type</th>
+          <th>Request time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let req of comments | buscadorGenerico : buscador"
+            class="hvrPush"
+          >
+            <td>{{ req.request_id }}</td>
+            <td>{{ req.request_type }}</td>
+            <td>{{ req.request_time }}</td>
+            <td>{{ req.status }}</td>
+            <td>
+              <button
+                mat-icon-button
+                matTooltip="Edit"
+                class="editBtn"
+                (click)="openAddEditEnterprice(req)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                matTooltip="Delete"
+                color="warn"
+                (click)="changeEnterpriceStatus(req, 2)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!comments" class="w-full flex-center">
+        <h1 class="noDataText">There's no information</h1>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-icon-button
+        matTooltip="Refresh information"
+        (click)="getManagerComments()"
+      >
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<button
+  mat-fab
+  color="warn"
+  class="downLButton"
+  routerLink="/settings"
+  matTooltip="Back to settings"
+>
+  <mat-icon>arrow_back</mat-icon>
+</button>
+
+<button
+  mat-fab
+  color="primary"
+  class="downRButton"
+  (click)="openAddEditEnterprice()"
+  matTooltip="Add enterprice"
+>
+  &nbsp; + &nbsp;<mat-icon>contact_mail</mat-icon>
+</button>
