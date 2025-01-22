@@ -58,7 +58,6 @@ router.post(`${urlBase}/activity`, authValidator, login);
 
     //#end Region
 
-//#endregion
     //#region Roles
 
     router.get(`${urlBase}/role`, authValidator, getRoles);

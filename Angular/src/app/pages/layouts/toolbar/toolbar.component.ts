@@ -140,7 +140,7 @@ export class ToolbarComponent {
     Settings: 'settings',
   };
 
-  return iconMap[name] || 'help'; // Devuelve un ícono por defecto si no hay coincidencia
+  return iconMap[name] || 'help';
 }
 
   
