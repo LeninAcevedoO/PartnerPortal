@@ -40,11 +40,20 @@ export class NewUserComponent {
 
   ngOnInit() {
     if (this.data?.user_id) {
-      this.formuser.patchValue(this.data);
+      this.getUser();
       this.titulo = "Edit user";
     }
     this.getCats();
   }
+
+  getUser = async () => {
+    (await this._service.getUser(this.data.user_id)).subscribe(
+      (resp: Resultado) => {
+        if (resp.success == "true") this.formuser.patchValue(resp.data[0]);
+        else this.toastr.error(resp.message, "Error");
+      }
+    );
+  };
 
   getCats = async () => {
     await this.getCatEnterprices();

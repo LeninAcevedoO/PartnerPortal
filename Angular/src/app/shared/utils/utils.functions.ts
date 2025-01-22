@@ -60,3 +60,19 @@ export function convertFileToDataUri(field: any) {
         reader.readAsDataURL(field);
     });
 }
+
+export function invertHexColor(hex: string): string {
+    if (hex.startsWith('#')) {
+      hex = hex.slice(1);
+    }
+  
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+  
+    const invertedR = (255 - r).toString(16).padStart(2, '0');
+    const invertedG = (255 - g).toString(16).padStart(2, '0');
+    const invertedB = (255 - b).toString(16).padStart(2, '0');
+  console.log(`#${invertedR}${invertedG}${invertedB}`)
+    return `'#${invertedR}${invertedG}${invertedB}'`;
+  }

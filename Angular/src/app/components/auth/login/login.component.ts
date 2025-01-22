@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ContextService } from 'src/app/services/services/context.service';
 import { MainService } from 'src/app/services/services/main.service';
 import { Resultado } from 'src/app/shared/models/general.model';
+import { UtilsService } from 'src/app/shared/utils/utils.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -22,7 +23,8 @@ export class LoginComponent {
   constructor(private toastr: ToastrService,
     private router: Router,
     private _service: MainService,
-    private _context: ContextService) { }
+    private _context: ContextService,
+    private _utilsSvc: UtilsService) { }
 
   ngOnInit(): void {
     if (this._context.isAuth())
@@ -35,8 +37,8 @@ export class LoginComponent {
       return;
     }
     const clientCredentials = {
-      email: this.clientCredentials.value.username,
-      password: this.clientCredentials.value.password
+      // email: this._utilsSvc.encryptAES(this.clientCredentials.value.username, '', ''),
+      // password: this._utilsSvc.encryptAES(this.clientCredentials.value.password, '','')
     }
     this._service.login(clientCredentials).subscribe((resp: Resultado) => {
       if (resp.success == 'true') {

@@ -13,7 +13,7 @@ export class SettingsComponent {
     {title: 'Users', icon: 'groups', route: '/settings/users', badge: 0},
     {title: 'Links', icon: 'link', route: '/settings/links', badge: 0},
     {title: 'Product details', icon: 'inbox_text', route: '/settings/product-details', badge: 0},
-    {title: 'Management comments', icon: 'report', route: '/settings/management-comments', badge: 0},
+    {title: 'Manager comments', icon: 'report', route: '/settings/management-comments', badge: 0},
   ];
 
   catsOptions = [

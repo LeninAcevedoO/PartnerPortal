@@ -44,10 +44,10 @@
             *ngFor="let req of comments | buscadorGenerico : buscador"
             class="hvrPush"
           >
-            <td>{{ req.request_id }}</td>
-            <td>{{ req.request_type }}</td>
-            <td>{{ req.request_time }}</td>
-            <td>{{ req.status }}</td>
+            <td>{{ req.comment_id }}</td>
+            <td>{{ req.comment_title }}</td>
+            <td>{{ req.comment_time	| date: 'dd/MM/yyyy HH:mm'}}</td>
+            <td>{{ req.status_id }}</td>
             <td>
               <button
                 mat-icon-button
@@ -55,16 +55,16 @@
                 class="editBtn"
                 (click)="openAddEditEnterprice(req)"
               >
-                <mat-icon>edit</mat-icon>
+                <mat-icon>upgrade</mat-icon>
               </button>
-              <button
+              <!-- <button
                 mat-icon-button
                 matTooltip="Delete"
                 color="warn"
                 (click)="changeEnterpriceStatus(req, 2)"
               >
                 <mat-icon>delete</mat-icon>
-              </button>
+              </button> -->
             </td>
           </tr>
         </tbody>

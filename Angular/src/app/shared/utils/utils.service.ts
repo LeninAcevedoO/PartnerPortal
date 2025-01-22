@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as JsEncryptModule from 'jsencrypt';
-import * as CryptoJS from 'crypto-js';
+// import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -67,27 +67,27 @@ export class UtilsService {
   }
 
 
-  encryptAES(plainText: string, key: string, iv: string): string {
-    const keyBytes = CryptoJS.enc.Utf8.parse(key);
-    const ivBytes = CryptoJS.enc.Utf8.parse(iv);
-    const encrypted = CryptoJS.AES.encrypt(plainText, keyBytes, {
-      iv: ivBytes,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    });
+  // encryptAES(plainText: string, key: string, iv: string): string {
+  //   const keyBytes = CryptoJS.enc.Utf8.parse(key);
+  //   const ivBytes = CryptoJS.enc.Utf8.parse(iv);
+  //   const encrypted = CryptoJS.AES.encrypt(plainText, keyBytes, {
+  //     iv: ivBytes,
+  //     mode: CryptoJS.mode.CBC,
+  //     padding: CryptoJS.pad.Pkcs7
+  //   });
 
-    return encrypted.toString();
-  }
+  //   return encrypted.toString();
+  // }
 
-  decryptAES(cipher: string, key: string, iv: string): string {
-    const keyBytes = CryptoJS.enc.Utf8.parse(key);
-    const ivBytes = CryptoJS.enc.Utf8.parse(iv);
-    const decrypted = CryptoJS.AES.decrypt(cipher, keyBytes, {
-      iv: ivBytes,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7
-    });
+  // decryptAES(cipher: string, key: string, iv: string): string {
+  //   const keyBytes = CryptoJS.enc.Utf8.parse(key);
+  //   const ivBytes = CryptoJS.enc.Utf8.parse(iv);
+  //   const decrypted = CryptoJS.AES.decrypt(cipher, keyBytes, {
+  //     iv: ivBytes,
+  //     mode: CryptoJS.mode.CBC,
+  //     padding: CryptoJS.pad.Pkcs7
+  //   });
 
-    return decrypted.toString(CryptoJS.enc.Utf8);
-  }
+  //   return decrypted.toString(CryptoJS.enc.Utf8);
+  // }
 }

@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const {
-     ConnectionTest, login, authValidator, getEnterprices,  getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus, getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, getComments, getComment, setComment, updateComment, getRoles,getRole,setRole,updateRole,updateRoleStatus, getRequests, getRequest, setRequest, updateRequest, getLinks, getLink, setLink, updateLink, updateLinkStatus
+     ConnectionTest, login, authValidator, getEnterprices,  getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus, getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, getComments, getComment, setComment, updateComment, getRoles,getRole,setRole,updateRole,updateRoleStatus, getRequests, getRequest, setRequest, updateRequest, getLinks, getLink, setLink, updateLink, updateLinkStatus, getCatMediaType, getAllAttentionStatus, setAttentionStatus, updateAttentionStatus, updateAttentionStatusStatus,
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -17,10 +17,11 @@ router.post(`${urlBase}/activity`, authValidator, login);
 
 //#region Catalogs
 
-router.post(`${urlBase}/catalogs/enterprices`, authValidator, getCatEnterprices);
-router.post(`${urlBase}/catalogs/roles`, authValidator, getCatRoles);
-router.post(`${urlBase}/catalogs/status/attendant`, authValidator, getCatStatusAttendant);
-router.post(`${urlBase}/catalogs/estatus`, authValidator, getCatStatus);
+router.get(`${urlBase}/catalogs/enterprices`, authValidator, getCatEnterprices);
+router.get(`${urlBase}/catalogs/roles`, authValidator, getCatRoles);
+router.get(`${urlBase}/catalogs/status/attendant`, authValidator, getCatStatusAttendant);
+router.get(`${urlBase}/catalogs/estatus`, authValidator, getCatStatus);
+router.get(`${urlBase}/catalogs/media-types`, authValidator, getCatMediaType); 
 
 //#endregion
 
@@ -73,6 +74,15 @@ router.post(`${urlBase}/catalogs/estatus`, authValidator, getCatStatus);
     router.post(`${urlBase}/role`, authValidator, setRole);
     router.put(`${urlBase}/role`, authValidator, updateRole);
     router.put(`${urlBase}/role/:role_id/status/:status`, authValidator, updateRoleStatus);
+
+    //#endregion
+
+    //#region Attentions Status
+
+    router.get(`${urlBase}/attention`, authValidator, getAllAttentionStatus);
+    router.post(`${urlBase}/attention`, authValidator, setAttentionStatus);
+    router.put(`${urlBase}/attention`, authValidator, updateAttentionStatus);
+    router.put(`${urlBase}/attention/:attention_id/status/:status`, authValidator, updateAttentionStatusStatus);
 
     //#endregion
 

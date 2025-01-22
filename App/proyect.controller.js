@@ -73,7 +73,7 @@ const authValidator = async (req, res, next) => {
 const getCatEnterprices = async (req, res) => {
   try {
     const pool = await sql.connect(dbConfig);
-    const result = await pool.request().execute("spr_pp_getCatEnterprices");
+    const result = await pool.request().execute("spr_pp_getCatCompanies");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -95,7 +95,7 @@ const getCatRoles = async (req, res) => {
 const getCatStatusAttendant = async (req, res) => {
   try {
     const pool = await sql.connect(dbConfig);
-    const result = await pool.request().execute("spr_pp_getCatStatusAttendant");
+    const result = await pool.request().execute("spr_pp_getCatAttentionStatus");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -107,6 +107,17 @@ const getCatStatus = async (req, res) => {
   try {
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatStatus");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting requests");
+  }
+};
+
+const getCatMediaType = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request().execute("spr_pp_getCatMediaTypes");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -193,7 +204,7 @@ const getCatStatus = async (req, res) => {
         .input("company_id", req.params.company_id)
         .input("status_id", req.params.status)
         .input("modified_by", 0)
-        .execute("spr_pp_updateEnterpricesStatus");
+        .execute("spr_pp_updatecompanystatus");
       return ApiResponse(result, res);
     } catch (e) {
       console.log(e);
@@ -221,7 +232,7 @@ const getCatStatus = async (req, res) => {
       const pool = await sql.connect(dbConfig);
       const result = await pool
         .request()
-        .input("company_id", req.params.company_id)
+        .input("user_id", req.params.user_id)
         .execute("spr_pp_getuser");
       return ApiResponse(result, res);
     } catch (e) {
@@ -235,13 +246,16 @@ const getCatStatus = async (req, res) => {
       const pool = await sql.connect(dbConfig);
       const result = await pool
         .request()
-        .input("company_name", req.body.company_name)
-        .input("legal_name", req.body.legal_name)
-        .input("company_email", req.body.company_email)
+        .input("password_hash", req.body.password_hash)
+        .input("email", req.body.email)
+        .input("first_name", req.body.first_name)
+        .input("last_name", req.body.last_name)
         .input("phone_number", req.body.phone_number)
-        .input("address", req.body.address)
+        .input("role_id", req.body.role_id)
+        .input("company_id", req.body.company_id)
+        .input("status_id", req.body.status_id)
         .input("modified_by", -1)
-        .execute("spr_pp_insertusers");
+        .execute("spr_pp_insertuser");
       return ApiResponse(result, res);
     } catch (e) {
       console.log(e);
@@ -255,14 +269,17 @@ const getCatStatus = async (req, res) => {
       const pool = await sql.connect(dbConfig);
       const result = await pool
         .request()
-        .input("company_id", req.body.company_id)
-        .input("company_name", req.body.company_name)
-        .input("legal_name", req.body.legal_name)
-        .input("company_email", req.body.company_email)
+        .input("user_id", req.body.user_id)
+        .input("password_hash", req.body.password_hash)
+        .input("email", req.body.email)
+        .input("first_name", req.body.first_name)
+        .input("last_name", req.body.last_name)
         .input("phone_number", req.body.phone_number)
-        .input("address", req.body.address)
-        .input("modified_by", 0)
-        .execute("spr_pp_updateusers");
+        .input("role_id", req.body.role_id)
+        .input("company_id", req.body.company_id)
+        .input("status_id", req.body.status_id)
+        .input("modified_by", -1) 
+        .execute("spr_pp_updateuser");
       return ApiResponse(result, res);
     } catch (e) {
       console.log(e);
@@ -283,6 +300,75 @@ const getCatStatus = async (req, res) => {
     } catch (e) {
       console.log(e);
       return ApiResponse(null, res, "Error update user status");
+    }
+  };
+
+  //#endregion
+
+  //#region AttentionStatus
+
+  const getAllAttentionStatus = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request().execute("spr_pp_getattentionstatus");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error getting attention status");
+    }
+  };
+
+  const setAttentionStatus = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("attention_status_name", req.body.attention_status_name)
+        .input("description", req.body.description)
+        .input("charging_order", req.body.charging_order)
+        .input("color", req.body.color)
+        .input("modified_by", -1)
+        .execute("spr_pp_insertattentionstatus");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error adding attention status");
+    }
+  };
+
+  const updateAttentionStatus = async (req, res) => {
+    try {
+      console.log(req)
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("attention_status_id", req.body.attention_status_id)
+        .input("attention_status_name", req.body.attention_status_name)
+        .input("description", req.body.description)
+        .input("charging_order", req.body.charging_order)
+        .input("color", req.body.color)
+        .input("modified_by", -1)
+        .execute("spr_pp_updateattentionstatus");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error updating attention status");
+    }
+  };
+
+  const updateAttentionStatusStatus = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("attention_status_id", req.params.attention_id)
+        .input("status_id", req.params.status)
+        // .input("modified_by", 0) 
+        .execute("spr_pp_updateattentionstatusstatus");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error update attention status");
     }
   };
 
@@ -619,4 +705,9 @@ module.exports = {
   getComment,
   setComment,
   updateComment,
+  getCatMediaType,
+  getAllAttentionStatus,
+  setAttentionStatus,
+  updateAttentionStatus,
+  updateAttentionStatusStatus,
 };

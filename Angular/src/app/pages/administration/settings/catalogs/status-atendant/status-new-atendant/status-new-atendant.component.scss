@@ -1,0 +1,13 @@
+.buttonsContainer {
+  gap: 1rem;
+}
+
+.formClass {
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+.inputColor:focus {
+  border-color: #6200ea; /* Cambia el color del borde cuando está enfocado */
+  box-shadow: 0 0 5px rgba(98, 0, 234, 0.5); /* Agrega un sombreado sutil */
+}

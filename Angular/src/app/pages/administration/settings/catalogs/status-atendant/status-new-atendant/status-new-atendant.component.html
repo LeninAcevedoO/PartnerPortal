@@ -1,1 +1,77 @@
-<p>status-new-atendant works!</p>
+<mat-dialog-content>
+    <mat-card class="MainCard">
+      <mat-card-title>{{ titulo }}</mat-card-title>
+      <mat-card-content>
+        <form
+          [formGroup]="formAttention"
+          (ngSubmit)="AddEditAttention()"
+          class="w-full flex-center formClass"
+        >
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Attention status name</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="attention_status_name"
+              placeholder="Attention status name"
+              max="128"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Description</mat-label>
+            <textarea
+              type="text"
+              matInput
+              formControlName="description"
+              placeholder="Description"
+              max="512"
+              rows="3"
+            ></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-49">
+            <mat-label>Order</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="charging_order"
+              placeholder="Order"
+              max="3"
+              (keypress)="validarNumeros(formAttention.value.charging_order, $event)"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-49 inputColor">
+            <mat-label>Color</mat-label>
+            <input
+            matInput
+              type="color"
+              formControlName="color"
+              placeholder="Color"
+              max="24"
+            />
+          </mat-form-field>
+          <div class="w-full flex-center buttonsContainer">
+            <button
+              type="button"
+              mat-raised-button
+              color="warn"
+              matTooltip="Close"
+              (click)="onNoClick()"
+              style="width: 10rem;"
+            >
+              <mat-icon>close</mat-icon> Close
+            </button>
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              matTooltip="save"
+              style="width: 10rem;"
+            >
+              <mat-icon>save</mat-icon>Save
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-dialog-content>
+  
