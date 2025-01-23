@@ -157,7 +157,8 @@ button:hover {
 }
 
 .min-h-full {
-    min-height: calc(100vh - 58px);
+    // min-height: calc(100vh - 58px);
+    min-height: 100vh;
 }
 
 .center-screen {

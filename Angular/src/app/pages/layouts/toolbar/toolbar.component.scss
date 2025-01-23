@@ -1,6 +1,7 @@
 .topBar {
   position: fixed;
-  top: 40px;
+  // top: 40px;
+  top: 0;
   z-index: 1001;
   background: url('/assets/img/bg-toolbar.png') no-repeat center center, 
               linear-gradient(to right, #0275c9, #004986);
@@ -23,7 +24,7 @@ mat-sidenav {
   min-width: 330px;
   cursor: pointer;
   position: absolute;
-  margin-top: 97px;
+  margin-top: 57px;
   z-index: 9999999999;
   min-height: calc(100vh - 104px);
 }

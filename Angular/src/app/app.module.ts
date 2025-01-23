@@ -41,10 +41,10 @@ import { NewManagementCommentComponent } from './pages/new-management-comment/ne
     SingUpComponent,
     HomeComponent,
     LoginComponent,
-    NewManagementCommentComponent,
     Page404Component,
     AutoLogoutComponent,
-    NewProductsDetailsComponent
+    NewProductsDetailsComponent,
+    NewManagementCommentComponent
   ],
   imports: [
     BrowserModule,
