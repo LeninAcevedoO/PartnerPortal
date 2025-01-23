@@ -187,7 +187,7 @@ const getCatMediaType = async (req, res) => {
         .input("company_email", req.body.company_email)
         .input("phone_number", req.body.phone_number)
         .input("address", req.body.address)
-        .input("modified_by", 0)
+        .input("modified_by", -1)
         .execute("spr_pp_updatecompanies");
       return ApiResponse(result, res);
     } catch (e) {
@@ -203,7 +203,7 @@ const getCatMediaType = async (req, res) => {
         .request()
         .input("company_id", req.params.company_id)
         .input("status_id", req.params.status)
-        .input("modified_by", 0)
+        .input("modified_by", -1)
         .execute("spr_pp_updatecompanystatus");
       return ApiResponse(result, res);
     } catch (e) {
@@ -294,7 +294,7 @@ const getCatMediaType = async (req, res) => {
         .request()
         .input("user_id", req.params.user_id)
         .input("status_id", req.params.status)
-        .input("modified_by", 0) 
+        .input("modified_by", -1) 
         .execute("spr_pp_updateuserstatus");
       return ApiResponse(result, res);
     } catch (e) {
@@ -363,7 +363,7 @@ const getCatMediaType = async (req, res) => {
         .request()
         .input("attention_status_id", req.params.attention_id)
         .input("status_id", req.params.status)
-        // .input("modified_by", 0) 
+        // .input("modified_by", -1) 
         .execute("spr_pp_updateattentionstatusstatus");
       return ApiResponse(result, res);
     } catch (e) {
@@ -426,7 +426,7 @@ const updateRole = async (req, res) => {
       .request()
       .input("role_name", req.body.role_name)
       .input("description", req.body.description)
-      .input("modified_by", 0)
+      .input("modified_by", -1)
       .execute("spr_pp_updateroles");
     return ApiResponse(result, res);
   } catch (e) {
@@ -442,7 +442,7 @@ const updateRoleStatus = async (req, res) => {
       .request()
       .input("role_id", req.params.role_id)
       .input("status_id", req.params.status)
-      .input("modified_by", 0)
+      .input("modified_by", -1)
       .execute("spr_pp_updateRolesStatus");
     return ApiResponse(result, res);
   } catch (e) {
@@ -578,7 +578,7 @@ const updateLink = async (req, res) => {
       .input("description", req.body.description)
       .input("company_id", req.body.company_id)
       .input("expiration_date", req.body.expiration_date)
-      // .input("modified_by", 0)
+      // .input("modified_by", -1)
       .execute("spr_pp_updatelink");
     return ApiResponse(result, res);
   } catch (e) {
