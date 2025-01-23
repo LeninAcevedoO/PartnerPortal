@@ -491,6 +491,7 @@ const setRequest = async (req, res) => {
       .input("request_type", req.body.request_type)
       .input("details", req.body.details)
       .input("status_id", req.body.status_id)
+      .input("company_id", req.body.company_id)
       .execute("spr_pp_insertrequest");
     return ApiResponse(result, res);
   } catch (e) {

@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   gcloud: 'https://wre-poc-service-5eiikqaheq-uc.a.run.app',
-  // debugPC: 'http://localhost:3000',
-  debugPC: 'http://192.168.68.107:3000',
+   debugPC: 'http://localhost:3000',
+  //debugPC: 'http://192.168.68.107:3000',
 };
 
 /*
