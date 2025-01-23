@@ -11,7 +11,7 @@ function encryptAES(plainText, key, iv) {
   encrypted += cipher.final("hex");
   return encrypted;
 }
-
+x
 function decryptAES(cipherText, key, iv) {
   const decipher = crypto.createDecipheriv(
     "aes-256-cbc",

@@ -639,12 +639,11 @@ const setComment = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool.request()
       .input("user_id", -1 ) // req.body.user_id)
-      .input("status_assign_id", req.body.status_assign_id)
+      .input("attention_status_id", req.body.attention_status_id)
       .input("comment_title", req.body.comment_title)
       .input("comment_content", req.body.comment_content)
-      .input("comment_text", req.body.comment_text)
       .input("modified_by", req.body.modified_by)
-      .input("status_id", req.body.status_id)
+      // .input("route", req.body.route)
       .execute("spr_pp_insertmanagementcomment");
     return ApiResponse(result, res);
   } catch (e) {
@@ -660,7 +659,7 @@ const updateComment = async (req, res) => {
     const result = await pool
       .request()
       .input("comment_id", req.body.comment_id)
-      .input("comment_status", req.body.comment_status)
+      .input("attention_status_id", req.body.attention_status_id)
       .input("comment_response", req.body.comment_response)
       .input("comment_solution", req.body.comment_solution)
       .execute("spr_pp_updatecomment");

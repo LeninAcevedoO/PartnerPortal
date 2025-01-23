@@ -33,9 +33,9 @@
     <mat-card-content>
       <table class="MainTable" *ngIf="attentions.length > 0">
         <thead style="border-bottom: 1px solid black">
-          <th>Attention Status Id</th>
-          <th>Attention Status</th>
+          <!-- <th>Attention Status Id</th> -->
           <th>Order</th>
+          <th>Attention Status</th>
           <th>Color</th>
           <th>Status</th>
           <th>Actions</th>
@@ -45,11 +45,11 @@
             *ngFor="let attention of attentions | buscadorGenerico : buscador"
             class="hvrPush"
           >
-            <td>{{ attention.attention_status_id }}</td>
-            <td>{{ attention.attention_status_name }}</td>
+            <!-- <td>{{ attention.attention_status_id }}</td> -->
             <td>{{ attention.charging_order }}</td>
+            <td>{{ attention.attention_status_name }}</td>
             <td>
-              <mat-chip [style.background-color]="attention.color" [style.color]="invertirColor(attention.color)">{{attention.color}}</mat-chip>
+              <div class="chip" [style.background-color]="attention.color" [style.color]="getWhiteBlackColor(attention.color)">{{attention.color}}</div>
             </td>
             <td>
               <mat-slide-toggle
@@ -65,8 +65,9 @@
               <button
                 mat-icon-button
                 matTooltip="Edit"
-                class="editBtn"
+                color="primary"
                 (click)="openAddEditAttentionStatus(attention)"
+                [disabled]="attention.status_id == 0"
               >
                 <mat-icon>edit</mat-icon>
               </button>
