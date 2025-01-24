@@ -116,9 +116,11 @@ export class ToolbarComponent {
       Advertisements: '/home',
     };
 
+    
     const route = routes[node.name];
     if (route) {
       this.router.navigate([route]);
+      this.opened = false;
     }
   }
 
