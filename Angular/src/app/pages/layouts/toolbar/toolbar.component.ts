@@ -5,9 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContextService } from 'src/app/services/services/context.service';
-import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';  // Importa NestedTreeControl para gestionar la expansión de los nodos
-import { MatTreeNestedDataSource } from '@angular/material/tree';  // Importa MatTreeNestedDataSource
-
+import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';  
+import { MatDialog } from '@angular/material/dialog'; 
+import { NewManagementCommentComponent } from '../../new-management-comment/new-management-comment.component';
 
 const TREE_DATA: any[] = [
   {
@@ -17,26 +17,11 @@ const TREE_DATA: any[] = [
       { name: 'About us' }, 
     ],
   },
-  {name: 'AI Assistant'},
-  {name:'Dashboard'},
+  { name: 'AI Assistant' },
+  { name: 'Dashboard' },
+  { name: 'Manager Comments' },
   {
     name: 'Settings',
-    // children:[
-    //   {
-    //     name: 'Catalogs',
-    //     children: [
-    //       {name: 'Roles'}, 
-    //       {name: 'Companies'}, 
-    //       {name: 'Attention status'}
-    //     ]
-    //   },
-
-    //   {name: 'Users'},
-    //   {name: 'Links'},
-    //   {name: 'Product details'},
-    //   {name: 'Management comments'},
-    // ],
-    
   },
 ];
 
@@ -49,9 +34,6 @@ const TREE_DATA: any[] = [
 export class ToolbarComponent {
   opened = false;
   isAuth = false;
-
-
-  //#region Mat tree menu
 
   private _transformer = (node: any, level: number) => {
     return {
@@ -73,16 +55,14 @@ export class ToolbarComponent {
     node => node.children,
   );
 
-
   dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
   hasChild = (_: number, node: any) => node.expandable;
-  
-  //#endregion
 
   constructor(
-    private toatr: ToastrService,
+    private toastr: ToastrService,
     private router: Router,
-    private _context: ContextService
+    private _context: ContextService,
+    private dialog: MatDialog 
   ) {
     this.dataSource.data = TREE_DATA;
   }
@@ -93,30 +73,43 @@ export class ToolbarComponent {
 
   openModalProfile() {}
 
+  openModalNewComment() {
+    const dialogRef = this.dialog.open(NewManagementCommentComponent, {
+      width: 'auto',
+      disableClose: true,
+      data: {}, 
+      
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.toastr.success('Comentario agregado exitosamente', 'Éxito');
+      }
+    });
+  }
+  
+
   logout() {
     this._context.logout();
-    this.toatr.info('Se ha cerrado la sesión', 'Hasta luego');
+    this.toastr.info('Se ha cerrado la sesión', 'Hasta luego');
     this.router.navigate(['/login']);
   }
 
   navigate(node: any) {
     const routes: { [key: string]: string } = {
-      // Home: '/home',
       'AI Assistant': '/login',
       Dashboard: '/login',
-      // Roles: '/settings/catalogs/roles',
-      // Companies: '/settings/catalogs/companies',
-      // 'Attention status': '/settings/catalogs/attention',
-      // Users: '/settings/users',
-      // Links: '/settings/links',
-      // 'Product details': '/settings/product-details',
-      // 'Management comments': '/settings/management-comments',
       Settings: '/settings',
       'About us': '/home',
       Advertisements: '/home',
     };
 
-    
+    if (node.name === 'Manager Comments') {
+      this.openModalNewComment(); 
+      return;
+    }
+  
+
     const route = routes[node.name];
     if (route) {
       this.router.navigate([route]);
@@ -128,26 +121,23 @@ export class ToolbarComponent {
     const target = event.currentTarget as HTMLElement;
     target.classList.add('hover-shadow');
   }
-  
+
   onMouseLeave(event: MouseEvent): void {
     const target = event.currentTarget as HTMLElement;
     target.classList.remove('hover-shadow');
   }
 
   getIcon(name: string): string {
-  const iconMap: { [key: string]: string } = {
-    Home: 'home',
-    Advertisements: 'campaign',
-    'About us': 'info',
-    'AI Assistant': 'support_agent',
-    Dashboard: 'dashboard',
-    Settings: 'settings',
-  };
+    const iconMap: { [key: string]: string } = {
+      Home: 'home',
+      Advertisements: 'campaign',
+      'About us': 'info',
+      'AI Assistant': 'support_agent',
+      Dashboard: 'dashboard',
+      'Manager Comments': 'contact_mail',
+      Settings: 'settings',
+    };
 
-  return iconMap[name] || 'help';
-}
-
-  
-  
-
+    return iconMap[name] || 'help';
+  }
 }
