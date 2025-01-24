@@ -12,30 +12,42 @@
             <input
               type="text"
               matInput
-              formControlName="request_type"
+              formControlName="comment_title"
               placeholder="Manager comment title"
               max="128"
             />
           </mat-form-field>
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field appearance="outline" class="w-full" >
             <mat-label>Description</mat-label>
             <textarea
               type="text"
               matInput
-              formControlName="details"
-              placeholder="Tell us what would you like to know"
+              formControlName="comment_content"
+              placeholder="Tell us what would you tell us"
               max="512"
               rows="3"
             ></textarea>
           </mat-form-field>
-          <mat-form-field appearance="outline" class="w-full">
+          <mat-form-field appearance="outline" class="w-full" *ngIf="isTaken">
+            <mat-label>Resolution</mat-label>
+            <textarea
+              type="text"
+              matInput
+              formControlName="comment_solution"
+              placeholder="Problem solution"
+              max="512"
+              rows="3"
+            ></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full" *ngIf="isTaken">
             <mat-label>Status</mat-label>
-            <mat-select formControlName="request_status">
+            <mat-select formControlName="attention_status_id">
               <mat-option
                 *ngFor="let rs of catsAttentionStatus"
-                [value]="rs.request_id"
+                [value]="rs.attention_status_id"
+                [style.background-color]="rs.color"
               >
-                {{ rs.request_status }}
+                {{ rs.attention_status_name	 }}
               </mat-option>
             </mat-select>
           </mat-form-field>

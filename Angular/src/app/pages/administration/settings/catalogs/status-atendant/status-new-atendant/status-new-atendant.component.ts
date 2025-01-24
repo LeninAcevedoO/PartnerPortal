@@ -21,6 +21,7 @@ export class StatusNewAtendantComponent {
     charging_order: new FormControl<number>(1,  Validators.required),
     color: new FormControl<string>('#004986',  Validators.required),
   });
+  catsAttentionStatus: any[] = [];
 
   constructor(
     private _service: MainService,
@@ -34,6 +35,15 @@ export class StatusNewAtendantComponent {
       this.formAttention.patchValue(this.data);
       this.titulo = "Edit attention";
     }
+    this.getCatAttentionStatus();
+  }
+  
+  async getCatAttentionStatus() {
+    (await this._service.getCatAtendant()).subscribe((resp: Resultado) => {
+      if (resp.success == "true") {
+        this.catsAttentionStatus = resp.data;
+      } else this.toastr.error(resp.message, "Error");
+    });
   }
 
   AddEditAttention() {

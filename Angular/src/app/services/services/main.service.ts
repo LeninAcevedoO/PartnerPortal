@@ -42,7 +42,7 @@ export class MainService {
   }
 
   getCatAtendant = async() => {
-    return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/catalogs/estatus/attendant`);
+    return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/catalogs/status/attendant`);
   }
 
   getCatMediaType = async() => {

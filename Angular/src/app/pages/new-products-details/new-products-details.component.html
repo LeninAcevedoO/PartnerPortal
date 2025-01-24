@@ -28,14 +28,15 @@
             rows="3"
           ></textarea>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="w-full">
+        <mat-form-field appearance="outline" class="w-full" *ngIf="isTaken">
           <mat-label>Status</mat-label>
           <mat-select formControlName="request_status">
             <mat-option
               *ngFor="let rs of catsAttentionStatus"
-              [value]="rs.request_id"
+              [value]="rs.attention_status_id"
+              [style.background-color]="rs.color"
             >
-              {{ rs.request_status }}
+              {{ rs.attention_status_name	 }}
             </mat-option>
           </mat-select>
         </mat-form-field>

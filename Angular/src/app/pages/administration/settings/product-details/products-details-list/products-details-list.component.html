@@ -42,24 +42,16 @@
             >
               <td>{{ req.request_id }}</td>
               <td>{{ req.request_type }}</td>
-              <td>{{ req.request_time }}</td>
+              <td>{{ req.request_time | date: 'dd/MM/yyyy HH:mm'}}</td>
               <td>{{ req.status }}</td>
               <td>
                 <button
                   mat-icon-button
-                  matTooltip="Edit"
-                  class="editBtn"
+                  matTooltip="Answer"
+                  color="primary"
                   (click)="openAddEditEnterprice(req)"
                 >
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button
-                  mat-icon-button
-                  matTooltip="Delete"
-                  color="warn"
-                  (click)="changeEnterpriceStatus(req, 2)"
-                >
-                  <mat-icon>delete</mat-icon>
+                  <mat-icon>upgrade</mat-icon>
                 </button>
               </td>
             </tr>

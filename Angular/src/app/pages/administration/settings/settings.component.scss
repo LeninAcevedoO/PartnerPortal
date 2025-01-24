@@ -30,7 +30,7 @@
 
 .CardsContainer:has(.OptionsCard:hover) .OptionsCard:not(:hover) {
   transform: scale(0.95);
-  filter: blur(2px);
+  // filter: blur(2px);
 }
 
 .downLButton {

@@ -20,6 +20,7 @@ export class NewProductsDetailsComponent {
     request_status: new FormControl<number>(1, Validators.required),
   });
   catsAttentionStatus: any[] = [];
+  isTaken = false;
 
   constructor(
     private _service: MainService,
@@ -30,9 +31,10 @@ export class NewProductsDetailsComponent {
 
   ngOnInit() {
     this.getCatAttentionStatus();
-    if (this.data?.request_id) {
-      this.formRequest.patchValue(this.data);
+    if (this.data?.request_id > 0) {
+      this.getProductDetail();
       this.titulo = "Update information request";
+      this.isTaken = true;
     }
   }
 
@@ -40,6 +42,14 @@ export class NewProductsDetailsComponent {
     (await this._service.getCatAtendant()).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
         this.catsAttentionStatus = resp.data;
+      } else this.toastr.error(resp.message, "Error");
+    });
+  }
+
+  getProductDetail = async() => {
+    (await this._service.getProductDetail(this.data.request_id)).subscribe((resp: Resultado) => {
+      if (resp.success == "true") {
+        this.formRequest.patchValue(resp.data[0]);
       } else this.toastr.error(resp.message, "Error");
     });
   }

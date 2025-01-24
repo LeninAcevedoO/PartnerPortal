@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { MainService } from 'src/app/services/services/main.service';
 import { Resultado } from 'src/app/shared/models/general.model';
-import { invertHexColor } from 'src/app/shared/utils/utils.functions';
+import { getWhiteBlackColor } from 'src/app/shared/utils/utils.functions';
 
 @Component({
   selector: 'app-status-atendant-list',
@@ -68,7 +68,7 @@ buscador = "";
       });
   }
 
-  invertirColor(colorHex: string): string {
-    return invertHexColor(colorHex);
+  getWhiteBlackColor(colorHex: string) {
+    return getWhiteBlackColor(colorHex);
   }
 }
