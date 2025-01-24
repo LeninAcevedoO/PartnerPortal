@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { ChangeDetectorRef ,Component } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
 import { MainService } from "src/app/services/services/main.service";
@@ -11,48 +11,54 @@ import { Resultado } from "src/app/shared/models/general.model";
   styleUrls: ['./roles-list.component.scss']
 })
 export class RolesListComponent {
-   buscador = "";
-    roles: any[] = [];
-  
-    constructor(
-      private _service: MainService,
-      private toastr: ToastrService,
-      private dialog: MatDialog
-    ) {}
-    
-  
-    ngOnInit(){
-      this.getRoles();
-    }
-  
-    getRoles() {
-      this._service.getRoles().subscribe((resp: Resultado) => {
-        if (resp.success == "true") this.roles = resp.data;
-        else this.toastr.error(resp.message, "Error");
-      });
+buscador = "";
+  roles: any[] = [];
+
+  constructor(
+    private _service: MainService,
+    private toastr: ToastrService,
+    private dialog: MatDialog,
+    private cdRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
+    this.getRoles();
+  }
+
+  getRoles = async () => {
+    (await this._service.getRoles()).subscribe((resp: Resultado) => {
+      if (resp.success == "true") {
+        this.roles = resp.data;
+        this.cdRef.detectChanges();
+      } else this.toastr.error(resp.message, "Error");
+      console.log(this.roles);
+    });
+  };
+
+  changeRoleStatus = async (role: any, toStatus: any) => {
+    let roleStatus = {
+      role_id: role.role_id, 
+      status_id: toStatus.checked ? 1 : 0, 
     };
   
 
-    changeRolStatus = async (rol: any, toStatus: any) => {
-      let rolStatus = {
-        rol_id: rol.rol_id,
-        status_id: [0,2].includes(toStatus) ? toStatus : Number(toStatus.checked),
-      };
-  
-      (await this._service.updateRoleStatus(rolStatus)).subscribe(
-        (resp: Resultado) => {
-          if (resp.success == "true") {
-            this.getRoles();
-            this.toastr.success(
-              "The enterprice status was changed successfully",
-              "Success"
-            );
-          } else this.toastr.error(resp.message, "Error");
+    (await this._service.updateRoleStatus(roleStatus)).subscribe(
+      (resp: Resultado) => {
+        if (resp.success == "true") {
+          this.getRoles(); 
+          this.toastr.success(
+            "The role status was changed successfully",
+            "Success"
+          );
+        } else {
+          this.toastr.error(resp.message, "Error");
         }
-      );
-    };
+      }
+    );
+  };
   
-  openAddEditRol(data?: any) {
+
+  openAddEditRole(data?: any) {
     this.dialog
       .open(NewRolComponent, {
         panelClass: "post-dialog-container",

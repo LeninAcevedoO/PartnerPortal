@@ -69,11 +69,7 @@ router.get(`${urlBase}/catalogs/media-types`, authValidator, getCatMediaType);
 
     //#region Roles
 
-    router.get(`${urlBase}/role`, authValidator, getRoles);
-    // router.get(`${urlBase}/role/:role_id`, authValidator, getRole);
-    router.post(`${urlBase}/role`, authValidator, setRole);
-    router.put(`${urlBase}/role`, authValidator, updateRole);
-    router.put(`${urlBase}/role/:role_id/status/:status`, authValidator, updateRoleStatus);
+    router.get(`${urlBase}/roles`, authValidator, getRoles);
 
     //#endregion
 

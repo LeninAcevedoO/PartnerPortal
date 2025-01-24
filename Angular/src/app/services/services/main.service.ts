@@ -75,28 +75,6 @@ export class MainService {
       return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/enterprice/${enterprice.company_id}/status/${enterprice.status_id}`, {});
     }
 
-    //#region Roles
-
-    getRoles(): Observable<Resultado> {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/role`);
-    }    
-
-    getRole = async(idRol: any) => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/role/${idRol}`);
-    }
-
-    setRole = async(rol: any) => {
-      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/role`, rol);
-    }
-
-
-    updateRole  = async(rol: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/role`, rol);
-    }
-
-    updateRoleStatus  = async(rol: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/role/${rol.role_id}/status/${rol.status_id}`, {});
-    }
     //#endregion
 
     //#region Product Details
@@ -183,6 +161,28 @@ export class MainService {
 
     //#endregion
 
+    //#region Roles
+
+    getRoles = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/role`);
+    }
+
+    getRole = async(idrole: any) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/role/${idrole}`);
+    }
+
+    setRole = async(role: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/role`, role);
+    }
+
+    updateRole  = async(role: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/role`, role);
+    }
+
+    updateRoleStatus  = async(role: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/role/:idRole/status/:idEstatus`, role);
+    }
+    //#endregion
 
     //#region Media Links
 

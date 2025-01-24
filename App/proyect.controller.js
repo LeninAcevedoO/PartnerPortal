@@ -374,88 +374,7 @@ const getCatMediaType = async (req, res) => {
 
   //#endregion
 
-  //#region Roles
-
-const getRoles = async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool.request().execute("spr_pp_getroles");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error getting roles");
-  }
-};
-
-const getRole = async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("role_id", req.params.role_id)
-      .execute("spr_pp_getRole");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error getting role");
-  }
-};
-
-const setRole = async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("role_name", req.body.role_name)
-      .input("description", req.body.description)
-      .input("modified_by", -1)
-      .execute("spr_pp_insertroles");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error adding role");
-  }
-};
-
-const updateRole = async (req, res) => {
-  try {
-    console.log(req)
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .request()
-      .input("role_name", req.body.role_name)
-      .input("description", req.body.description)
-      .input("modified_by", 0)
-      .execute("spr_pp_updateroles");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error updating roles");
-  }
-};
-
-const updateRoleStatus = async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("role_id", req.params.role_id)
-      .input("status_id", req.params.status)
-      .input("modified_by", 0)
-      .execute("spr_pp_updateRolesStatus");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error update role status");
-  }
-};
-
-//#endregion
-
-//#endregion
-
-//#region Product details / requests
+  //#region Product details / requests
 
 const getRequests = async (req, res) => {
   try {
@@ -518,94 +437,171 @@ const updateRequest = async (req, res) => {
   }
 };
 
-//#region Media Links
+  //#region Roles
 
-const getLinks = async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool.request().execute("spr_pp_getlinks");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error getting links");
-  }
-};
+  const getRoles = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request().execute("spr_pp_getroles");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error getting roles");
+    }
+  };
 
-const getLink = async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("link_id", req.params.link_id)
-      .execute("spr_pp_getlink");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error getting link");
-  }
-};
+  const getRole = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("role_id", req.params.role_id)
+        .execute("spr_pp_getrole"); 
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error getting role");
+    }
+  };
 
-const setLink = async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("status_assign_id", req.body.status_assign_id)
-      .input("link_url", req.body.link_url)
-      .input("description", req.body.description)
-      .input("status_id", req.body.status_id)
-      .input("company_id", req.body.company_id)  // Nuevo parámetro
-      .input("expiration_date", req.body.expiration_date)  // Nuevo parámetro
-      .execute("spr_pp_insertlink");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error adding link");
-  }
-};
+  const setRole = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        // .input("role_id", req.body.role_id)
+        .input("role_name", req.body.role_name)
+        .input("description", req.body.description)
+        .input("modified_by", -1)
+        .execute("spr_pp_insertrole");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error adding role");
+    }
+  };
 
+  const updateRole = async (req, res) => {
+    try {
+      console.log(req)
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("role_id", req.body.role_id)
+        .input("role_name", req.body.role_name)
+        .input("description", req.body.description)
+        .input("modified_at", req.body.modified_at)
+        .input("status_id", req.body.status_id)
+        .input("modified_by", -1)
+        .execute("spr_pp_updaterole");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error updating role");
+    }
+  };
 
+  const updateRoleStatus = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("role_id", req.body.role_id)  
+        .input("status_id", req.body.status_id)   
+        .execute("spr_pp_updaterolestatus");  
+      
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error updating role status");
+    }
+  };
+  //#endregion
 
-const updateLink = async (req, res) => {
-  try {
-    console.log(req)
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("link_id", req.body.link_id)
-      .input("status_assign_id", req.body.status_assign_id)
-      .input("link_url", req.body.link_url)
-      .input("description", req.body.description)
-      .input("company_id", req.body.company_id)
-      .input("expiration_date", req.body.expiration_date)
-      // .input("modified_by", 0)
-      .execute("spr_pp_updatelink");
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error updating link");
-  }
-};
+  //#region Media Links
 
-const updateLinkStatus = async (req, res) => {
-  try {
-    const pool = await sql.connect(dbConfig);
-    const result = await pool
-      .request()
-      .input("link_id", req.body.link_id)  
-      .input("status_id", req.body.status_id)  
-      .execute("spr_pp_updatelinkstatus");  
-    
-    return ApiResponse(result, res);
-  } catch (e) {
-    console.log(e);
-    return ApiResponse(null, res, "Error updating link status");
-  }
-};
+  const getLinks = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request().execute("spr_pp_getlinks");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error getting links");
+    }
+  };
 
+  const getLink = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("link_id", req.params.link_id)
+        .execute("spr_pp_getlink");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error getting link");
+    }
+  };
 
+  const setLink = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("status_assign_id", req.body.status_assign_id)
+        .input("link_url", req.body.link_url)
+        .input("description", req.body.description)
+        .input("status_id", req.body.status_id)
+        .input("company_id", req.body.company_id)  
+        .input("expiration_date", req.body.expiration_date)  
+        .execute("spr_pp_insertlink");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error adding link");
+    }
+  };
 
-//#endregion
+  const updateLink = async (req, res) => {
+    try {
+      console.log(req)
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("link_id", req.body.link_id)
+        .input("status_assign_id", req.body.status_assign_id)
+        .input("link_url", req.body.link_url)
+        .input("description", req.body.description)
+        .input("company_id", req.body.company_id)
+        .input("expiration_date", req.body.expiration_date)
+        // .input("modified_by", 0)
+        .execute("spr_pp_updatelink");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error updating link");
+    }
+  };
+
+  const updateLinkStatus = async (req, res) => {
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool
+        .request()
+        .input("link_id", req.body.link_id)  
+        .input("status_id", req.body.status_id)  
+        .execute("spr_pp_updatelinkstatus");  
+      
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error updating link status");
+    }
+  };
+
+  //#endregion
 
 //#endregion
 
