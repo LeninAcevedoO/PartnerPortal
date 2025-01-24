@@ -112,6 +112,8 @@ export class ToolbarComponent {
       // 'Product details': '/settings/product-details',
       // 'Management comments': '/settings/management-comments',
       Settings: '/settings',
+      'About us': '/home',
+      Advertisements: '/home',
     };
 
     const route = routes[node.name];
