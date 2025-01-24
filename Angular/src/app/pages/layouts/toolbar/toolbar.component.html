@@ -87,10 +87,11 @@
           class="tree-node-container"
           (mouseover)="onMouseOver($event)"
           (mouseleave)="onMouseLeave($event)"
+          (click)="navigate(node)"
         >
           <button mat-icon-button disabled></button>
           <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon>
-          <span (click)="navigate(node)">{{ node.name }}</span>
+          <span >{{ node.name }}</span>
         </div>
       </mat-tree-node>
     
@@ -99,6 +100,7 @@
           class="tree-node-container"
           (mouseover)="onMouseOver($event)"
           (mouseleave)="onMouseLeave($event)"
+          (click)="navigate(node)"
         >
           <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
             <mat-icon class="mat-icon-rtl-mirror">
@@ -106,7 +108,7 @@
             </mat-icon>
           </button>
           <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon> 
-          <span (click)="navigate(node)">{{ node.name }}</span>
+          <span>{{node.name}}</span>
         </div>
       </mat-tree-node>
     </mat-tree>
