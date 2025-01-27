@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 import { Injectable } from '@angular/core';
-import * as JsEncryptModule from 'jsencrypt';
-// import * as CryptoJS from 'crypto-js';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,7 @@ export class UtilsService {
 
   encryptMod: any;
 
-  constructor(private http: HttpClient) {
-    this.encryptMod = new JsEncryptModule.JSEncrypt();
-  }
+  constructor(private http: HttpClient) {}
 
   getPosition(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -50,21 +48,48 @@ export class UtilsService {
     });
   }
 
-  encryptRSA(plainText: string) {
-    let publicKey = '';
-    let cypherText = '';
-    this.encryptMod.setPublicKey(publicKey);
-    cypherText = this.encryptMod.encrypt(plainText);
-    return cypherText;
+  encryptAES(plainText: string): string {
+    const key = CryptoJS.enc.Utf8.parse(environment.aesKey);
+    const iv = CryptoJS.enc.Utf8.parse(environment.aesIv);
+
+    const encrypted = CryptoJS.AES.encrypt(plainText, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+
+    return encrypted.toString();
   }
 
-  decryptRSA(cypherText: string) {
-    let plainText = '';
-    let privateKey = '';
-    this.encryptMod.setPrivateKey(privateKey);
-    plainText = this.encryptMod.decrypt(cypherText);
-    return plainText;
+  decryptAES(cipherText: string): string {
+    const key = CryptoJS.enc.Utf8.parse(environment.aesKey);
+    const iv = CryptoJS.enc.Utf8.parse(environment.aesIv);
+
+    const decrypted = CryptoJS.AES.decrypt(cipherText, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+
+    return decrypted.toString(CryptoJS.enc.Utf8);
   }
+
+  // encryptRSA(plainText: string) {
+  //   let publicKey = '';
+  //   let cypherText = '';
+  //   this.encryptMod.setPublicKey(publicKey);
+  //   cypherText = this.encryptMod.encrypt(plainText);
+  //   return cypherText;
+  // }
+
+  // decryptRSA(cypherText: string) {
+  //   let plainText = '';
+  //   let privateKey = '';
+  //   this.encryptMod.setPrivateKey(privateKey);
+  //   plainText = this.encryptMod.decrypt(cypherText);
+  //   return plainText;
+  // }
+
 
 
   // encryptAES(plainText: string, key: string, iv: string): string {

@@ -7,6 +7,8 @@ export const environment = {
   gcloud: 'https://wre-poc-service-5eiikqaheq-uc.a.run.app',
    debugPC: 'http://localhost:3000',
   //debugPC: 'http://192.168.68.107:3000',
+  aesKey: '1f8b8d4c72b42f08f4ad5a9e2b2a3c12', 
+  aesIv: '8a1b2c3d4e5f6g7h'                 
 };
 
 /*
