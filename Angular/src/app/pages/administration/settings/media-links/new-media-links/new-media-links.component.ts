@@ -15,12 +15,17 @@ import * as moment from 'moment';
 export class NewMediaLinksComponent {
   titulo = "Add system link";
   isShowPsw = false;
+
+  minDate: Date = new Date();
+
   formlink = new FormGroup({
     link_id: new FormControl<number>(0),
     link_url: new FormControl<string>("", Validators.required),
     description: new FormControl<string>("", Validators.required),
     company_id: new FormControl<number | null>(null, Validators.required),
-    expiration_date: new FormControl<Date | null>(null, Validators.required),
+    expiration_date: new FormControl<Date | null>(null, [
+      Validators.required,
+    ]),
   });
 
   cats: any = {

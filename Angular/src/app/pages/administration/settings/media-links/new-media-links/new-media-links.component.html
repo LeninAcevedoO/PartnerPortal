@@ -48,6 +48,8 @@
               matInput
               [matDatepicker]="picker"
               formControlName="expiration_date"
+              [min]="minDate"
+              [readonly]="true"
             />
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
