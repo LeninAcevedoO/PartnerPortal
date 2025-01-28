@@ -1,8 +1,8 @@
+import { UtilsService } from 'src/app/shared/utils/utils.service';
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { MainService } from 'src/app/services/services/main.service';
-import { Resultado } from 'src/app/shared/models/general.model';
-import { convertFileToDataUri } from 'src/app/shared/utils/utils.functions';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -10,11 +10,21 @@ import { convertFileToDataUri } from 'src/app/shared/utils/utils.functions';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(private toastr: ToastrService) {}
-    onCommentReceived(comment: string) {
-    
-    console.log('Comment received:', comment);
+  constructor(private toastr: ToastrService, private utilsService: UtilsService, private http: HttpClient) {}
 
-    this.toastr.success('Comment submitted successfully', 'Thank you!');
+  comment: string = 'Hello, this is a test';
+
+  onSubmit() {
+    console.log('Original Comment:', this.comment);
+
+  
+    const encryptedComment = this.utilsService.encryptAES(this.comment);
+    console.log('Encrypted Comment:', encryptedComment);
+
+  
+    this.http.post<any>('http://localhost:3000/api/encrypt-decrypt', { encryptedComment })
+      .subscribe(response => {
+        console.log('Response from API (re-encrypted comment):', response.decryptedComment);
+      });
   }
 }

@@ -6,8 +6,8 @@ function encryptAES(plainText) {
   const iv = Buffer.from(process.env.AES_IV, 'utf-8');
 
   const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
-  let encrypted = cipher.update(plainText, 'utf8', 'hex');
-  encrypted += cipher.final('hex');
+  let encrypted = cipher.update(plainText, 'utf8', 'base64'); 
+  encrypted += cipher.final('base64'); 
   return encrypted;
 }
 
@@ -16,15 +16,9 @@ function decryptAES(cipherText) {
   const iv = Buffer.from(process.env.AES_IV, 'utf-8');
 
   const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
-  let decrypted = decipher.update(cipherText, 'hex', 'utf8');
+  let decrypted = decipher.update(cipherText, 'base64', 'utf8'); 
   decrypted += decipher.final('utf8');
   return decrypted;
 }
 
-function generarSessionToken() {
-  const uuid = uuidv4();
-  const hash = crypto.createHash('sha256').update(uuid).digest('hex');
-  return hash;
-}
-
-module.exports = { encryptAES, decryptAES, generarSessionToken };
+module.exports = { encryptAES, decryptAES };
