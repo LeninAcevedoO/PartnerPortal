@@ -10,7 +10,7 @@
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Link</mat-label>
             <input
-              type="text"
+              type="title"
               matInput
               formControlName="link_url"
               placeholder="Link URL"
@@ -48,10 +48,25 @@
               matInput
               [matDatepicker]="picker"
               formControlName="expiration_date"
+              [min]="minDate"
+              [readonly]="true"
             />
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+          
+          <div class="w-49 flex-center">
+            <div class="file-container">
+              <label for="fileInput" class="btn">Choose file</label>
+              <input type="file" id="fileInput" (change)="onFileSelected($event)" style="display: none;">
+            </div>
+            
+            <div *ngIf="filePreview" id="previewContainer" class="file-preview">
+              <img *ngIf="isImage" [src]="filePreview" alt="Selected Image" class="file-thumbnail">
+              <video *ngIf="isVideo" [src]="filePreview" controls class="file-thumbnail"></video>
+              <audio *ngIf="isAudio" [src]="filePreview" controls></audio>
+            </div>
+          </div>
           
           
           

@@ -6,3 +6,31 @@
     justify-content: space-between;
     margin-top: 1.5rem;
 }
+
+.btn{
+    background-color: rgb(10, 179, 10);
+    color: white;
+}
+  
+.file-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  #fileInput {
+    display: none;
+  }
+  
+  #previewContainer {
+    margin-top: 10px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; 
+  }
+  
+  .file-thumbnail {
+    width: 100px;
+    height: auto;
+    border-radius: 4px;
+  }

@@ -15,17 +15,28 @@ import * as moment from 'moment';
 export class NewMediaLinksComponent {
   titulo = "Add system link";
   isShowPsw = false;
+
+  minDate: Date = new Date();
+
   formlink = new FormGroup({
     link_id: new FormControl<number>(0),
     link_url: new FormControl<string>("", Validators.required),
     description: new FormControl<string>("", Validators.required),
     company_id: new FormControl<number | null>(null, Validators.required),
-    expiration_date: new FormControl<Date | null>(null, Validators.required),
+    expiration_date: new FormControl<Date | null>(null, [
+      Validators.required,
+    ]),
   });
 
   cats: any = {
     companies: [],
   };
+
+  filePreview: string | ArrayBuffer | null = null;
+  isImage: boolean = false;
+  isVideo: boolean = false;
+  isAudio: boolean = false;
+
 
   constructor(
     private _service: MainService,
@@ -54,6 +65,41 @@ export class NewMediaLinksComponent {
       else this.toastr.error(resp.message, "Error");
     });
   };
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/avi', 'audio/aac'];
+      const fileType = file.type;
+
+      if (validExtensions.includes(fileType)) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.filePreview = reader.result;
+        };
+        
+        if (fileType.startsWith('image')) {
+          this.isImage = true;
+          this.isVideo = false;
+          this.isAudio = false;
+          reader.readAsDataURL(file);
+        } else if (fileType.startsWith('video')) {
+          this.isVideo = true;
+          this.isImage = false;
+          this.isAudio = false;
+          reader.readAsDataURL(file);
+        } else if (fileType.startsWith('audio')) {
+          this.isAudio = true;
+          this.isImage = false;
+          this.isVideo = false;
+          reader.readAsDataURL(file);
+        }
+      } else {
+        this.toastr.warning("Invalid file type. Please select an image or video.", "Invalid File");
+      }
+    }
+  }
+
 
 
 
