@@ -28,6 +28,7 @@ import { Page404Component } from './shared/components/page-404/page-404.componen
 import { AutoLogoutComponent } from './shared/components/auto-logout/auto-logout.component';
 import { NewProductsDetailsComponent } from './pages/new-products-details/new-products-details.component';
 import { NewManagementCommentComponent } from './pages/new-management-comment/new-management-comment.component';
+import { NewUserComponent } from './pages/administration/settings/users/new-user/new-user.component';
 
 
 
@@ -41,6 +42,8 @@ import { NewManagementCommentComponent } from './pages/new-management-comment/ne
     SingUpComponent,
     HomeComponent,
     LoginComponent,
+    NewUserComponent,
+    // --- Pages ---
     Page404Component,
     AutoLogoutComponent,
     NewProductsDetailsComponent,

@@ -21,7 +21,6 @@ const routes: Routes = [
     component: ToolbarComponent,
     children: [
       { path: 'home', component: HomeComponent },
-      {path: 'login', component: LoginComponent},
 
       {
         path: 'settings',
@@ -31,6 +30,7 @@ const routes: Routes = [
     ],
     // canActivateChild: [authGuard]
   },
+  {path: 'login', component: LoginComponent},
   { path: 'login', component: LoginComponent },
   { path: 'page404', component: Page404Component },
   { path: '**', redirectTo: 'page404', pathMatch: 'full' },

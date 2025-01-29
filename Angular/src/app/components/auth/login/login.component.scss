@@ -18,16 +18,20 @@
   max-width: 95%;
   text-align: center;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.1); 
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 20px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); 
-  backdrop-filter: blur(10px); 
-  border: 1px solid rgba(255, 255, 255, 0.2); 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .txtClipped {
   scale: 3;
-  background: linear-gradient(90deg, rgba(163, 161, 161, 0.1)0, rgb(255, 255, 255) 50%);
+  background: linear-gradient(
+    90deg,
+    rgba(163, 161, 161, 0.1) 0,
+    rgb(255, 255, 255) 50%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -63,12 +67,26 @@ button.mat-icon-button .mat-icon {
   border-radius: 8px;
 }
 
-.log{
-  min-height: calc(100vh - 58px);
+.log {
+  // min-height: calc(100vh - 58px);
+  min-height: 100vh;
   // background: linear-gradient(103deg, #7e3da0 4%, #0075c9 65%, #009DD7 95%);
-  background: linear-gradient(-117deg, #004987 48%, #0075c9 75%, #009DD7 92%);
+  background: linear-gradient(-117deg, #004987 48%, #0075c9 75%, #009dd7 92%);
 }
 
-.label{
+.label {
   color: white;
+}
+
+.txtLink {
+  text-align: end;
+  margin-top: 0.7rem;
+  color: white;
+  text-decoration: underline;
+  line-height: 0.1rem;
+}
+
+.txtLink {
+  cursor: pointer;
+  scale: 1.05;
 }

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NewUserComponent } from 'src/app/pages/administration/settings/users/new-user/new-user.component';
 import { ContextService } from 'src/app/services/services/context.service';
 import { MainService } from 'src/app/services/services/main.service';
 import { Resultado } from 'src/app/shared/models/general.model';
@@ -24,6 +26,7 @@ export class LoginComponent {
     private router: Router,
     private _service: MainService,
     private _context: ContextService,
+    private dialog: MatDialog,
     private _utilsSvc: UtilsService) { }
 
   ngOnInit(): void {
@@ -37,8 +40,8 @@ export class LoginComponent {
       return;
     }
     const clientCredentials = {
-      // email: this._utilsSvc.encryptAES(this.clientCredentials.value.username, '', ''),
-      // password: this._utilsSvc.encryptAES(this.clientCredentials.value.password, '','')
+      email: this.clientCredentials.value.username,
+      password: this.clientCredentials.value.password,
     }
     this._service.login(clientCredentials).subscribe((resp: Resultado) => {
       if (resp.success == 'true') {
@@ -47,6 +50,13 @@ export class LoginComponent {
         this.toastr.success(`Hi ${resp.data[0].first_name} ${resp.data[0].last_name}`, 'Welcome');
         this.router.navigate(['/home']);
       }
+    });
+  }
+
+  openModalNewUser() {
+    this.dialog.open(NewUserComponent, {
+      panelClass: 'post-dialog-container',
+      data: {type: 'new'},
     });
   }
 

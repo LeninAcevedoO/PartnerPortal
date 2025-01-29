@@ -77,6 +77,7 @@ export class ToolbarComponent {
     const dialogRef = this.dialog.open(NewManagementCommentComponent, {
       width: 'auto',
       disableClose: true,
+      panelClass: 'post-dialog-container',
       data: {}, 
       
     });
