@@ -32,6 +32,12 @@ export class NewMediaLinksComponent {
     companies: [],
   };
 
+  filePreview: string | ArrayBuffer | null = null;
+  isImage: boolean = false;
+  isVideo: boolean = false;
+  isAudio: boolean = false;
+
+
   constructor(
     private _service: MainService,
     private toastr: ToastrService,
@@ -59,6 +65,41 @@ export class NewMediaLinksComponent {
       else this.toastr.error(resp.message, "Error");
     });
   };
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/avi', 'audio/aac'];
+      const fileType = file.type;
+
+      if (validExtensions.includes(fileType)) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.filePreview = reader.result;
+        };
+        
+        if (fileType.startsWith('image')) {
+          this.isImage = true;
+          this.isVideo = false;
+          this.isAudio = false;
+          reader.readAsDataURL(file);
+        } else if (fileType.startsWith('video')) {
+          this.isVideo = true;
+          this.isImage = false;
+          this.isAudio = false;
+          reader.readAsDataURL(file);
+        } else if (fileType.startsWith('audio')) {
+          this.isAudio = true;
+          this.isImage = false;
+          this.isVideo = false;
+          reader.readAsDataURL(file);
+        }
+      } else {
+        this.toastr.warning("Invalid file type. Please select an image or video.", "Invalid File");
+      }
+    }
+  }
+
 
 
 
