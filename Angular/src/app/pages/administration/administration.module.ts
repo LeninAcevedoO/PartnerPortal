@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdministrationRoutingModule } from "./administration-routing.module";
 import { SettingsComponent } from "./settings/settings.component";
-import { NewUserComponent } from "./settings/users/new-user/new-user.component";
+// import { NewUserComponent } from "./settings/users/new-user/new-user.component";
 import { UsersListComponent } from "./settings/users/users-list/users-list.component";
 import { NewEnterpriceComponent } from "./settings/catalogs/enterprices/new-enterprice/new-enterprice.component";
 import { EnterpriceListComponent } from "./settings/catalogs/enterprices/enterprice-list/enterprice-list.component";
@@ -21,7 +21,7 @@ import { ManagementCommentListComponent } from "./settings/management-comments/m
 @NgModule({
   declarations: [
     SettingsComponent,
-    NewUserComponent,
+    // NewUserComponent,
     UsersListComponent,
     NewEnterpriceComponent,
     EnterpriceListComponent,

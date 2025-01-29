@@ -19,8 +19,8 @@ router.post(`${urlBase}/activity`, authValidator, login);
 
 //#region Catalogs
 
-router.get(`${urlBase}/catalogs/enterprices`, authValidator, getCatEnterprices);
-router.get(`${urlBase}/catalogs/roles`, authValidator, getCatRoles);
+router.get(`${urlBase}/catalogs/enterprices`, getCatEnterprices);
+router.get(`${urlBase}/catalogs/roles`, getCatRoles);
 router.get(`${urlBase}/catalogs/status/attendant`, authValidator, getCatStatusAttendant);
 router.get(`${urlBase}/catalogs/estatus`, authValidator, getCatStatus);
 router.get(`${urlBase}/catalogs/media-types`, authValidator, getCatMediaType); 

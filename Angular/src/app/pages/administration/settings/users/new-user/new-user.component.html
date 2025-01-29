@@ -73,7 +73,7 @@
             (keypress)="validateNumbers(formuser.value.phone_number, $event)"
           />
         </mat-form-field>
-        <mat-form-field appearance="outline" class="w-49">
+        <mat-form-field appearance="outline" [ngClass]="{'w-49': data.type != 'new', 'w-full': data.type == 'new'}">
           <mat-label>Company</mat-label>
           <mat-select formControlName="company_id">
             <mat-option
@@ -84,7 +84,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="w-49">
+        <mat-form-field appearance="outline" class="w-49" *ngIf="data.type != 'new'">
           <mat-label>Role</mat-label>
           <mat-select formControlName="role_id">
             <mat-option *ngFor="let rol of cats.roles" [value]="rol.role_id">

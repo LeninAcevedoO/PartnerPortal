@@ -12,7 +12,7 @@ import { validarNumeros } from "src/app/shared/utils/utils.functions";
   styleUrls: ["./new-user.component.scss"],
 })
 export class NewUserComponent {
-  titulo = "Add system user";
+  titulo = "User register";
   isShowPsw = false;
   formuser = new FormGroup({
     user_id: new FormControl<number>(0),
@@ -69,7 +69,7 @@ export class NewUserComponent {
   };
 
   getCatRoles = async () => {
-    (await this._service.getCatEstatus()).subscribe((resp: Resultado) => {
+    (await this._service.getCatRoles()).subscribe((resp: Resultado) => {
       if (resp.success == "true") this.cats.roles = resp.data;
       else this.toastr.error(resp.message, "Error");
     });

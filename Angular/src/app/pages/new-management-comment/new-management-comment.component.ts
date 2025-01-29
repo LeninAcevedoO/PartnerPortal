@@ -34,13 +34,13 @@ export class NewManagementCommentComponent {
     ) {}
   
     ngOnInit() {
-      this.getCatAttentionStatus();
       if (this.data?.comment_id) {
         this.formManagerComment.patchValue(this.data);
         this.titulo = "Update manager comment";
         this.isTaken = true;
         this.formManagerComment.get('comment_content')?.disable();
         this.formManagerComment.get('comment_title')?.disable();
+        this.getCatAttentionStatus();
       }
     }
   

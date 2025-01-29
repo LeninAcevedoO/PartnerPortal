@@ -1,5 +1,11 @@
 const crypto = require('crypto');
 require('dotenv').config();
+const { v4: uuidv4 } = require('uuid'); // Importar uuid
+
+// Función para generar un token
+function generateToken() {
+  return btoa(uuidv4());;
+}
 
 function encryptAES(plainText) {
   const key = Buffer.from(process.env.AES_KEY, 'utf-8');
@@ -21,4 +27,4 @@ function decryptAES(cipherText) {
   return decrypted;
 }
 
-module.exports = { encryptAES, decryptAES };
+module.exports = { encryptAES, decryptAES, generateToken };

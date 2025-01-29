@@ -1,6 +1,8 @@
-const ApiResponse = (poolResult, res, mensaje) => {
+const ApiResponse = (poolResult, res, mensaje, data200) => {
     try {
-        if (poolResult)
+        if (data200)
+            return res.status(200).json(jsonResult(true, null, data200))
+        else if (poolResult)
             return res.status(200).json(jsonResult(true, null, poolResult.recordset))
         else if (poolResult.rowsAffected[0] > 0)
             return res.status(201).json(jsonResult(true, null, {}))
