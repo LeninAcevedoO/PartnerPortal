@@ -60,6 +60,7 @@
             <mat-select formControlName="multimedia_id">
               <mat-option
                 *ngFor="let multimedia of cats.multimedia_types"
+                [value]="multimedia.multimedia_id"
               >
                 {{ multimedia.type_name }}
               </mat-option>

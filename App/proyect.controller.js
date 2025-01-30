@@ -601,11 +601,13 @@ const updateLink = async (req, res) => {
       .request()
       .input("link_id", req.body.link_id)
       .input("status_assign_id", req.body.status_assign_id)
+      .input("status_id", req.body.status_id)
       .input("link_url", req.body.link_url)
       .input("description", req.body.description)
       .input("company_id", req.body.company_id)
       .input("expiration_date", req.body.expiration_date)
-      // .input("modified_by", 0)
+      .input("modified_by", 0)
+      .input("modified_at", req.body.modified_at)
       .execute("spr_pp_updatelink");
     return ApiResponse(result, res);
   } catch (e) {
@@ -621,6 +623,8 @@ const updateLinkStatus = async (req, res) => {
       .request()
       .input("link_id", req.body.link_id)
       .input("status_id", req.body.status_id)
+      .input("modified_by", 0)
+      .input("modified_at", req.body.modified_at)
       .execute("spr_pp_updatelinkstatus");
 
     return ApiResponse(result, res);
