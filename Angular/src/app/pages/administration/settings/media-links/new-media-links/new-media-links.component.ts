@@ -151,4 +151,12 @@ export class NewMediaLinksComponent {
   onNoClick(resp: boolean = false) {
     this.dialogRef.close(resp);
   }
+
+  clearFilePreview() {
+    this.filePreview = null;
+    this.isImage = false;
+    this.isVideo = false;
+    this.isAudio = false;
+  }
+  
 }
