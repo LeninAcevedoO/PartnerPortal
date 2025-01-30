@@ -23,7 +23,7 @@ export class NewUserComponent {
     phone_number: new FormControl<string>("", Validators.required),
     company_id: new FormControl<string>("", Validators.required),
     role_id: new FormControl<string>("", Validators.required),
-    status_id: new FormControl<number>(1),
+    status_id: new FormControl<number>(2),
   });
   cats: any = {
     companies: [],
