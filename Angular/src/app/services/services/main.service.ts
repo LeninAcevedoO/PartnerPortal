@@ -51,6 +51,13 @@ export class MainService {
 
   //#endregion
 
+  //#region Favorites
+
+  async setFavorite(favorite_id: any) {
+    return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/favorites/${btoa(favorite_id)}`, {});
+  }
+  //#endregion
+
   //#region Administration
 
     //#region Enterprice
