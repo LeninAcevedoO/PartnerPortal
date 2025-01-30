@@ -23,6 +23,7 @@ export class NewMediaLinksComponent {
     link_url: new FormControl<string>("", Validators.required),
     description: new FormControl<string>("", Validators.required),
     company_id: new FormControl<number | null>(null, Validators.required),
+    multimedia_id: new FormControl<number | null>(null, Validators.required),
     expiration_date: new FormControl<Date | null>(null, [
       Validators.required,
     ]),
@@ -30,6 +31,7 @@ export class NewMediaLinksComponent {
 
   cats: any = {
     companies: [],
+    multimedia_types: [],
   };
 
   filePreview: string | ArrayBuffer | null = null;
@@ -56,6 +58,7 @@ export class NewMediaLinksComponent {
 
   getCats = async () => {
     await this.getCatEnterprices();
+    await this.getCatMediaType();
     this.cdRef.detectChanges();
   };
 
@@ -65,6 +68,18 @@ export class NewMediaLinksComponent {
       else this.toastr.error(resp.message, "Error");
     });
   };
+
+  getCatMediaType = async () => {
+    (await this._service.getCatMediaType()).subscribe((resp: Resultado) => {
+      if (resp.success == "true") {
+        this.cats.multimedia_types = resp.data;
+        console.log('Multimedia Types:', this.cats.multimedia_types);
+      } else {
+        this.toastr.error(resp.message, "Error");
+      }
+    });
+  };
+  
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -99,9 +114,6 @@ export class NewMediaLinksComponent {
       }
     }
   }
-
-
-
 
   AddEditLink() {
     if (this.formlink.invalid) {

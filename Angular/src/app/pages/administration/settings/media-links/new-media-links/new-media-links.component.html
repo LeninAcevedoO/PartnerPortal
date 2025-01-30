@@ -55,6 +55,17 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
           
+          <mat-form-field appearance="outline" class="w-49">
+            <mat-label>Multimedia Type</mat-label>
+            <mat-select formControlName="multimedia_id">
+              <mat-option
+                *ngFor="let multimedia of cats.multimedia_types"
+              >
+                {{ multimedia.type_name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <div class="w-49 flex-center">
             <div *ngIf="filePreview" id="previewContainer" class="file-preview flex-center">
               
