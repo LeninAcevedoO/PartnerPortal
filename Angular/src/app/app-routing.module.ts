@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 //-------------------------- General Compoents ----------------------------
@@ -11,6 +11,7 @@ import { Page404Component } from './shared/components/page-404/page-404.componen
 import { adminGuard } from './shared/guards/admin.guard';
 import { authGuard } from './shared/guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 
 const routes: Routes = [
   
@@ -26,6 +27,9 @@ const routes: Routes = [
         path: 'settings',
         loadChildren: () => import('./pages/administration/administration.module').then(m => m.AdministrationModule),
         // canActivateChild: [adminGuard]
+      },
+      {
+        path: 'about-us', component: AboutUsComponent
       },
     ],
     // canActivateChild: [authGuard]
