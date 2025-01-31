@@ -86,35 +86,48 @@ export class NewMediaLinksComponent {
     if (file) {
       const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/avi', 'audio/aac'];
       const fileType = file.type;
-
+  
       if (validExtensions.includes(fileType)) {
         const reader = new FileReader();
         reader.onload = () => {
           this.filePreview = reader.result;
+          this.convertToBase64(file); 
         };
-        
+  
         if (fileType.startsWith('image')) {
           this.isImage = true;
           this.isVideo = false;
           this.isAudio = false;
-          reader.readAsDataURL(file);
         } else if (fileType.startsWith('video')) {
           this.isVideo = true;
           this.isImage = false;
           this.isAudio = false;
-          reader.readAsDataURL(file);
         } else if (fileType.startsWith('audio')) {
           this.isAudio = true;
           this.isImage = false;
           this.isVideo = false;
-          reader.readAsDataURL(file);
         }
+        reader.readAsDataURL(file);
       } else {
-        this.toastr.warning("Invalid file type. Please select an image or video.", "Invalid File");
+        this.toastr.warning("Invalid file type. Please select an image, video, or audio file.", "Invalid File");
       }
     }
   }
-
+  
+  fileBase64: string | null = null;
+  
+  convertToBase64(file: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.fileBase64 = reader.result as string;
+      console.log("Base64 Encoded File:", this.fileBase64);
+    };
+    reader.onerror = (error) => {
+      console.error("Error converting file to Base64:", error);
+    };
+  }
+  
   AddEditLink() {
     if (this.formlink.invalid) {
       this.toastr.warning("The form is not valid, try again", "Form not valid");
