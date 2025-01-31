@@ -21,14 +21,24 @@
             <mat-icon>close</mat-icon>
           </button>
         </mat-form-field>
+
+
         <div class="w-full flex-center btnContainer">
           <button type="submit" mat-raised-button class="btnLogin">
             <mat-icon>login</mat-icon> Login
           </button>
-          <h3 class="w-full" style="margin-top: 1rem;"></h3>
-          <h3 class="w-full txtLink" >Forgot your password?</h3>
-          <h3 class="w-full txtLink" (click)="openModalNewUser()">Sing in</h3>
+          
+          <div class="remember-container">
+            <mat-checkbox formControlName="rememberMe" class="remember-checkbox">
+              <h3 class="txtLink">Remember Me</h3>
+            </mat-checkbox>
+            
+            <h3 class="txtLink">Forgot your password?</h3>
+          </div>
+          
+          <h3 class="w-full txtLink" (click)="openModalNewUser()">Sign in</h3>
         </div>
+        
       </form>
     </mat-card-content>
   </mat-card>

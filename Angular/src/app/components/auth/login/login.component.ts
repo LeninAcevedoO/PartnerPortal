@@ -19,9 +19,12 @@ export class LoginComponent {
 
   public clientCredentials = new UntypedFormGroup({
     username: new UntypedFormControl('', Validators.required),
-    password: new UntypedFormControl('', Validators.required)
+    password: new UntypedFormControl('', Validators.required),
+    rememberMe: new UntypedFormControl(false)
   })
+  
   showPsw = false;
+
   constructor(private toastr: ToastrService,
     private router: Router,
     private _service: MainService,
