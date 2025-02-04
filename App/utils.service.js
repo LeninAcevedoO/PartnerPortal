@@ -1,8 +1,8 @@
 const crypto = require('crypto');
 require('dotenv').config();
-const { v4: uuidv4 } = require('uuid'); // Importar uuid
+const { v4: uuidv4 } = require('uuid'); 
 
-// Función para generar un token
+
 function generateToken() {
   return btoa(uuidv4());;
 }

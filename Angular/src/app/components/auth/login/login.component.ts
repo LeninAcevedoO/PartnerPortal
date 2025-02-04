@@ -33,8 +33,9 @@ export class LoginComponent {
     private _utilsSvc: UtilsService) { }
 
   ngOnInit(): void {
-    if (this._context.isAuth())
-      this.router.navigate(['/home']);
+    if (this._context.isAuth()){
+      this.router.navigate(['/home']);}
+      this.loadRememberedCredentials();
   }
 
   login() {
@@ -52,6 +53,11 @@ export class LoginComponent {
         this._context.setInformation(resp.data[0]);
         this.toastr.success(`Hi ${resp.data[0].first_name} ${resp.data[0].last_name}`, 'Welcome');
         this.router.navigate(['/home']);
+        if (this.clientCredentials.value.rememberMe) {
+          this.saveCredentials(clientCredentials);
+        } else {
+          this.clearStoredCredentials();
+        }
       }
     });
   }
@@ -65,6 +71,35 @@ export class LoginComponent {
 
   handleClear() {
     this.clientCredentials.patchValue({ password: '' });
+  }
+
+  private saveCredentials(credentials: { email: string, password: string }) {
+    const encryptedData = this._utilsSvc.encryptAES(JSON.stringify(credentials));  
+    localStorage.setItem('rememberedCredentials', encryptedData);
+  }
+
+  private loadRememberedCredentials() {
+    const encryptedData = localStorage.getItem('rememberedCredentials');
+    if (encryptedData) {
+      try {
+        const decryptedData = this._utilsSvc.decryptAES(encryptedData);  
+        const parsedData = JSON.parse(decryptedData);
+
+        // Restaurar los valores en el formulario
+        this.clientCredentials.patchValue({
+          username: parsedData.email,
+          password: parsedData.password,
+          rememberMe: true
+        });
+      } catch (error) {
+        console.error('Error decrypting credentials:', error);
+        this.clearStoredCredentials();  // Borrar credenciales si hay un error
+      }
+    }
+  }
+
+  private clearStoredCredentials() {
+    localStorage.removeItem('rememberedCredentials');
   }
 
   // validarEntrada(event: KeyboardEvent): boolean {
