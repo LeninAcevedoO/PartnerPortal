@@ -40,7 +40,8 @@
         <tbody>
           <tr
             *ngFor="let user of users | buscadorGenerico : buscador"
-            class="hvrPush"
+            class="hvrPush" [ngClass]="{'aprroveField': user.status_id == 2}"
+            [matTooltip]="user.status_id == 2 ? 'Pending approval' : ''"
           >
             <td>{{ user.name }}</td>
             <td>{{ user.email }}</td>
@@ -49,10 +50,11 @@
             <td>{{ user.company_name	 }}</td>
             <td>
               <mat-slide-toggle
-                [checked]="user.status_id ? true : false"
+                [checked]="user.status_id == 1 ? true : false"
                 (change)="changeUserStatus(user, $event)"
+                [disabled]="user.status_id == 2"
               >
-                {{ user.status_id ? "Enabled" : "disabled" }}</mat-slide-toggle
+                {{ user.status_id == 1 ? "Enabled" : "disabled" }}</mat-slide-toggle
               >
             </td>
             <td>
@@ -64,14 +66,15 @@
               >
                 <mat-icon>edit</mat-icon>
               </button>
-              <!-- <button
+              <button
                 mat-icon-button
-                matTooltip="Delete"
-                color="warn"
-                (click)="changeUserStatus(user, 2)"
+                matTooltip="Approve"
+                color="accent"
+                (click)="changeUserStatus(user, 1)"
+                *ngIf="user.status_id == 2"
               >
-                <mat-icon>delete</mat-icon>
-              </button> -->
+                <mat-icon>how_to_reg</mat-icon>
+              </button>
             </td>
           </tr>
         </tbody>
