@@ -35,27 +35,24 @@ buscador = "";
     });
   };
 
-  changeRoleStatus = async (role: any, toStatus: any) => {
-    let roleStatus = {
-      role_id: role.role_id, 
-      status_id: toStatus.checked ? 1 : 0, 
+  changeRoleStatus = async (role: any, event: any) => {
+    const updatedStatus = event.checked ? 1 : 0;
+  
+    const roleStatus = {
+      role_id: role.role_id,
+      status_id: updatedStatus,
     };
   
-
-    (await this._service.updateRoleStatus(roleStatus)).subscribe(
-      (resp: Resultado) => {
-        if (resp.success == "true") {
-          this.getRoles(); 
-          this.toastr.success(
-            "The role status was changed successfully",
-            "Success"
-          );
-        } else {
-          this.toastr.error(resp.message, "Error");
-        }
+    (await this._service.updateRoleStatus(roleStatus)).subscribe((resp: Resultado) => {
+      if (resp.success === "true") {
+        role.status_id = updatedStatus; 
+        this.toastr.success("The role status was changed successfully", "Success");
+      } else {
+        this.toastr.error(resp.message, "Error");
       }
-    );
+    });
   };
+  
   
 
   openAddEditRole(data?: any) {

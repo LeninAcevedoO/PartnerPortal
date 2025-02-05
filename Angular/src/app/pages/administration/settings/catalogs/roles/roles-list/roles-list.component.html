@@ -43,12 +43,11 @@
             <td>{{ link.description }}</td>
             <td>
               <mat-slide-toggle
-                [checked]="link.status_id ? true : false"
+                [checked]="link.status_id"
                 (change)="changeRoleStatus(link, $event)"
               >
-                {{ link.status_id ? "enabled" : "disabled" }}</mat-slide-toggle
-              >
-            </td>
+                {{ link.status_id ? "enabled" : "disabled" }}
+              </mat-slide-toggle>
             <td>
               <button
                 mat-icon-button

@@ -186,10 +186,14 @@ export class MainService {
     updateRole  = async(role: any) => {
       return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/role`, role);
     }
-
-    updateRoleStatus  = async(role: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/role/:idRole/status/:idEstatus`, role);
-    }
+    
+    updateRoleStatus = async (role: any) => {
+      return this.http.put<Resultado>(
+        `${this.UrlBase}/api/pp/v1/role/${role.role_id}/status/${role.status_id}`,
+        role
+      );
+    };
+    
     //#endregion
 
     //#region Media Links

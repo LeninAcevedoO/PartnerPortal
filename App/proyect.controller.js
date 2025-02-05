@@ -500,10 +500,10 @@ const setRole = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      // .input("role_id", req.body.role_id)
       .input("role_name", req.body.role_name)
       .input("description", req.body.description)
       .input("modified_by", -1)
+      .input("status_id", req.body.status_id)
       .execute("spr_pp_insertrole");
     return ApiResponse(result, res);
   } catch (e) {
@@ -521,9 +521,8 @@ const updateRole = async (req, res) => {
       .input("role_id", req.body.role_id)
       .input("role_name", req.body.role_name)
       .input("description", req.body.description)
-      .input("modified_at", req.body.modified_at)
-      .input("status_id", req.body.status_id)
       .input("modified_by", -1)
+      .input("status_id", req.body.status_id)
       .execute("spr_pp_updaterole");
     return ApiResponse(result, res);
   } catch (e) {
@@ -537,8 +536,9 @@ const updateRoleStatus = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("role_id", req.body.role_id)
-      .input("status_id", req.body.status_id)
+      .input("role_id", req.params.role_id)
+      .input("status_id", req.params.status)
+      .input("modified_by", -1)
       .execute("spr_pp_updaterolestatus");
 
     return ApiResponse(result, res);

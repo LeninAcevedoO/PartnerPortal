@@ -69,11 +69,6 @@ router.get(`${urlBase}/catalogs/media-types`, authValidator, getCatMediaType);
 
     //#endregion
 
-    //#region Roles
-
-    router.get(`${urlBase}/roles`, authValidator, getRoles);
-
-    //#endregion
 
     //#region Attentions Status
 
