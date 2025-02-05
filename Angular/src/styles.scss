@@ -22,14 +22,13 @@ body {
     --warn-color: #d4255b;
 }
 
-.min-h-full {
-    // width: 100%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0)),
-        url('/assets/img/footer.png');
-    background-size: contain;
-    background-position: bottom;
-    background-repeat: no-repeat;
-}
+// .min-h-full {
+//     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0)),
+//         url('/assets/img/footer.png');
+//     background-size: contain;
+//     background-position: bottom;
+//     background-repeat: no-repeat;
+// }
 
 mat-card {
     padding: 20px;
@@ -159,6 +158,11 @@ button:hover {
 .min-h-full {
     // min-height: calc(100vh - 58px);
     min-height: 100vh;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0)),
+        url('/assets/img/footer.png');
+    background-size: contain;
+    background-position: bottom;
+    background-repeat: no-repeat;
 }
 
 .center-screen {
