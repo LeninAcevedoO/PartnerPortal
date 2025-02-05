@@ -58,10 +58,11 @@ const authValidator = async (req, res, next) => {
     //   console.log(usuario, token, idEmpresa);
     // }
 
-    if (req.body == {}) {
+    if (req.body.data) {
       try {
         const decryptedData = utils.decryptAES(req.body.data);
         req.body = JSON.parse(decryptedData);
+        console.log(req.body)
       } catch (error) {
         console.error("Error al desencriptar el body:", error);
         return res
