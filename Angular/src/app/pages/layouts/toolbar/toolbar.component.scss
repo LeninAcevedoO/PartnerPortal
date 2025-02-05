@@ -26,14 +26,16 @@ mat-sidenav {
   position: absolute;
   margin-top: 57px;
   z-index: 9999999999;
-  min-height: calc(100vh - 104px);
+  // min-height: calc(100vh - 104px);
+  min-height: 100vh;
 }
 
 body,
 html,
 .routerContainer {
-  margin-top: 58px;
-  min-height: calc(100vh - 58px);
+  // margin-top: 58px;
+  // min-height: calc(100vh - 58px);
+  min-height: 100vh;
 }
 
 .routerContainer {

@@ -27,6 +27,7 @@ export class HandleErrorInterceptor implements HttpInterceptor {
     });
 
     if (request.body) {
+      console.log(request.body)
       const encryptedBody = this._utilsSvc.encryptAES(JSON.stringify(request.body));
       modifiedRequest = modifiedRequest.clone({ body: { "data": encryptedBody} });
     }

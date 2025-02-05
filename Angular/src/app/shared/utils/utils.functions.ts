@@ -88,7 +88,7 @@ export function getWhiteBlackColor(hex: string): string {
     const g = parseInt(hex.substring(2, 4), 16);
     const b = parseInt(hex.substring(4, 6), 16);
 
-    if (r > 125 || g > 125 || b > 125)
+    if (r > 122 || g > 122 || b > 122)
         return 'black';
     else return 'white';
   }
