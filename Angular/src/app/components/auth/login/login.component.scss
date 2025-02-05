@@ -90,3 +90,22 @@ button.mat-icon-button .mat-icon {
   cursor: pointer;
   scale: 1.05;
 }
+
+.remember-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.remember-checkbox {
+  color: white !important;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.remember-container .txtLink {
+  margin: 0; 
+}

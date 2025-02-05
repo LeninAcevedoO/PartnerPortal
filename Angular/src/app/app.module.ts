@@ -30,6 +30,7 @@ import { NewProductsDetailsComponent } from './pages/new-products-details/new-pr
 import { NewManagementCommentComponent } from './pages/new-management-comment/new-management-comment.component';
 import { NewUserComponent } from './pages/administration/settings/users/new-user/new-user.component';
 import { CarrouselComponent } from './pages/home/carrousel/carrousel.component';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 
 
 
@@ -49,7 +50,8 @@ import { CarrouselComponent } from './pages/home/carrousel/carrousel.component';
     AutoLogoutComponent,
     NewProductsDetailsComponent,
     NewManagementCommentComponent,
-    CarrouselComponent
+    CarrouselComponent,
+    AboutUsComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,30 +7,50 @@
     margin-top: 1.5rem;
 }
 
-.btn{
-    background-color: rgb(10, 179, 10);
-    color: white;
+.btn {
+  background-color: rgb(165, 165, 165);
+  color: white;
+  width: 465px;
+  height: 50px;
+  margin-bottom: 10px;
+  cursor: pointer;
 }
-  
+
 .file-container {
-    position: relative;
-    display: inline-block;
-  }
-  
-  #fileInput {
-    display: none;
-  }
-  
-  #previewContainer {
-    margin-top: 10px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%; 
-  }
-  
-  .file-thumbnail {
-    width: 100px;
-    height: auto;
-    border-radius: 4px;
-  }
+  position: relative;
+  display: inline-block;
+}
+
+#fileInput {
+  display: none;
+}
+
+.file-thumbnail {
+  width: 200px;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.file-preview {
+  position: relative;
+  display: inline-block;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn mat-icon {
+  font-size: 26px;
+  color: rgb(255, 0, 0);
+}

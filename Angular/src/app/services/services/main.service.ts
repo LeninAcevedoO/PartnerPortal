@@ -46,7 +46,8 @@ export class MainService {
   }
 
   getCatMediaType = async() => {
-    return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/catalogs/estatus/media-types`);
+    return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/catalogs/media-types`);
+
   }
 
   //#endregion

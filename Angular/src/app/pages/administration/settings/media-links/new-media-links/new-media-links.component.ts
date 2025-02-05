@@ -23,6 +23,7 @@ export class NewMediaLinksComponent {
     link_url: new FormControl<string>("", Validators.required),
     description: new FormControl<string>("", Validators.required),
     company_id: new FormControl<number | null>(null, Validators.required),
+    multimedia_id: new FormControl<number | null>(null, Validators.required),
     expiration_date: new FormControl<Date | null>(null, [
       Validators.required,
     ]),
@@ -30,6 +31,7 @@ export class NewMediaLinksComponent {
 
   cats: any = {
     companies: [],
+    multimedia_types: [],
   };
 
   filePreview: string | ArrayBuffer | null = null;
@@ -56,6 +58,7 @@ export class NewMediaLinksComponent {
 
   getCats = async () => {
     await this.getCatEnterprices();
+    await this.getCatMediaType();
     this.cdRef.detectChanges();
   };
 
@@ -66,43 +69,65 @@ export class NewMediaLinksComponent {
     });
   };
 
+  getCatMediaType = async () => {
+    (await this._service.getCatMediaType()).subscribe((resp: Resultado) => {
+      if (resp.success == "true") {
+        this.cats.multimedia_types = resp.data;
+        console.log('Multimedia Types:', this.cats.multimedia_types);
+      } else {
+        this.toastr.error(resp.message, "Error");
+      }
+    });
+  };
+  
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
       const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'video/mp4', 'video/avi', 'audio/aac'];
       const fileType = file.type;
-
+  
       if (validExtensions.includes(fileType)) {
         const reader = new FileReader();
         reader.onload = () => {
           this.filePreview = reader.result;
+          this.convertToBase64(file); 
         };
-        
+  
         if (fileType.startsWith('image')) {
           this.isImage = true;
           this.isVideo = false;
           this.isAudio = false;
-          reader.readAsDataURL(file);
         } else if (fileType.startsWith('video')) {
           this.isVideo = true;
           this.isImage = false;
           this.isAudio = false;
-          reader.readAsDataURL(file);
         } else if (fileType.startsWith('audio')) {
           this.isAudio = true;
           this.isImage = false;
           this.isVideo = false;
-          reader.readAsDataURL(file);
         }
+        reader.readAsDataURL(file);
       } else {
-        this.toastr.warning("Invalid file type. Please select an image or video.", "Invalid File");
+        this.toastr.warning("Invalid file type. Please select an image, video, or audio file.", "Invalid File");
       }
     }
   }
-
-
-
-
+  
+  fileBase64: string | null = null;
+  
+  convertToBase64(file: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.fileBase64 = reader.result as string;
+      console.log("Base64 Encoded File:", this.fileBase64);
+    };
+    reader.onerror = (error) => {
+      console.error("Error converting file to Base64:", error);
+    };
+  }
+  
   AddEditLink() {
     if (this.formlink.invalid) {
       this.toastr.warning("The form is not valid, try again", "Form not valid");
@@ -151,4 +176,12 @@ export class NewMediaLinksComponent {
   onNoClick(resp: boolean = false) {
     this.dialogRef.close(resp);
   }
+
+  clearFilePreview() {
+    this.filePreview = null;
+    this.isImage = false;
+    this.isVideo = false;
+    this.isAudio = false;
+  }
+  
 }

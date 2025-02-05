@@ -19,10 +19,12 @@ const TREE_DATA: any[] = [
   },
   { name: 'AI Assistant' },
   { name: 'Dashboard' },
+  { name: 'Services' },
+  { name: 'Verticals'},
+  { name: 'Favorites' },
   { name: 'Manager Comments' },
-  {
-    name: 'Settings',
-  },
+  { name: 'Settings'},
+  
 ];
 
 @Component({
@@ -101,8 +103,12 @@ export class ToolbarComponent {
       'AI Assistant': '/login',
       Dashboard: '/login',
       Settings: '/settings',
-      'About us': '/home',
+      'About us': '/about-us',
       Advertisements: '/home',
+      Favorites: '/home',
+      Services: '/home',
+      Verticals: '/home',
+      
     };
 
     if (node.name === 'Manager Comments') {
@@ -137,6 +143,9 @@ export class ToolbarComponent {
       Dashboard: 'dashboard',
       'Manager Comments': 'contact_mail',
       Settings: 'settings',
+      Services: 'linked_services',
+      Favorites: 'star',
+      Verticals: 'vertical_distribute',
     };
 
     return iconMap[name] || 'help';
