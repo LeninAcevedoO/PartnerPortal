@@ -67,7 +67,7 @@ const authValidator = async (req, res, next) => {
         console.error("Error al desencriptar el body:", error);
         return res
           .status(400)
-          .json({ message: "rror al procesar la solicitud" });
+          .json({ message: "Error al procesar la solicitud" });
       }
     }
 
