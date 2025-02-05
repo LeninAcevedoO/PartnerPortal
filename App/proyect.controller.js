@@ -57,20 +57,18 @@ const authValidator = async (req, res, next) => {
     // } else {
     //   console.log(usuario, token, idEmpresa);
     // }
-    
-    if (req.body.data) {
+
+    if (req.body == {}) {
       try {
         const decryptedData = utils.decryptAES(req.body.data);
         req.body = JSON.parse(decryptedData);
-        console.log(req.body);
       } catch (error) {
         console.error("Error al desencriptar el body:", error);
         return res
           .status(400)
-          .json({ message: "Error al procesar la solicitud" });
+          .json({ message: "rror al procesar la solicitud" });
       }
     }
-
 
     next();
     return;
@@ -198,7 +196,7 @@ const setEnterprice = async (req, res) => {
       .input("phone_number", req.body.phone_number)
       .input("address", req.body.address)
       .input("modified_by", -1)
-      .execute("spr_pp_insertcompany");
+      .execute("spr_pp_insertcompanies");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -376,7 +374,7 @@ const updateAttentionStatus = async (req, res) => {
       .input("attention_status_id", req.body.attention_status_id)
       .input("attention_status_name", req.body.attention_status_name)
       .input("description", req.body.description)
-      .input("new_charging_order", req.body.charging_order)
+      .input("charging_order", req.body.charging_order)
       .input("color", req.body.color)
       .input("modified_by", -1)
       .execute("spr_pp_updateattentionstatus");
