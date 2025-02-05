@@ -52,7 +52,7 @@
               <mat-slide-toggle
                 [checked]="user.status_id == 1 ? true : false"
                 (change)="changeUserStatus(user, $event)"
-                [disabled]="user.status_id == 2"
+                [disabled]="user.status_id == 0"
               >
                 {{ user.status_id == 1 ? "Enabled" : "disabled" }}</mat-slide-toggle
               >
