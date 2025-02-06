@@ -521,7 +521,6 @@ const updateRole = async (req, res) => {
       .input("role_name", req.body.role_name)
       .input("description", req.body.description)
       .input("modified_by", -1)
-      .input("status_id", req.body.status_id)
       .execute("spr_pp_updaterole");
     return ApiResponse(result, res);
   } catch (e) {
