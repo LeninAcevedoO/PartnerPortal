@@ -28,10 +28,10 @@ const login = async (req, res) => {
       .execute("spr_pp_getlogininformation");
     console.log(result.recordset);
     const invalid = res
-      .status(401)
-      .json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
+    .status(401)
+    .json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
     if (result.recordset.length <= 0) return invalid;
-    if (result.recordset[0].password_hash != clientC.password) {
+    else if (result.recordset[0].password_hash != clientC.password) {
       let info = await pool
         .request()
         .input("email", clientC.email)

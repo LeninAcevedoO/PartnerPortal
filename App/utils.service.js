@@ -4,7 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 
 
 function generateToken() {
-  return btoa(uuidv4());;
+  return btoa(uuidv4());
 }
 
 function encryptAES(plainText) {

@@ -56,10 +56,14 @@ export class UsersListComponent {
   };
 
   openAddEditUser(data?: any) {
+    const newData = {
+      ...data,
+      type: data ? 'edit' : 'new'
+    }
     this.dialog
       .open(NewUserComponent, {
         panelClass: "post-dialog-container",
-        data: data,
+        data: newData,
       })
       .afterClosed()
       .subscribe((x: boolean) => {

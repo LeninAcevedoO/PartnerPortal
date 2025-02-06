@@ -5,6 +5,7 @@ import { ToastrService } from "ngx-toastr";
 import { MainService } from "src/app/services/services/main.service";
 import { Resultado } from "src/app/shared/models/general.model";
 import { validarNumeros } from "src/app/shared/utils/utils.functions";
+import { UtilsService } from "src/app/shared/utils/utils.service";
 
 @Component({
   selector: "app-new-user",
@@ -22,7 +23,7 @@ export class NewUserComponent {
     password_hash: new FormControl<string>("", Validators.required),
     phone_number: new FormControl<string>("", Validators.required),
     company_id: new FormControl<string>("", Validators.required),
-    role_id: new FormControl<string>("", Validators.required),
+    role_id: new FormControl<number>(1, Validators.required),
     status_id: new FormControl<number>(2),
   });
   cats: any = {
@@ -35,11 +36,12 @@ export class NewUserComponent {
     private toastr: ToastrService,
     private dialogRef: MatDialogRef<NewUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private _utilsSvc: UtilsService
   ) {}
 
   ngOnInit() {
-    if (this.data?.user_id) {
+    if (this.data?.user_id ) {
       this.getUser();
       this.titulo = "Edit user";
     }
@@ -85,7 +87,7 @@ export class NewUserComponent {
   }
 
   EditUser = async () => {
-    let user = { ...this.formuser.value };
+    let user = { ...this.formuser.value, password_hash: this._utilsSvc.encryptAES(String(this.formuser.value.password_hash)) };
     (await this._service.updateUser(user)).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
         this.toastr.success("The user was updated successfully", "Success");
@@ -97,10 +99,10 @@ export class NewUserComponent {
   };
 
   AddUser = async () => {
-    let link = { ...this.formuser.value };
-    (await this._service.setLink(link)).subscribe((resp: Resultado) => {
+    let user = { ...this.formuser.value, password_hash: this._utilsSvc.encryptAES(String(this.formuser.value.password_hash)) };
+    (await this._service.setUser(user)).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
-        this.toastr.success("The link was updated successfully", "Success");
+        this.toastr.success("The user was updated successfully", "Success");
         this.onNoClick(true);
       } else {
         this.toastr.error(resp.message, "Error");
