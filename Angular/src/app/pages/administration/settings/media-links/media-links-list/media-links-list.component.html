@@ -47,11 +47,11 @@
               <td>{{ link.expiration_date | date: 'yyyy-MM-dd'}}</td>
               <td>
                 <mat-slide-toggle
-                  [checked]="link.status_id ? true : false"
-                  (change)="changeLinkStatus(link, $event)"
-                >
-                  {{ link.status_id ? "enabled" : "disabled" }}</mat-slide-toggle
-                >
+                [checked]="link.status_id == 1"
+                (change)="changeLinkStatus(link, $event)"
+              >
+                {{ link.status_id == 1 ? "enabled" : "disabled" }}
+              </mat-slide-toggle>
               </td>
               <td>
                 <button

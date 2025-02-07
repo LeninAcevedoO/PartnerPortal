@@ -55,7 +55,7 @@
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
           
-          <mat-form-field appearance="outline" class="w-49">
+          <!-- <mat-form-field appearance="outline" class="w-49">
             <mat-label>Multimedia Type</mat-label>
             <mat-select formControlName="multimedia_id">
               <mat-option
@@ -65,7 +65,7 @@
                 {{ multimedia.type_name }}
               </mat-option>
             </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
 
           <div class="w-49 flex-center">
             <div *ngIf="filePreview" id="previewContainer" class="file-preview flex-center">
@@ -78,7 +78,11 @@
             </div>
             
             <div class="file-container">
-              <label for="fileInput" class="btn flex-center">Choose file</label>
+              <label for="fileInput" class="btn flex-center">
+                <mat-icon>
+                  cloud_upload
+                </mat-icon> &nbsp; Upload multimedia
+              </label>
               <input type="file" id="fileInput" (change)="onFileSelected($event)" style="display: none;">
             </div>
           </div>

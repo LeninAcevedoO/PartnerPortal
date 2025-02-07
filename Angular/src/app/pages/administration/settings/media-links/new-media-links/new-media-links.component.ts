@@ -58,7 +58,7 @@ export class NewMediaLinksComponent {
 
   getCats = async () => {
     await this.getCatEnterprices();
-    await this.getCatMediaType();
+    // await this.getCatMediaType();
     this.cdRef.detectChanges();
   };
 
@@ -69,18 +69,18 @@ export class NewMediaLinksComponent {
     });
   };
 
-  getCatMediaType = async () => {
-    (await this._service.getCatMediaType()).subscribe((resp: Resultado) => {
-      if (resp.success == "true") {
-        this.cats.multimedia_types = resp.data;
-        console.log('Multimedia Types:', this.cats.multimedia_types);
-      } else {
-        this.toastr.error(resp.message, "Error");
-      }
-    });
-  };
+  // getCatMediaType = async () => {
+  //   (await this._service.getCatMediaType()).subscribe((resp: Resultado) => {
+  //     if (resp.success == "true") {
+  //       this.cats.multimedia_types = resp.data;
+  //       console.log('Multimedia Types:', this.cats.multimedia_types);
+  //     } else {
+  //       this.toastr.error(resp.message, "Error");
+  //     }
+  //   });
+  // };
   
-
+  //Only accept these files
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {

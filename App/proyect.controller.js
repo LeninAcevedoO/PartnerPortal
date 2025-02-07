@@ -624,7 +624,6 @@ const updateLinkStatus = async (req, res) => {
       .input("link_id", req.body.link_id)
       .input("status_id", req.body.status_id)
       .input("modified_by", 0)
-      .input("modified_at", req.body.modified_at)
       .execute("spr_pp_updatelinkstatus");
 
     return ApiResponse(result, res);
