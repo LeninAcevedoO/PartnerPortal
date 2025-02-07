@@ -31,7 +31,7 @@
           <thead style="border-bottom: 1px solid black">
             <th>Link url</th>
             <th>Description</th>
-            <th>Media Type</th>
+            <!-- <th>Media Type</th> -->
             <th>Expiration date</th>
             <th>Status</th>
             <th>Actions</th>
@@ -43,7 +43,7 @@
             >
               <td>{{ link.link_url }}</td>
               <td>{{ link.description }}</td>
-              <!-- <td>{{ link.multimedia_id}}</td> -->
+              <!-- <td>{{ link.media_type_id }}</td> -->
               <td>{{ link.expiration_date | date: 'yyyy-MM-dd'}}</td>
               <td>
                 <mat-slide-toggle

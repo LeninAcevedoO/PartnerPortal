@@ -25,8 +25,7 @@ export class NewMediaLinksComponent {
     company_id: new FormControl<number | null>(null, Validators.required),
     multimedia_id: new FormControl<number | null>(null, Validators.required),
     expiration_date: new FormControl<Date | null>(null, [
-      Validators.required,
-    ]),
+      Validators.required,]),
   });
 
   cats: any = {
