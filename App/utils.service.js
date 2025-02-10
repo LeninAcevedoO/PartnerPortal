@@ -27,4 +27,11 @@ function decryptAES(cipherText) {
   return decrypted;
 }
 
-module.exports = { encryptAES, decryptAES, generateToken };
+function extractValidString(input) {
+  const match = input.match(/==\x00/);
+  if (match)
+      return input.substring(0, match.index + 2);
+  return input; 
+}
+
+module.exports = { encryptAES, decryptAES, generateToken, extractValidString };
