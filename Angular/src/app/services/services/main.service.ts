@@ -17,6 +17,10 @@ export class MainService {
     return this.http.post<Resultado>(this.UrlBase + "/api/pp/v1/login", cc);
   }
 
+  logout(): Observable<Resultado> {
+    return this.http.post<Resultado>(this.UrlBase + "/api/pp/v1/logout", {});
+  }
+
   logRouteVisit(data: any) {
     return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/activity`, data);
     // .subscribe({
