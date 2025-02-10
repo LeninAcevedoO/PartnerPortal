@@ -16,53 +16,76 @@ const ConnectionTest = (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const clientC = {
-      ...JSON.parse(utils.decryptAES(req.body.data)),
-      token: utils.generateToken(),
-    };
-    console.log(clientC);
+    req.body = JSON.parse(utils.decryptAES(req.body.data));
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("email", clientC.email)
-      .execute("spr_pp_getlogininformation");
-    console.log(result.recordset);
-    const invalid = res
-    .status(401)
-    .json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
-    if (result.recordset.length <= 0) return invalid;
-    else if (result.recordset[0].password_hash != clientC.password) {
-      let info = await pool
+      .input("email", req.body.email)
+      .execute("spr_pp_getpasswordbyemail");
+    result.recordset[0].password_hash = utils.extractValidString(result.recordset[0].password_hash);
+    const token = utils.generateToken();
+    await pool
+      .request()
+      .input("user_id", result.recordset[0].user_id)
+      .input("token", token)
+      .input("ip_address", req.headers['x-client-ip'])
+      .input("device_info", req.headers['x-device-info'])
+      .input("status_id", utils.decryptAES(result.recordset[0].password_hash) === req.body.password ? 1 : 0)
+      .execute("spr_pp_insertlogintry");
+    if (result.recordset.length <= 0)
+      return res
+        .status(401)
+        .json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
+    else if (utils.decryptAES(result.recordset[0].password_hash) === req.body.password) {
+      let R_info = await pool
         .request()
-        .input("email", clientC.email)
-        .input("token", clientC.token)
+        .input("email", req.body.email)
         .execute("spr_pp_getlogininformation");
-        info = utils.encryptAES(JSON.stringify(info.recordset[0]));
-      return ApiResponse(info, res, '', info);
-    } else return invalid;
+      R_info.recordset[0] = [
+        { ...R_info.recordset[0], token: token },
+      ];
+      return ApiResponse(R_info, res);
+    } else
+      return res.status(401).json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
   } catch (e) {
     console.log(e);
-    return ApiResponse(null, res, "Error al obtener el dashboard");
+    return ApiResponse(null, res, "Error al logearte");
+  }
+};
+
+const logout = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+    .request()
+    .input('token', req.headers['authorization'].replace('Bearer ', ''))
+    .execute("spr_pp_updatelogout")
+
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting enterprices");
   }
 };
 
 const authValidator = async (req, res, next) => {
   try {
-    const usuario = req.headers["usuario"];
     const token = req.headers["authorization"]?.replace("Bearer ", "");
-    const idEmpresa = req.headers["idempresa"];
+    const currentRoute = req.headers["x-current-route"];
+    const user_id = utils.decryptAES(req.headers["x-user"]);
+    const company_id = utils.decryptAES(req.headers["x-company"]);
+    console.log(user_id)
+    console.log(token)
+    console.log(company_id)
 
-    // if (!usuario || !token || !idEmpresa) {
-    //   return res.status(400).json({ mensaje: "Faltan datos de autenticación" });
-    // } else {
-    //   console.log(usuario, token, idEmpresa);
-    // }
+    if (!user_id || !token || !company_id)
+      return res.status(400).json({ mensaje: "Your auth data isn't available" });
 
     if (req.body.data) {
       try {
         const decryptedData = utils.decryptAES(req.body.data);
         req.body = JSON.parse(decryptedData);
-        console.log(req.body)
+        console.log(req.body);
       } catch (error) {
         console.error("Error al desencriptar el body:", error);
         return res
@@ -71,23 +94,27 @@ const authValidator = async (req, res, next) => {
       }
     }
 
-    next();
-    return;
-    
+    // next();
+    // return;
+
     const pool = await sql.connect(dbConfig);
-
-    const result = await pool
-      .request()
-      .input("Usuario", sql.VarChar, usuario)
-      .input("Token", sql.VarChar, token)
-      .input("IdEmpresa", sql.Int, idEmpresa)
-      .execute("sp_ValidarSesion");
-
-    if (result.returnValue !== 0) {
-      return res.status(401).json({ mensaje: "User or token are not valid" });
-    }
-
-    //   req.usuario = result.recordset[0];
+    // const tokenVal = await pool
+    //   .request()
+    //   .input("Usuario", sql.VarChar, user_id)
+    //   .input("Token", sql.VarChar, token)
+    //   .input("IdEmpresa", sql.Int, company_id)
+    //   .execute("sp_ValidarSesion");
+      
+    // if (tokenVal.recordset[0]?.estatus_id == 0 || tokenVal.recordset[0]?.token !== token) {
+    //   return res.status(401).json({ mensaje: "User or token are not valid" });
+    // }
+    
+    await pool.request()
+      .input("user_id", user_id)
+      .input("activity_type", 'request')
+      .input("trail", currentRoute)
+      .input("token", token)
+      .execute("spr_pp_insertactivity");
 
     next();
   } catch (err) {
@@ -746,4 +773,5 @@ module.exports = {
   setAttentionStatus,
   updateAttentionStatus,
   updateAttentionStatusStatus,
+  logout
 };

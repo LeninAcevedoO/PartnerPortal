@@ -1,8 +1,7 @@
-const { Router } = require("express");
-const { encryptAES, decryptAES } = require('./utils.service');  
+const { Router } = require("express"); 
 
 const {
-     ConnectionTest, login, authValidator, getEnterprices,  getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus, getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, getComments, getComment, setComment, updateComment, getRoles,getRole,setRole,updateRole,updateRoleStatus, getRequests, getRequest, setRequest, updateRequest, getLinks, getLink, setLink, updateLink, updateLinkStatus, getCatMediaType, getAllAttentionStatus, setAttentionStatus, updateAttentionStatus, updateAttentionStatusStatus,
+     ConnectionTest, login, authValidator, getEnterprices,  getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus, getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, getComments, getComment, setComment, updateComment, getRoles,getRole,setRole,updateRole,updateRoleStatus, getRequests, getRequest, setRequest, updateRequest, getLinks, getLink, setLink, updateLink, updateLinkStatus, getCatMediaType, getAllAttentionStatus, setAttentionStatus, updateAttentionStatus, updateAttentionStatusStatus, logout
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -13,6 +12,7 @@ const urlBase = '/api/pp/v1';
 router.get(`${urlBase}/ConnectionTest`, ConnectionTest);
 
 router.post(`${urlBase}/login`, login);
+router.post(`${urlBase}/logout`, logout);
 router.post(`${urlBase}/activity`, authValidator, login);
 
 //#endregion
@@ -96,26 +96,6 @@ router.get(`${urlBase}/comments`, authValidator, getComments);
 router.get(`${urlBase}/comments/:comment_id`, authValidator, getComment);
 router.post(`${urlBase}/comments`, authValidator, setComment);
 router.put(`${urlBase}/comments`, authValidator, updateComment);
-
-//#endregion
-
-//#region Cypher
-
-    router.post('/api/encrypt-decrypt', (req, res) => {
-    const encryptedComment = req.body.encryptedComment;
-  
-    console.log('Encrypted Comment received from Angular:', encryptedComment); 
-  
- 
-    const decryptedComment = decryptAES(encryptedComment);
-    console.log('Decrypted Comment:', decryptedComment); 
-  
-    
-    const reEncryptedComment = encryptAES(decryptedComment);
-  
-   
-    res.json({ decryptedComment: reEncryptedComment });
-  });
 
 //#endregion
 
