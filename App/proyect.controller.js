@@ -704,6 +704,19 @@ const updateComment = async (req, res) => {
 
 //#endregion
 
+//#region Favorites
+  const getFavorites = async (req, res) =>{
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request().execute("spr_pp_getfavorites");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error getting favorites");
+    }
+  }
+//#endregion
+
 module.exports = {
   ConnectionTest,
   login,
@@ -745,4 +758,5 @@ module.exports = {
   setAttentionStatus,
   updateAttentionStatus,
   updateAttentionStatusStatus,
+  getFavorites
 };

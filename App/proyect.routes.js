@@ -2,7 +2,17 @@ const { Router } = require("express");
 const { encryptAES, decryptAES } = require('./utils.service');  
 
 const {
-     ConnectionTest, login, authValidator, getEnterprices,  getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus, getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, getComments, getComment, setComment, updateComment, getRoles,getRole,setRole,updateRole,updateRoleStatus, getRequests, getRequest, setRequest, updateRequest, getLinks, getLink, setLink, updateLink, updateLinkStatus, getCatMediaType, getAllAttentionStatus, setAttentionStatus, updateAttentionStatus, updateAttentionStatusStatus,
+     ConnectionTest, login, authValidator, 
+     getEnterprices,  getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, 
+     getUsers, getUser, setUser, updateUser, updateUserStatus, 
+     getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, 
+     getComments, getComment, setComment, updateComment, 
+     getRoles,getRole,setRole,updateRole,updateRoleStatus, 
+     getRequests, getRequest, setRequest, updateRequest, 
+     getLinks, getLink, setLink, updateLink, updateLinkStatus, 
+     getCatMediaType, getAllAttentionStatus, setAttentionStatus, 
+     updateAttentionStatus, updateAttentionStatusStatus,
+     getFavorites, 
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -97,6 +107,10 @@ router.get(`${urlBase}/comments/:comment_id`, authValidator, getComment);
 router.post(`${urlBase}/comments`, authValidator, setComment);
 router.put(`${urlBase}/comments`, authValidator, updateComment);
 
+//#endregion
+
+//#region Favorites
+router.get(`${urlBase}/favorites`, authValidator, getFavorites);
 //#endregion
 
 //#region Cypher
