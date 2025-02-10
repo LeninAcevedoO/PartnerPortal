@@ -785,6 +785,6 @@ module.exports = {
   setAttentionStatus,
   updateAttentionStatus,
   updateAttentionStatusStatus,
-  logout
-  getFavorites
+  logout,
+  getFavorites,
 };

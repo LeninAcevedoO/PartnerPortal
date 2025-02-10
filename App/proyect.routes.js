@@ -10,7 +10,7 @@ const {
      getRequests, getRequest, setRequest, updateRequest, 
      getLinks, getLink, setLink, updateLink, updateLinkStatus, 
      getCatMediaType, getAllAttentionStatus, setAttentionStatus, 
-     updateAttentionStatus, updateAttentionStatusStatus, logout
+     updateAttentionStatus, updateAttentionStatusStatus, logout,
      getFavorites, 
 } = require("./proyect.controller.js");
 
