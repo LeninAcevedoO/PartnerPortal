@@ -1,3 +1,67 @@
-<div class="w-full">
-    <h1>favorites works!</h1>
-</div>
+<div class="w-full flex-center min-h-full">
+    <mat-card class="MainCard">
+      <mat-card-title>
+        <div class="w-full flex-center title-container">
+          <h1 class="MainTitle">Favorites</h1>
+          <mat-form-field appearance="outline" class="finder" *ngIf="favorites.length > 0">
+            <mat-label>Finder</mat-label>
+            <input
+              type="text"
+              matInput
+              placeholder="Let's find something"
+              [(ngModel)]="buscador"
+            />
+            <button mat-icon-button matPrefix>
+              <mat-icon>search</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matSuffix
+              color="warn"
+              *ngIf="buscador"
+              (click)="buscador = ''"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+      </mat-card-title>
+      <mat-card-content>
+        <table class="MainTable" *ngIf="favorites">
+          <thead style="border-bottom: 1px solid black">
+            <th>Favorites</th>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let favorite of favorites | buscadorGenerico : buscador"
+              class="hvrPush"
+            >
+              <td>{{ favorite.favorites }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="!favorites" class="w-full flex-center">
+          <h1 class="noDataText">There's no information</h1>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button
+          mat-icon-button
+          matTooltip="Refresh information"
+          (click)="getFavorites()"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <button
+    mat-fab
+    color="warn"
+    class="downLButton"
+    routerLink="/settings"
+    matTooltip="Back to settings"
+  >
+    <mat-icon>arrow_back</mat-icon>
+  </button>
