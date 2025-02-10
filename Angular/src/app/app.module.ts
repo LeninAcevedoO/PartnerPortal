@@ -31,6 +31,7 @@ import { NewManagementCommentComponent } from './pages/new-management-comment/ne
 import { NewUserComponent } from './pages/administration/settings/users/new-user/new-user.component';
 import { CarrouselComponent } from './pages/home/carrousel/carrousel.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 
 
@@ -52,6 +53,7 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
     NewManagementCommentComponent,
     CarrouselComponent,
     AboutUsComponent,
+    FavoritesComponent,
   ],
   imports: [
     BrowserModule,

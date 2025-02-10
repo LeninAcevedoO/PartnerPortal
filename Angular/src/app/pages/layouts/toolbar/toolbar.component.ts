@@ -105,7 +105,7 @@ export class ToolbarComponent {
       Settings: '/settings',
       'About us': '/about-us',
       Advertisements: '/home',
-      Favorites: '/home',
+      Favorites: '/favorites',
       Services: '/home',
       Verticals: '/home',
       

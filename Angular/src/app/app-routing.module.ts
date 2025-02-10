@@ -12,6 +12,7 @@ import { adminGuard } from './shared/guards/admin.guard';
 import { authGuard } from './shared/guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 const routes: Routes = [
   
@@ -31,10 +32,13 @@ const routes: Routes = [
       {
         path: 'about-us', component: AboutUsComponent
       },
+      {
+        path: 'favorites', component: FavoritesComponent
+      },
     ],
     // canActivateChild: [authGuard]
   },
-  {path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent},
   { path: 'login', component: LoginComponent },
   { path: 'page404', component: Page404Component },
   { path: '**', redirectTo: 'page404', pathMatch: 'full' },
