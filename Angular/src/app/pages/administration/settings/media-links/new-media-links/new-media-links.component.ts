@@ -23,14 +23,14 @@ export class NewMediaLinksComponent {
     link_url: new FormControl<string>("", Validators.required),
     description: new FormControl<string>("", Validators.required),
     company_id: new FormControl<number | null>(null, Validators.required),
-    multimedia_id: new FormControl<number | null>(null, Validators.required),
+    // multimedia_id: new FormControl<number | null>(null, Validators.required),
     expiration_date: new FormControl<Date | null>(null, [
       Validators.required,]),
   });
 
   cats: any = {
     companies: [],
-    multimedia_types: [],
+    // multimedia_types: [],
   };
 
   filePreview: string | ArrayBuffer | null = null;

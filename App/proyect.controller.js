@@ -602,7 +602,7 @@ const updateLink = async (req, res) => {
     const result = await pool
       .request()
       .input("link_id", req.body.link_id)
-      .input("status_assign_id", req.body.status_assign_id)
+      .input("attention_status_id", req.body.attention_status_id)
       .input("link_url", req.body.link_url)
       .input("description", req.body.description)
       .input("status_id", req.body.status_id)
