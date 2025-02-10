@@ -1,5 +1,5 @@
 {
-  "name": "wre-poc-api",
+  "name": "partner-portal-api",
   "version": "1.0.0",
   "description": "",
   "type": "commonjs",
@@ -25,6 +25,6 @@
     "wre-poc-api": "file:"
   },
   "engines": {
-    "node": "16"
+    "node": "22"
   }
 }
