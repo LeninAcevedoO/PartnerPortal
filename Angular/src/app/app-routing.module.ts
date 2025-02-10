@@ -13,6 +13,7 @@ import { authGuard } from './shared/guards/auth.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { PServiceComponent } from './pages/p-service/p-service.component';
 
 const routes: Routes = [
   
@@ -34,6 +35,9 @@ const routes: Routes = [
       },
       {
         path: 'favorites', component: FavoritesComponent
+      },
+      {
+        path: 'services', component: PServiceComponent
       },
     ],
     // canActivateChild: [authGuard]
