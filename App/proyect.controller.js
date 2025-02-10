@@ -22,31 +22,36 @@ const login = async (req, res) => {
       .request()
       .input("email", req.body.email)
       .execute("spr_pp_getpasswordbyemail");
-    result.recordset[0].password_hash = utils.extractValidString(result.recordset[0].password_hash);
+    let isAble = true;
+    if (result.recordset.length > 0)
+      result.recordset[0].password_hash = utils.extractValidString(result.recordset[0].password_hash);
+    else isAble = false;
     const token = utils.generateToken();
     await pool
       .request()
-      .input("user_id", result.recordset[0].user_id)
+      .input("user_id", req.body.email)
       .input("token", token)
-      .input("ip_address", req.headers['x-client-ip'])
-      .input("device_info", req.headers['x-device-info'])
-      .input("status_id", utils.decryptAES(result.recordset[0].password_hash) === req.body.password ? 1 : 0)
+      .input("ip_address", req.headers["x-client-ip"])
+      .input("device_info", req.headers["x-device-info"])
+      .input("status_id", isAble ? utils.decryptAES(result.recordset[0].password_hash) === req.body.password ? 1: 0 : 0)
       .execute("spr_pp_insertlogintry");
     if (result.recordset.length <= 0)
       return res
         .status(401)
         .json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
-    else if (utils.decryptAES(result.recordset[0].password_hash) === req.body.password) {
+    else if (
+      utils.decryptAES(result.recordset[0].password_hash) === req.body.password
+    ) {
       let R_info = await pool
         .request()
         .input("email", req.body.email)
         .execute("spr_pp_getlogininformation");
-      R_info.recordset[0] = [
-        { ...R_info.recordset[0], token: token },
-      ];
+      R_info.recordset[0] = [{ ...R_info.recordset[0], token: token }];
       return ApiResponse(R_info, res);
     } else
-      return res.status(401).json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
+      return res
+        .status(401)
+        .json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
   } catch (e) {
     console.log(e);
     return ApiResponse(null, res, "Error al logearte");
@@ -57,9 +62,9 @@ const logout = async (req, res) => {
   try {
     const pool = await sql.connect(dbConfig);
     const result = await pool
-    .request()
-    .input('token', req.headers['authorization'].replace('Bearer ', ''))
-    .execute("spr_pp_updatelogout")
+      .request()
+      .input("token", req.headers["authorization"].replace("Bearer ", ""))
+      .execute("spr_pp_updatelogout");
 
     return ApiResponse(result, res);
   } catch (e) {
@@ -70,17 +75,19 @@ const logout = async (req, res) => {
 
 const authValidator = async (req, res, next) => {
   try {
-    const token = req.headers["authorization"]?.replace("Bearer ", "");
+    let user_id = -1;
+    let token = 'annonymous';
     const currentRoute = req.headers["x-current-route"];
-    const user_id = utils.decryptAES(req.headers["x-user"]);
-    const company_id = utils.decryptAES(req.headers["x-company"]);
-    console.log(user_id)
-    console.log(token)
-    console.log(company_id)
 
-    if (!user_id || !token || !company_id)
-      return res.status(400).json({ mensaje: "Your auth data isn't available" });
-
+    const pool = await sql.connect(dbConfig);
+    await pool
+    .request()
+    .input("user_id", user_id )
+    .input("activity_type", "request")
+    .input("trail", currentRoute)
+    .input("token", token)
+    .execute("spr_pp_insertactivity");
+    
     if (req.body.data) {
       try {
         const decryptedData = utils.decryptAES(req.body.data);
@@ -94,27 +101,34 @@ const authValidator = async (req, res, next) => {
       }
     }
 
+    console.log(req.body)
+    if (!req.body.isAnonnymous) {
+      next();
+      return;
+    }
+    
+    token = req.headers["authorization"]?.replace("Bearer ", "");
+    user_id = utils.decryptAES(req.headers["x-user"]);
+    const company_id = utils.decryptAES(req.headers["x-company"]);
+    
+    if (!user_id || !token || !company_id)
+      return res
+        .status(400)
+        .json({ mensaje: "Your auth data isn't available" });
+
     // next();
     // return;
 
-    const pool = await sql.connect(dbConfig);
     // const tokenVal = await pool
     //   .request()
     //   .input("Usuario", sql.VarChar, user_id)
     //   .input("Token", sql.VarChar, token)
     //   .input("IdEmpresa", sql.Int, company_id)
     //   .execute("sp_ValidarSesion");
-      
+
     // if (tokenVal.recordset[0]?.estatus_id == 0 || tokenVal.recordset[0]?.token !== token) {
     //   return res.status(401).json({ mensaje: "User or token are not valid" });
     // }
-    
-    await pool.request()
-      .input("user_id", user_id)
-      .input("activity_type", 'request')
-      .input("trail", currentRoute)
-      .input("token", token)
-      .execute("spr_pp_insertactivity");
 
     next();
   } catch (err) {
@@ -303,6 +317,7 @@ const setUser = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
+      .input("username", utils.generateToken())
       .input("password_hash", req.body.password_hash)
       .input("email", req.body.email)
       .input("first_name", req.body.first_name)
@@ -732,16 +747,16 @@ const updateComment = async (req, res) => {
 //#endregion
 
 //#region Favorites
-  const getFavorites = async (req, res) =>{
-    try {
-      const pool = await sql.connect(dbConfig);
-      const result = await pool.request().execute("spr_pp_getfavorites");
-      return ApiResponse(result, res);
-    } catch (e) {
-      console.log(e);
-      return ApiResponse(null, res, "Error getting favorites");
-    }
+const getFavorites = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request().execute("spr_pp_getfavorites");
+    return ApiResponse(result, res);
+  } catch (e) {
+    console.log(e);
+    return ApiResponse(null, res, "Error getting favorites");
   }
+};
 //#endregion
 
 module.exports = {

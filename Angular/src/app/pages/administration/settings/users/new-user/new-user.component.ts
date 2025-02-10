@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { ToastrService } from "ngx-toastr";
+import { ContextService } from "src/app/services/services/context.service";
 import { MainService } from "src/app/services/services/main.service";
 import { Resultado } from "src/app/shared/models/general.model";
 import { validarNumeros } from "src/app/shared/utils/utils.functions";
@@ -37,11 +38,12 @@ export class NewUserComponent {
     private dialogRef: MatDialogRef<NewUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private cdRef: ChangeDetectorRef,
-    private _utilsSvc: UtilsService
+    private _utilsSvc: UtilsService,
+    private _context: ContextService
   ) {}
 
   ngOnInit() {
-    if (this.data?.user_id ) {
+    if (this.data?.user_id) {
       this.getUser();
       this.titulo = "Edit user";
     }
@@ -72,8 +74,10 @@ export class NewUserComponent {
 
   getCatRoles = async () => {
     (await this._service.getCatRoles()).subscribe((resp: Resultado) => {
-      if (resp.success == "true") this.cats.roles = resp.data;
-      else this.toastr.error(resp.message, "Error");
+      if (resp.success == "true") {
+        this.cats.roles = resp.data;
+        this.formuser.patchValue({ role_id: this.cats.roles[0].role_id });
+      } else this.toastr.error(resp.message, "Error");
     });
   };
 
@@ -87,7 +91,12 @@ export class NewUserComponent {
   }
 
   EditUser = async () => {
-    let user = { ...this.formuser.value, password_hash: this._utilsSvc.encryptAES(String(this.formuser.value.password_hash)) };
+    let user = {
+      ...this.formuser.value,
+      password_hash: this._utilsSvc.encryptAES(
+        String(this.formuser.value.password_hash)
+      ),
+    };
     (await this._service.updateUser(user)).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
         this.toastr.success("The user was updated successfully", "Success");
@@ -99,7 +108,13 @@ export class NewUserComponent {
   };
 
   AddUser = async () => {
-    let user = { ...this.formuser.value, password_hash: this._utilsSvc.encryptAES(String(this.formuser.value.password_hash)) };
+    let user = {
+      ...this.formuser.value,
+      password_hash: this._utilsSvc.encryptAES(
+        String(this.formuser.value.password_hash)
+      ),
+      isAnonnymous: this._context.isAuth(),
+    };
     (await this._service.setUser(user)).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
         this.toastr.success("The user was updated successfully", "Success");

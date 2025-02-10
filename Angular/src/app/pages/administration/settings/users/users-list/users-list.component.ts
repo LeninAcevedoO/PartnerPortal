@@ -37,9 +37,7 @@ export class UsersListComponent {
   changeUserStatus = async (user: any, toStatus: any) => {
     let userStatus = {
       user_id: user.user_id,
-      status_id: [0, 2].includes(toStatus)
-        ? toStatus
-        : Number(toStatus.checked),
+      status_id: toStatus.checked ? Number(toStatus.checked) : Number(toStatus),
     };
 
     (await this._service.updateUserStatus(userStatus)).subscribe(
