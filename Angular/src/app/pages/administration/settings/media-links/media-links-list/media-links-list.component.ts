@@ -35,26 +35,22 @@ buscador = "";
     });
   };
 
-  changeLinkStatus = async (link: any, toStatus: any) => {
-    let linkStatus = {
-      link_id: link.link_id, 
-      status_id: toStatus.checked ? 1 : 0, 
+  changeLinkStatus = async (link: any, event: any) => {
+    const updatedStatus = event.checked ? 1 : 0;
+  
+    const linkStatus = {
+      link_id: link.link_id,
+      status_id: updatedStatus,
     };
   
-
-    (await this._service.updateLinkStatus(linkStatus)).subscribe(
-      (resp: Resultado) => {
-        if (resp.success == "true") {
-          this.getLinks(); 
-          this.toastr.success(
-            "The link status was changed successfully",
-            "Success"
-          );
-        } else {
-          this.toastr.error(resp.message, "Error");
-        }
+    (await this._service.updateLinkStatus(linkStatus)).subscribe((resp: Resultado) => {
+      if (resp.success === "true") {
+        link.status_id = updatedStatus; 
+        this.toastr.success("The link status was changed successfully", "Success");
+      } else {
+        this.toastr.error(resp.message, "Error");
       }
-    );
+    });
   };
   
 

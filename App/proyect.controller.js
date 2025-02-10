@@ -548,7 +548,6 @@ const updateRole = async (req, res) => {
       .input("role_name", req.body.role_name)
       .input("description", req.body.description)
       .input("modified_by", -1)
-      .input("status_id", req.body.status_id)
       .execute("spr_pp_updaterole");
     return ApiResponse(result, res);
   } catch (e) {
@@ -607,12 +606,14 @@ const setLink = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("status_assign_id", req.body.status_assign_id)
+      .input("attention_status_id", req.body.status_assign_id)
       .input("link_url", req.body.link_url)
       .input("description", req.body.description)
       .input("status_id", req.body.status_id)
       .input("company_id", req.body.company_id)
       .input("expiration_date", req.body.expiration_date)
+      .input("multimedia_id", req.body.multimedia_id)
+      .input("modified_by", req.body.modified_by)
       .execute("spr_pp_insertlink");
     return ApiResponse(result, res);
   } catch (e) {
@@ -628,14 +629,13 @@ const updateLink = async (req, res) => {
     const result = await pool
       .request()
       .input("link_id", req.body.link_id)
-      .input("status_assign_id", req.body.status_assign_id)
-      .input("status_id", req.body.status_id)
+      .input("attention_status_id", req.body.attention_status_id)
       .input("link_url", req.body.link_url)
       .input("description", req.body.description)
+      .input("status_id", req.body.status_id)
       .input("company_id", req.body.company_id)
       .input("expiration_date", req.body.expiration_date)
-      .input("modified_by", 0)
-      .input("modified_at", req.body.modified_at)
+      .input("modified_by", -1)
       .execute("spr_pp_updatelink");
     return ApiResponse(result, res);
   } catch (e) {
@@ -652,7 +652,6 @@ const updateLinkStatus = async (req, res) => {
       .input("link_id", req.body.link_id)
       .input("status_id", req.body.status_id)
       .input("modified_by", 0)
-      .input("modified_at", req.body.modified_at)
       .execute("spr_pp_updatelinkstatus");
 
     return ApiResponse(result, res);
@@ -732,6 +731,19 @@ const updateComment = async (req, res) => {
 
 //#endregion
 
+//#region Favorites
+  const getFavorites = async (req, res) =>{
+    try {
+      const pool = await sql.connect(dbConfig);
+      const result = await pool.request().execute("spr_pp_getfavorites");
+      return ApiResponse(result, res);
+    } catch (e) {
+      console.log(e);
+      return ApiResponse(null, res, "Error getting favorites");
+    }
+  }
+//#endregion
+
 module.exports = {
   ConnectionTest,
   login,
@@ -774,4 +786,5 @@ module.exports = {
   updateAttentionStatus,
   updateAttentionStatusStatus,
   logout
+  getFavorites
 };

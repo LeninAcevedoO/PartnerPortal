@@ -108,8 +108,8 @@ export class ToolbarComponent {
       Settings: '/settings',
       'About us': '/about-us',
       Advertisements: '/home',
-      Favorites: '/home',
-      Services: '/home',
+      Favorites: '/favorites',
+      Services: '/services',
       Verticals: '/home'
     };
 

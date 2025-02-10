@@ -223,6 +223,11 @@ export class MainService {
     }
     
     //#endregion
-
+    getFavorites = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/favorites`);
+    }
+    //#region Favorites
+    
+    //#endregion
   //#endregion
 }
