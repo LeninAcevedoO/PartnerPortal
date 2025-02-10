@@ -1,8 +1,9 @@
-const ApiResponse = (poolResult, res, mensaje, data200) => {
+const utils = require("./utils.service.js");
+
+const ApiResponse = (poolResult, res, mensaje) => {
     try {
-        if (data200)
-            return res.status(200).json(jsonResult(true, null, data200))
-        else if (poolResult)
+        // console.log(poolResult)
+        if (poolResult.recordset)
             return res.status(200).json(jsonResult(true, null, poolResult.recordset))
         else if (poolResult.rowsAffected[0] > 0)
             return res.status(201).json(jsonResult(true, null, {}))
@@ -18,8 +19,10 @@ const ApiResponse = (poolResult, res, mensaje, data200) => {
 }
 
 const jsonResult = (exito, mensaje, data) => {
+    // console.log(data)
+    // console.log({ success: "true", message: "Operation successful", data: data ? utils.encryptAES(JSON.stringify(data)) : null })
     if (exito === true)
-        return { success: "true", message: "Operation successful", data: data ? data : null }
+        return { success: "true", message: "Operation successful", data: data ? utils.encryptAES(JSON.stringify(data)) : null }
     else {
         if (mensaje !== null)
             return { success: "false", message: mensaje, data: data }
