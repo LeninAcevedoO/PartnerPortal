@@ -8,6 +8,7 @@ import { ContextService } from 'src/app/services/services/context.service';
 import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';  
 import { MatDialog } from '@angular/material/dialog'; 
 import { NewManagementCommentComponent } from '../../new-management-comment/new-management-comment.component';
+import { MainService } from 'src/app/services/services/main.service';
 
 const TREE_DATA: any[] = [
   {
@@ -24,6 +25,7 @@ const TREE_DATA: any[] = [
   { name: 'Favorites' },
   { name: 'Manager Comments' },
   { name: 'Settings'},
+  { name: 'Logout'},
   
 ];
 
@@ -64,7 +66,8 @@ export class ToolbarComponent {
     private toastr: ToastrService,
     private router: Router,
     private _context: ContextService,
-    private dialog: MatDialog 
+    private dialog: MatDialog,
+    private _service: MainService
   ) {
     this.dataSource.data = TREE_DATA;
   }
@@ -107,15 +110,18 @@ export class ToolbarComponent {
       Advertisements: '/home',
       Favorites: '/home',
       Services: '/home',
-      Verticals: '/home',
-      
+      Verticals: '/home'
     };
 
     if (node.name === 'Manager Comments') {
       this.openModalNewComment(); 
       return;
     }
-  
+
+    if (node.name === 'Logout') {
+      this.logout(); 
+      return;
+    }
 
     const route = routes[node.name];
     if (route) {
@@ -146,6 +152,7 @@ export class ToolbarComponent {
       Services: 'linked_services',
       Favorites: 'star',
       Verticals: 'vertical_distribute',
+      Logout: 'logout',
     };
 
     return iconMap[name] || 'help';
