@@ -238,7 +238,7 @@ const setEnterprice = async (req, res) => {
       .input("phone_number", req.body.phone_number)
       .input("address", req.body.address)
       .input("modified_by", -1)
-      .execute("spr_pp_insertcompanies");
+      .execute("spr_pp_insertcompany");
     return ApiResponse(result, res);
   } catch (e) {
     console.log(e);
@@ -417,7 +417,7 @@ const updateAttentionStatus = async (req, res) => {
       .input("attention_status_id", req.body.attention_status_id)
       .input("attention_status_name", req.body.attention_status_name)
       .input("description", req.body.description)
-      .input("charging_order", req.body.charging_order)
+      .input("new_charging_order", req.body.charging_order)
       .input("color", req.body.color)
       .input("modified_by", -1)
       .execute("spr_pp_updateattentionstatus");
