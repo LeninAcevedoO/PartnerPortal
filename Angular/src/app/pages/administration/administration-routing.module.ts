@@ -10,6 +10,7 @@ import { EnterpriceListComponent } from './settings/catalogs/enterprices/enterpr
 import { RolesListComponent } from './settings/catalogs/roles/roles-list/roles-list.component';
 import { StatusAtendantListComponent } from './settings/catalogs/status-atendant/status-atendant-list/status-atendant-list.component';
 import { CatalogsComponent } from './settings/catalogs/catalogs.component';
+import { adminGuard } from 'src/app/shared/guards/admin.guard';
 
 const routes: Routes = [
   
@@ -26,7 +27,8 @@ const routes: Routes = [
       { path: 'catalogs/companies', component: EnterpriceListComponent },
       { path: 'catalogs/roles', component:  RolesListComponent},
       { path: 'catalogs/attention', component: StatusAtendantListComponent },
-    ]
+    ],
+    canActivate: [adminGuard]
   },
 ];
 @NgModule({

@@ -17,18 +17,19 @@ export class ContextService {
   ) {}
 
   isAuth() {
-    if (Number(sessionStorage.getItem('mat__resultant__pp__id')) > 0)
+    console.log(Number(this._utilsSvc.decryptAES(String(sessionStorage.getItem('mat__resultant__pp__role_id')))))
+    if (Number(this._utilsSvc.decryptAES(String(sessionStorage.getItem('mat__resultant__pp__id')))) > 0)
       return true;
     else
       return false;
   }
 
   theRol() {
-    return Number(btoa(String(sessionStorage.getItem('mat__resultant__pp__role_id'))));
+    return Number(this._utilsSvc.decryptAES(String(sessionStorage.getItem('mat__resultant__pp__role_id'))));
   }
 
   setInformation(data: any) {
-    if (data) {
+    if (data[0]) {
       sessionStorage.setItem('mat__resultant__pp__id', this._utilsSvc.encryptAES(String(data[0].user_id)));
       sessionStorage.setItem('mat__resultant__pp__name', this._utilsSvc.encryptAES(String(data[0].name)));
       sessionStorage.setItem('mat__resultant__pp__email', this._utilsSvc.encryptAES(String(data[0].email)));
