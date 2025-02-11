@@ -38,9 +38,8 @@ export class LoginComponent {
   ) {}
 
   ngOnInit(): void {
-    if (this._context.isAuth()) {
+    if (this._context.isAuth()) 
       this.router.navigate(["/home"]);
-    }
     this.loadRememberedCredentials();
   }
 
@@ -58,9 +57,7 @@ export class LoginComponent {
         localStorage.clear();
         this._context.setInformation(resp.data[0]);
         this.toastr.success(`Hi ${resp.data[0][0].name}`, "Welcome");
-        setTimeout(() => {
-          this.router.navigate(["/home"]);
-        }, 50);
+        this.router.navigate(["/home"]);
         if (this.clientCredentials.value.rememberMe) {
           this.saveCredentials(clientCredentials);
         } else {
