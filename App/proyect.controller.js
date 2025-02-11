@@ -317,7 +317,7 @@ const setUser = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("username", utils.generateToken())
+      // .input("username", utils.generateToken())
       .input("password_hash", req.body.password_hash)
       .input("email", req.body.email)
       .input("first_name", req.body.first_name)
@@ -342,7 +342,7 @@ const updateUser = async (req, res) => {
     const result = await pool
       .request()
       .input("user_id", req.body.user_id)
-      .input("password_hash", req.body.password_hash)
+      // .input("password_hash", req.body.password_hash)
       .input("email", req.body.email)
       .input("first_name", req.body.first_name)
       .input("last_name", req.body.last_name)
