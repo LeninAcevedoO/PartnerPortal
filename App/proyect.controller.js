@@ -75,9 +75,13 @@ const logout = async (req, res) => {
 
 const authValidator = async (req, res, next) => {
   try {
-    let user_id = -1;
-    let token = 'annonymous';
+    let user_id = utils.decryptAES(req.headers["x-user"]);
+    let token = req.headers["authorization"]?.replace("Bearer ", "");
+    const company_id = utils.decryptAES(req.headers["x-company"]);
     const currentRoute = req.headers["x-current-route"];
+
+    token = token ? token : 'annonymous';
+    user_id = user_id ? user_id : -1;
 
     const pool = await sql.connect(dbConfig);
     await pool
@@ -107,11 +111,8 @@ const authValidator = async (req, res, next) => {
       return;
     }
     
-    token = req.headers["authorization"]?.replace("Bearer ", "");
-    user_id = utils.decryptAES(req.headers["x-user"]);
-    const company_id = utils.decryptAES(req.headers["x-company"]);
     
-    if (!user_id || !token || !company_id)
+    if (user_id === -1 || token === "annonymous" || !company_id)
       return res
         .status(400)
         .json({ mensaje: "Your auth data isn't available" });
