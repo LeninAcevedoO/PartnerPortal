@@ -51,7 +51,7 @@ export class LoginComponent {
       if (resp.success == 'true') {
         localStorage.clear();
         this._context.setInformation(resp.data[0]);
-        this.toastr.success(`Hi ${resp.data[0].name}`, 'Welcome');
+        this.toastr.success(`Hi ${resp.data[0][0].name}`, 'Welcome');
         this.router.navigate(['/home']);
         if (this.clientCredentials.value.rememberMe) {
           this.saveCredentials(clientCredentials);
