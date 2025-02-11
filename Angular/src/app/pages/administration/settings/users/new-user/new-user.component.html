@@ -27,7 +27,7 @@
             max="256"
           />
         </mat-form-field>
-        <mat-form-field appearance="outline" class="w-full">
+        <mat-form-field appearance="outline" class="{{ !isEdit ? 'w-full' : 'w-49'}}">
           <mat-label>E-mail</mat-label>
           <input
             type="email"
@@ -42,7 +42,7 @@
             >The email isn't valid.</span
           >
         </mat-form-field>
-        <mat-form-field appearance="outline" class="w-49">
+        <mat-form-field appearance="outline" class="w-49" *ngIf="!isEdit">
           <mat-label>Password</mat-label>
           <input
             [type]="isShowPsw ? 'text' : 'password'"

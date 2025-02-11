@@ -16,12 +16,13 @@ import { UtilsService } from "src/app/shared/utils/utils.service";
 export class NewUserComponent {
   titulo = "User register";
   isShowPsw = false;
+  isEdit = false;
   formuser = new FormGroup({
     user_id: new FormControl<number>(0),
     first_name: new FormControl<string>("", Validators.required),
     last_name: new FormControl<string>("", Validators.required),
     email: new FormControl<string>("", [Validators.required, Validators.email]),
-    password_hash: new FormControl<string>("", Validators.required),
+    password_hash: new FormControl<string>(""),
     phone_number: new FormControl<string>("", Validators.required),
     company_id: new FormControl<string>("", Validators.required),
     role_id: new FormControl<number>(1, Validators.required),
@@ -44,6 +45,7 @@ export class NewUserComponent {
 
   ngOnInit() {
     if (this.data?.user_id) {
+      this.isEdit= true;
       this.getUser();
       this.titulo = "Edit user";
     }
@@ -76,7 +78,7 @@ export class NewUserComponent {
     (await this._service.getCatRoles()).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
         this.cats.roles = resp.data;
-        this.formuser.patchValue({ role_id: this.cats.roles[0].role_id });
+        this.formuser.patchValue({ role_id: this.cats.roles[this.cats.roles.length - 1].role_id });
       } else this.toastr.error(resp.message, "Error");
     });
   };
@@ -86,16 +88,24 @@ export class NewUserComponent {
       this.toastr.warning("The form is not valid, try again", "Form not valid");
       return;
     }
+    if (this.formuser.value.password_hash == "") {
+      this.toastr.warning("The password is required", "Password required");
+      return;
+    }
     if (this.formuser.value.user_id) this.EditUser();
     else this.AddUser();
   }
 
   EditUser = async () => {
     let user = {
-      ...this.formuser.value,
-      password_hash: this._utilsSvc.encryptAES(
-        String(this.formuser.value.password_hash)
-      ),
+      user_id: this.formuser.value.user_id,
+      first_ame: this.formuser.value.first_name,
+      last_name: this.formuser.value.last_name,
+      email: this.formuser.value.email,
+      phone_number: this.formuser.value.phone_number,
+      company_id: this.formuser.value.company_id,
+      role_id: this.formuser.value.role_id,
+      status_id: this.formuser.value.status_id,
     };
     (await this._service.updateUser(user)).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
