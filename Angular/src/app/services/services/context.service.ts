@@ -9,7 +9,7 @@ export class ContextService {
 
   private warningTimer: any;
   private logoutTimer: any;
-  private warningTime: number = 600000;
+  private warningTime: number = 6000000;
   private logoutTime: number = 660000; 
 
   constructor(private _utilsSvc: UtilsService,
