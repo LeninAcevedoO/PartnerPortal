@@ -26,7 +26,6 @@ const TREE_DATA: any[] = [
   { name: 'Manager Comments' },
   { name: 'Settings'},
   { name: 'Logout'},
-  
 ];
 
 @Component({
@@ -97,10 +96,6 @@ export class ToolbarComponent {
     };
   
     return permissions[menuItem] ? permissions[menuItem].includes(role) : true;
-  }
-  
-  canSeeDashboardSettings(): boolean {
-    return [1, 2].includes(this.userRole);
   }
 
   openModalProfile() {}
