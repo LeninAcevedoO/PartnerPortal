@@ -17,6 +17,7 @@ const ConnectionTest = (req, res) => {
 const login = async (req, res) => {
   try {
     req.body = JSON.parse(utils.decryptAES(req.body.data));
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -24,7 +25,9 @@ const login = async (req, res) => {
       .execute("spr_pp_getpasswordbyemail");
     let isAble = true;
     if (result.recordset.length > 0)
-      result.recordset[0].password_hash = utils.extractValidString(result.recordset[0].password_hash);
+      result.recordset[0].password_hash = utils.extractValidString(
+        result.recordset[0].password_hash
+      );
     else isAble = false;
     const token = utils.generateToken();
     await pool
@@ -33,7 +36,7 @@ const login = async (req, res) => {
       .input("token", token)
       .input("ip_address", req.headers["x-client-ip"])
       .input("device_info", req.headers["x-device-info"])
-      .input("status_id", isAble ? utils.decryptAES(result.recordset[0].password_hash) === req.body.password ? 1: 0 : 0)
+      .input("status_id",isAble ? utils.decryptAES(result.recordset[0].password_hash) ===req.body.password ? 1 : 0 : 0)
       .execute("spr_pp_insertlogintry");
     if (result.recordset.length <= 0)
       return res
@@ -60,6 +63,7 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -80,18 +84,9 @@ const authValidator = async (req, res, next) => {
     const company_id = utils.decryptAES(req.headers["x-company"]);
     const currentRoute = req.headers["x-current-route"];
 
-    token = token ? token : 'annonymous';
+    token = token ? token : "annonymous";
     user_id = user_id ? user_id : -1;
 
-    const pool = await sql.connect(dbConfig);
-    await pool
-    .request()
-    .input("user_id", user_id )
-    .input("activity_type", "request")
-    .input("trail", currentRoute)
-    .input("token", token)
-    .execute("spr_pp_insertactivity");
-    
     if (req.body.data) {
       try {
         const decryptedData = utils.decryptAES(req.body.data);
@@ -105,13 +100,12 @@ const authValidator = async (req, res, next) => {
       }
     }
 
-    console.log(req.body)
+    console.log(req.body);
     if (!req.body.isAnonnymous) {
       next();
       return;
     }
-    
-    
+
     if (user_id === -1 || token === "annonymous" || !company_id)
       return res
         .status(400)
@@ -138,12 +132,35 @@ const authValidator = async (req, res, next) => {
   }
 };
 
+const insertActivity = async (req, res) => {
+  try {
+    let user_id = utils.decryptAES(req.headers["x-user"]);
+    let token = req.headers["authorization"]?.replace("Bearer ", "");
+    const currentRoute = req.headers["x-current-route"];
+
+    token = token ? token : "annonymous";
+    user_id = user_id ? user_id : -1;
+
+    const pool = await sql.connect(dbConfig);
+    await pool
+      .request()
+      .input("user_id", user_id)
+      .input("activity_type", "request")
+      .input("trail", currentRoute)
+      .input("token", token)
+      .execute("spr_pp_insertactivity");
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 //#endregion
 
 //#region Catalogs
 
 const getCatEnterprices = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatCompanies");
     return ApiResponse(result, res);
@@ -155,6 +172,7 @@ const getCatEnterprices = async (req, res) => {
 
 const getCatRoles = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatRoles");
     return ApiResponse(result, res);
@@ -166,6 +184,7 @@ const getCatRoles = async (req, res) => {
 
 const getCatStatusAttendant = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatAttentionStatus");
     return ApiResponse(result, res);
@@ -177,6 +196,7 @@ const getCatStatusAttendant = async (req, res) => {
 
 const getCatStatus = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatStatus");
     return ApiResponse(result, res);
@@ -188,6 +208,7 @@ const getCatStatus = async (req, res) => {
 
 const getCatMediaType = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatMediaTypes");
     return ApiResponse(result, res);
@@ -205,6 +226,7 @@ const getCatMediaType = async (req, res) => {
 
 const getEnterprices = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getcompanies");
     return ApiResponse(result, res);
@@ -216,6 +238,7 @@ const getEnterprices = async (req, res) => {
 
 const getEnterprice = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -230,6 +253,7 @@ const getEnterprice = async (req, res) => {
 
 const setEnterprice = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -238,7 +262,7 @@ const setEnterprice = async (req, res) => {
       .input("company_email", req.body.company_email)
       .input("phone_number", req.body.phone_number)
       .input("address", req.body.address)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertcompany");
     return ApiResponse(result, res);
   } catch (e) {
@@ -249,7 +273,7 @@ const setEnterprice = async (req, res) => {
 
 const updateEnterprice = async (req, res) => {
   try {
-    console.log(req);
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -259,7 +283,7 @@ const updateEnterprice = async (req, res) => {
       .input("company_email", req.body.company_email)
       .input("phone_number", req.body.phone_number)
       .input("address", req.body.address)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updatecompanies");
     return ApiResponse(result, res);
   } catch (e) {
@@ -270,12 +294,13 @@ const updateEnterprice = async (req, res) => {
 
 const updateEnterpriceStatus = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("company_id", req.params.company_id)
       .input("status_id", req.params.status)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updatecompanystatus");
     return ApiResponse(result, res);
   } catch (e) {
@@ -290,6 +315,7 @@ const updateEnterpriceStatus = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getusers");
     return ApiResponse(result, res);
@@ -301,6 +327,7 @@ const getUsers = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -315,6 +342,7 @@ const getUser = async (req, res) => {
 
 const setUser = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -327,7 +355,7 @@ const setUser = async (req, res) => {
       .input("role_id", req.body.role_id)
       .input("company_id", req.body.company_id)
       .input("status_id", req.body.status_id)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertuser");
     return ApiResponse(result, res);
   } catch (e) {
@@ -338,7 +366,7 @@ const setUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    console.log(req);
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -351,7 +379,7 @@ const updateUser = async (req, res) => {
       .input("role_id", req.body.role_id)
       .input("company_id", req.body.company_id)
       .input("status_id", req.body.status_id)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updateuser");
     return ApiResponse(result, res);
   } catch (e) {
@@ -362,12 +390,13 @@ const updateUser = async (req, res) => {
 
 const updateUserStatus = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("user_id", req.params.user_id)
       .input("status_id", req.params.status)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updateuserstatus");
     return ApiResponse(result, res);
   } catch (e) {
@@ -382,6 +411,7 @@ const updateUserStatus = async (req, res) => {
 
 const getAllAttentionStatus = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getattentionstatus");
     return ApiResponse(result, res);
@@ -393,6 +423,7 @@ const getAllAttentionStatus = async (req, res) => {
 
 const setAttentionStatus = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -400,7 +431,7 @@ const setAttentionStatus = async (req, res) => {
       .input("description", req.body.description)
       .input("charging_order", req.body.charging_order)
       .input("color", req.body.color)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertattentionstatus");
     return ApiResponse(result, res);
   } catch (e) {
@@ -411,7 +442,7 @@ const setAttentionStatus = async (req, res) => {
 
 const updateAttentionStatus = async (req, res) => {
   try {
-    console.log(req);
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -420,7 +451,7 @@ const updateAttentionStatus = async (req, res) => {
       .input("description", req.body.description)
       .input("new_charging_order", req.body.charging_order)
       .input("color", req.body.color)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updateattentionstatus");
     return ApiResponse(result, res);
   } catch (e) {
@@ -431,12 +462,13 @@ const updateAttentionStatus = async (req, res) => {
 
 const updateAttentionStatusStatus = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("attention_status_id", req.params.attention_id)
       .input("status_id", req.params.status)
-      // .input("modified_by", -1)
+      // .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updateattentionstatusstatus");
     return ApiResponse(result, res);
   } catch (e) {
@@ -451,6 +483,7 @@ const updateAttentionStatusStatus = async (req, res) => {
 
 const getRequests = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getrequests");
     return ApiResponse(result, res);
@@ -462,6 +495,7 @@ const getRequests = async (req, res) => {
 
 const getRequest = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -476,10 +510,11 @@ const getRequest = async (req, res) => {
 
 const setRequest = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("user_id", -1) // req.body.user_id)
+      .input("user_id", utils.decryptAES(req.headers["x-user"]))
       .input("request_type", req.body.request_type)
       .input("details", req.body.details)
       .input("status_id", req.body.status_id)
@@ -494,12 +529,12 @@ const setRequest = async (req, res) => {
 
 const updateRequest = async (req, res) => {
   try {
-    console.log(req);
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("request_id", req.body.request_id)
-      .input("user_id", -1) // req.body.user_id)
+      .input("user_id", utils.decryptAES(req.headers["x-user"]))
       .input("request_type", req.body.request_type)
       .input("request_status", req.body.request_status)
       .execute("spr_pp_updatecompanies");
@@ -514,6 +549,7 @@ const updateRequest = async (req, res) => {
 
 const getRoles = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getroles");
     return ApiResponse(result, res);
@@ -525,6 +561,7 @@ const getRoles = async (req, res) => {
 
 const getRole = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -539,12 +576,13 @@ const getRole = async (req, res) => {
 
 const setRole = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("role_name", req.body.role_name)
       .input("description", req.body.description)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       // .input("status_id", req.body.status_id)
       .execute("spr_pp_insertrole");
     return ApiResponse(result, res);
@@ -556,14 +594,14 @@ const setRole = async (req, res) => {
 
 const updateRole = async (req, res) => {
   try {
-    console.log(req);
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("role_id", req.body.role_id)
       .input("role_name", req.body.role_name)
       .input("description", req.body.description)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updaterole");
     return ApiResponse(result, res);
   } catch (e) {
@@ -574,12 +612,13 @@ const updateRole = async (req, res) => {
 
 const updateRoleStatus = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("role_id", req.params.role_id)
       .input("status_id", req.params.status)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updaterolestatus");
 
     return ApiResponse(result, res);
@@ -594,6 +633,7 @@ const updateRoleStatus = async (req, res) => {
 
 const getLinks = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getlinks");
     return ApiResponse(result, res);
@@ -605,6 +645,7 @@ const getLinks = async (req, res) => {
 
 const getLink = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -619,6 +660,7 @@ const getLink = async (req, res) => {
 
 const setLink = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -629,7 +671,7 @@ const setLink = async (req, res) => {
       .input("company_id", req.body.company_id)
       .input("expiration_date", req.body.expiration_date)
       .input("multimedia_id", req.body.multimedia_id)
-      .input("modified_by", req.body.modified_by)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertlink");
     return ApiResponse(result, res);
   } catch (e) {
@@ -640,7 +682,7 @@ const setLink = async (req, res) => {
 
 const updateLink = async (req, res) => {
   try {
-    console.log(req);
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -651,7 +693,7 @@ const updateLink = async (req, res) => {
       .input("status_id", req.body.status_id)
       .input("company_id", req.body.company_id)
       .input("expiration_date", req.body.expiration_date)
-      .input("modified_by", -1)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updatelink");
     return ApiResponse(result, res);
   } catch (e) {
@@ -662,12 +704,13 @@ const updateLink = async (req, res) => {
 
 const updateLinkStatus = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("link_id", req.body.link_id)
       .input("status_id", req.body.status_id)
-      .input("modified_by", 0)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updatelinkstatus");
 
     return ApiResponse(result, res);
@@ -685,6 +728,7 @@ const updateLinkStatus = async (req, res) => {
 
 const getComments = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getmanagercomments");
     return ApiResponse(result, res);
@@ -696,6 +740,7 @@ const getComments = async (req, res) => {
 
 const getComment = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -710,14 +755,15 @@ const getComment = async (req, res) => {
 
 const setComment = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("user_id", -1) // req.body.user_id)
+      .input("user_id", utils.decryptAES(req.headers["x-user"]))
       .input("attention_status_id", req.body.attention_status_id)
       .input("comment_title", req.body.comment_title)
       .input("comment_content", req.body.comment_content)
-      .input("modified_by", req.body.modified_by)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       // .input("route", req.body.route)
       .execute("spr_pp_insertmanagementcomment");
     return ApiResponse(result, res);
@@ -729,7 +775,7 @@ const setComment = async (req, res) => {
 
 const updateComment = async (req, res) => {
   try {
-    console.log(req);
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -750,6 +796,7 @@ const updateComment = async (req, res) => {
 //#region Favorites
 const getFavorites = async (req, res) => {
   try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getfavorites");
     return ApiResponse(result, res);
