@@ -38,6 +38,7 @@ const TREE_DATA: any[] = [
 export class ToolbarComponent {
   opened = false;
   isAuth = false;
+  userRole: number = 0;
 
   private _transformer = (node: any, level: number) => {
     return {
@@ -72,8 +73,34 @@ export class ToolbarComponent {
     this.dataSource.data = TREE_DATA;
   }
 
+  // ngOnInit() {
+  //   localStorage.setItem('email', 'jschmoe@aol.com');
+  // }
+
   ngOnInit() {
-    localStorage.setItem('email', 'jschmoe@aol.com');
+    this.userRole = this.getUserRole();
+  }
+
+  getUserRole(): number {
+    return Number(this._context.theRol());
+  }
+  
+
+  shouldShowMenuItem(menuItem: string): boolean {
+    const role = this.userRole;
+  
+    const permissions: { [key: string]: number[] } = {
+      'AI Assistant': [1, 2, 3],
+      'Dashboard': [1, 2],
+      'Settings': [1],
+      'Manager Comments': [2, 3],
+    };
+  
+    return permissions[menuItem] ? permissions[menuItem].includes(role) : true;
+  }
+  
+  canSeeDashboardSettings(): boolean {
+    return [1, 2].includes(this.userRole);
   }
 
   openModalProfile() {}

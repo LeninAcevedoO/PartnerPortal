@@ -88,6 +88,7 @@
           (mouseover)="onMouseOver($event)"
           (mouseleave)="onMouseLeave($event)"
           (click)="navigate(node)"
+          *ngIf="shouldShowMenuItem(node.name)"
         >
           <button mat-icon-button disabled></button>
           <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon>
@@ -101,6 +102,7 @@
           (mouseover)="onMouseOver($event)"
           (mouseleave)="onMouseLeave($event)"
           (click)="navigate(node)"
+          *ngIf="shouldShowMenuItem(node.name)"
         >
           <button mat-icon-button disabled matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
             <mat-icon *ngIf="false"></mat-icon>
