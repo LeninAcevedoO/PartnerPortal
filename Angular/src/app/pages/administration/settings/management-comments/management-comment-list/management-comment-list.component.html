@@ -47,7 +47,9 @@
             <td>{{ req.comment_id }}</td>
             <td>{{ req.comment_title }}</td>
             <td>{{ req.comment_time	| date: 'dd/MM/yyyy HH:mm'}}</td>
-            <td>{{ req.status_id }}</td>
+            <td>
+              <div class="chip" [style.background-color]="req.color" [style.color]="getWhiteBlackColor(req.color)">{{req.attention_status_name}}</div>
+            </td>
             <td>
               <button
                 mat-icon-button

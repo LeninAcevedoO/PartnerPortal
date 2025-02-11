@@ -781,8 +781,8 @@ const updateComment = async (req, res) => {
       .request()
       .input("comment_id", req.body.comment_id)
       .input("attention_status_id", req.body.attention_status_id)
-      .input("comment_response", req.body.comment_response)
       .input("comment_solution", req.body.comment_solution)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updatecomment");
     return ApiResponse(result, res);
   } catch (e) {

@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NewManagementCommentComponent } from 'src/app/pages/new-management-comment/new-management-comment.component';
 import { MainService } from 'src/app/services/services/main.service';
 import { Resultado } from 'src/app/shared/models/general.model';
+import { getWhiteBlackColor } from 'src/app/shared/utils/utils.functions';
 
 @Component({
   selector: 'app-management-comment-list',
@@ -66,5 +67,9 @@ export class ManagementCommentListComponent {
       .subscribe((x: boolean) => {
         if (x) this.getManagerComments();
       });
+  }
+
+  getWhiteBlackColor(colorHex: string) {
+    return getWhiteBlackColor(colorHex);
   }
 }
