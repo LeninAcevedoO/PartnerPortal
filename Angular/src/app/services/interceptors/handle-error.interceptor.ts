@@ -53,7 +53,7 @@ export class HandleErrorInterceptor implements HttpInterceptor {
         });
 
         if (request.body) {
-          console.log(request.body);
+          // console.log(request.body);
           const encryptedBody = this._utilsSvc.encryptAES(JSON.stringify(request.body));
           modifiedRequest = modifiedRequest.clone({ body: { "data": encryptedBody } });
         }
@@ -61,10 +61,11 @@ export class HandleErrorInterceptor implements HttpInterceptor {
         return next.handle(modifiedRequest).pipe(
           tap((data: any) => {
             if (data.type !== 0) {
-              data.body.data = JSON.parse(this._utilsSvc.decryptAES(data.body.data));
-              // console.log(data.body.data)
+              if (data.body.data && ![null, undefined, '', '{}', '[]'].includes(data.body.data)) {
+                data.body.data = JSON.parse(this._utilsSvc.decryptAES(data.body.data));
+              }
             }
-          }),
+          }),          
           timeout(this.REQUEST_TIMEOUT),
           catchError((err: any) => {
             if (err.name === 'TimeoutError') {

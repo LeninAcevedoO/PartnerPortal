@@ -3,12 +3,13 @@ const utils = require("./utils.service.js");
 const ApiResponse = (poolResult, res, mensaje) => {
   try {
     // console.log(poolResult)
+    // utils.logErrorToFile(JSON.stringify(poolResult));
     if (poolResult)
       return res.status(200).json(jsonResult(true, null, poolResult.recordset));
-    else if (poolResult.rowsAffected[0] > 0)
+    else if (poolResult.rowsAffected[0] != 0)
       return res.status(201).json(jsonResult(true, null, {}));
     else if (poolResult.rowsAffected[0] === 0)
-      return res.status(404).json(jsonResult(true, null, null));
+      return res.status(404).json(jsonResult(true, null, {}));
     else if (mensaje && !poolResult)
       return res.status(500).json(jsonResult(false, mensaje, {}));
     else
@@ -16,6 +17,7 @@ const ApiResponse = (poolResult, res, mensaje) => {
         .status(500)
         .json(jsonResult(false, "General system error", {}));
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return res.status(500).json(jsonResult(false, "General system error", {}));
   }
@@ -23,13 +25,14 @@ const ApiResponse = (poolResult, res, mensaje) => {
 
 const jsonResult = (exito, mensaje, data) => {
   try {
-    // console.log(data)
+     // console.log(data)
     // console.log({ success: "true", message: "Operation successful", data: data ? utils.encryptAES(JSON.stringify(data)) : null })
+     // utils.logErrorToFile(JSON.stringify(data));
     if (exito === true)
       return {
         success: "true",
         message: "Operation successful",
-        data: data ? utils.encryptAES(JSON.stringify(data)) : null,
+        data: data && data != {} && data != undefined ? utils.encryptAES(JSON.stringify(data)) : utils.encryptAES(JSON.stringify({})),
       };
     else {
       if (mensaje !== null)
@@ -42,6 +45,7 @@ const jsonResult = (exito, mensaje, data) => {
         };
     }
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
   }
 };

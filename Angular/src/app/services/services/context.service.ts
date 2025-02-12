@@ -17,7 +17,6 @@ export class ContextService {
   ) {}
 
   isAuth() {
-    console.log(Number(this._utilsSvc.decryptAES(String(sessionStorage.getItem('mat__resultant__pp__role_id')))))
     if (Number(this._utilsSvc.decryptAES(String(sessionStorage.getItem('mat__resultant__pp__id')))) > 0)
       return true;
     else
