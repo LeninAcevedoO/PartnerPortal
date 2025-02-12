@@ -111,7 +111,7 @@ export class ToolbarComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toastr.success('Comentario agregado exitosamente', 'Éxito');
+        this.toastr.success('Comment added successfully', 'Success');
       }
     });
   }
@@ -119,7 +119,7 @@ export class ToolbarComponent {
 
   logout() {
     this._context.logout();
-    this.toastr.info('Se ha cerrado la sesión', 'Hasta luego');
+    this.toastr.info('The session has been closed', 'Bye');
     this.router.navigate(['/login']);
   }
 
