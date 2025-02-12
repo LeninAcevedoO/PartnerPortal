@@ -63,7 +63,7 @@ router.get(`${urlBase}/catalogs/media-types`, authValidator, getCatMediaType);
 
     router.get(`${urlBase}/users`, authValidator, getUsers);
     router.get(`${urlBase}/users/:user_id`, authValidator, getUser);
-    router.post(`${urlBase}/users`, authValidator, setUser);
+    router.post(`${urlBase}/users`, setUser);
     router.put(`${urlBase}/users`, authValidator, updateUser);
     router.put(`${urlBase}/users/:user_id/status/:status`, authValidator, updateUserStatus);
 

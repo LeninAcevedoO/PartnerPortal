@@ -3,7 +3,8 @@ const { ApiResponse } = require("./interfaces.model.js");
 const utils = require("./utils.service.js");
 const sql = require("mssql");
 const { token } = require("morgan");
-const dbConfig = 'Data Source=34.67.138.191,1433;Initial Catalog=pp_db;User ID=sqlserver2;Password=Infomedia123;Trusted_Connection=True;TrustServerCertificate=True;'
+const dbConfig =
+  "Data Source=34.67.138.191,1433;Initial Catalog=pp_db;User ID=sqlserver2;Password=Infomedia123;Trusted_Connection=True;TrustServerCertificate=True;";
 
 //#region General
 
@@ -37,7 +38,15 @@ const login = async (req, res) => {
       .input("token", token)
       .input("ip_address", req.headers["x-client-ip"])
       .input("device_info", req.headers["x-device-info"])
-      .input("status_id",isAble ? utils.decryptAES(result.recordset[0].password_hash) ===req.body.password ? 1 : 0 : 0)
+      .input(
+        "status_id",
+        isAble
+          ? utils.decryptAES(result.recordset[0].password_hash) ===
+            req.body.password
+            ? 1
+            : 0
+          : 0
+      )
       .execute("spr_pp_insertlogintry");
     if (result.recordset.length <= 0)
       return res
@@ -130,6 +139,7 @@ const authValidator = async (req, res, next) => {
 
     next();
   } catch (err) {
+    utils.logErrorToFile(e);
     console.error("Error en la validación:", err);
     res.status(500).json({ mensaje: "Error interno en la validación" });
   }
@@ -292,7 +302,7 @@ const updateEnterprice = async (req, res) => {
       .input("phone_number", req.body.phone_number)
       .input("address", req.body.address)
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
-      .execute("spr_pp_updatecompanies");
+      .execute("spr_pp_updatecompany");
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
@@ -354,7 +364,9 @@ const getUser = async (req, res) => {
 
 const setUser = async (req, res) => {
   try {
-    await insertActivity(req, res);
+    const decryptedData = utils.decryptAES(req.body.data);
+     req.body = JSON.parse(decryptedData);
+    // await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -367,8 +379,9 @@ const setUser = async (req, res) => {
       .input("role_id", req.body.role_id)
       .input("company_id", req.body.company_id)
       .input("status_id", req.body.status_id)
-      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .input("modified_by", -1)
       .execute("spr_pp_insertuser");
+      // utils.logErrorToFile(JSON.stringify(result));
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
