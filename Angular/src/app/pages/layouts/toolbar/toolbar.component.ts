@@ -92,7 +92,7 @@ export class ToolbarComponent {
       'AI Assistant': [1, 2, 3],
       'Dashboard': [1, 2],
       'Settings': [1],
-      'Manager Comments': [2, 3],
+      'Manager Comments': [1, 2, 3, 4],
     };
 
     return permissions[menuItem] ? permissions[menuItem].includes(role) : true;
