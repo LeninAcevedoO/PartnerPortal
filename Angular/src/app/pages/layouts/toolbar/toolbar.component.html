@@ -80,37 +80,41 @@
       </a>
     </mat-nav-list> -->
     
-    
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <div
-          class="tree-node-container"
-          (mouseover)="onMouseOver($event)"
-          (mouseleave)="onMouseLeave($event)"
-          (click)="navigate(node)"
-        >
-          <button mat-icon-button disabled></button>
-          <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon>
-          <span >{{ node.name }}</span>
-        </div>
-      </mat-tree-node>
-    
-      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matTreeNodeToggle>
-        <div
-          class="tree-node-container"
-          (mouseover)="onMouseOver($event)"
-          (mouseleave)="onMouseLeave($event)"
-          (click)="navigate(node)"
-        >
-          <button mat-icon-button disabled matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-            <mat-icon *ngIf="false"></mat-icon>
-          </button>
-          <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon> 
-          <span>{{node.name}}</span>
-        </div>
-      </mat-tree-node>
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+    <ng-container *ngIf="shouldShowMenuItem(node.name)">
+      <div
+        class="tree-node-container"
+        (mouseover)="onMouseOver($event)"
+        (mouseleave)="onMouseLeave($event)"
+        (click)="navigate(node)"
+      >
+        <button mat-icon-button disabled></button>
+        <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon>
+        <span>{{ node.name }}</span>
+      </div>
+    </ng-container>
+  </mat-tree-node>
+  
+  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matTreeNodeToggle>
+    <ng-container *ngIf="shouldShowMenuItem(node.name)">
+      <div
+        class="tree-node-container"
+        (mouseover)="onMouseOver($event)"
+        (mouseleave)="onMouseLeave($event)"
+        (click)="navigate(node)"
+      >
+        <button mat-icon-button disabled matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+          <mat-icon *ngIf="false"></mat-icon>
+        </button>
+        <mat-icon class="menu-icon">{{ getIcon(node.name) }}</mat-icon> 
+        <span>{{node.name}}</span>
+      </div>
+    </ng-container>
+  </mat-tree-node>
+</mat-tree>
 
-    </mat-tree>
+    
   </mat-sidenav>
   <mat-sidenav-content class="routerContainer">
     <router-outlet></router-outlet>

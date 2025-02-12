@@ -26,7 +26,6 @@ const TREE_DATA: any[] = [
   { name: 'Manager Comments' },
   { name: 'Settings'},
   { name: 'Logout'},
-  
 ];
 
 @Component({
@@ -38,6 +37,7 @@ const TREE_DATA: any[] = [
 export class ToolbarComponent {
   opened = false;
   isAuth = false;
+  userRole: number = 0;
 
   private _transformer = (node: any, level: number) => {
     return {
@@ -73,7 +73,29 @@ export class ToolbarComponent {
   }
 
   ngOnInit() {
-    localStorage.setItem('email', 'jschmoe@aol.com');
+    this.userRole = this.getUserRole();
+    this.filterMenuItems();
+  }
+
+  getUserRole(): number {
+    return Number(this._context.theRol());
+  }
+
+  filterMenuItems() {
+    this.dataSource.data = TREE_DATA.filter(item => this.shouldShowMenuItem(item.name));
+  }
+
+  shouldShowMenuItem(menuItem: string): boolean {
+    const role = this.userRole;
+
+    const permissions: { [key: string]: number[] } = {
+      'AI Assistant': [1, 2, 3],
+      'Dashboard': [1, 2],
+      'Settings': [1],
+      'Manager Comments': [2, 3],
+    };
+
+    return permissions[menuItem] ? permissions[menuItem].includes(role) : true;
   }
 
   openModalProfile() {}
@@ -89,7 +111,7 @@ export class ToolbarComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.toastr.success('Comentario agregado exitosamente', 'Éxito');
+        this.toastr.success('Comment added successfully', 'Success');
       }
     });
   }
@@ -97,7 +119,7 @@ export class ToolbarComponent {
 
   logout() {
     this._context.logout();
-    this.toastr.info('Se ha cerrado la sesión', 'Hasta luego');
+    this.toastr.info('The session has been closed', 'Bye');
     this.router.navigate(['/login']);
   }
 
