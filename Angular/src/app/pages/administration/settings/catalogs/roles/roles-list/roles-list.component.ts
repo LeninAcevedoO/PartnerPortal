@@ -31,7 +31,6 @@ buscador = "";
         this.roles = resp.data;
         this.cdRef.detectChanges();
       } else this.toastr.error(resp.message, "Error");
-      console.log(this.roles);
     });
   };
 

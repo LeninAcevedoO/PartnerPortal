@@ -88,7 +88,7 @@ export class NewUserComponent {
       this.toastr.warning("The form is not valid, try again", "Form not valid");
       return;
     }
-    if (this.formuser.value.password_hash == "") {
+    if (this.formuser.value.password_hash == "" && !this.isEdit) {
       this.toastr.warning("The password is required", "Password required");
       return;
     }
@@ -99,7 +99,7 @@ export class NewUserComponent {
   EditUser = async () => {
     let user = {
       user_id: this.formuser.value.user_id,
-      first_ame: this.formuser.value.first_name,
+      first_name: this.formuser.value.first_name,
       last_name: this.formuser.value.last_name,
       email: this.formuser.value.email,
       phone_number: this.formuser.value.phone_number,

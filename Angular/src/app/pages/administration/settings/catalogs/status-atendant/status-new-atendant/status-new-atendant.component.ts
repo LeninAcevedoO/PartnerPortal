@@ -48,7 +48,6 @@ export class StatusNewAtendantComponent {
 
   AddEditAttention() {
     if(this.formAttention.invalid) {
-      console.log(this.formAttention)
       this.toastr.warning('The form is not valid, try again', 'Form not valid');
       return;
     }
