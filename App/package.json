@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "build": "npm install --only=prod "
   },
   "keywords": [],
   "author": "Infomedia_LeAc",
@@ -22,9 +23,14 @@
     "mssql": "^10.0.2",
     "nodemon": "^3.1.0",
     "uuid": "^11.0.5",
-    "wre-poc-api": "file:"
+    "partner-portal-api": "file:"
   },
   "engines": {
     "node": "22"
+  },
+  "devDependencies": {
+    "npx": "^10.2.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
   }
 }

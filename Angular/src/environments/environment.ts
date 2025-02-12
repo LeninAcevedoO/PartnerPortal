@@ -4,11 +4,11 @@
 
 export const environment = {
   production: false,
-  gcloud: 'https://wre-poc-service-5eiikqaheq-uc.a.run.app',
-   debugPC: 'http://localhost:3000',
+  gcloud: "http://34.16.17.59:8001/",
+  debugPC: "http://localhost:8001",
   //debugPC: 'http://192.168.68.107:3000',
-  aesKey: '1f8b8d4c72b42f08f4ad5a9e2b2a3c12', 
-  aesIv: '8a1b2c3d4e5f6g7h'                 
+  aesKey: "1f8b8d4c72b42f08f4ad5a9e2b2a3c12",
+  aesIv: "8a1b2c3d4e5f6g7h",
 };
 
 /*

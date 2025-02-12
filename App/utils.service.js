@@ -1,15 +1,16 @@
 const crypto = require('crypto');
 require('dotenv').config();
 const { v4: uuidv4 } = require('uuid'); 
-
+const fs = require("fs");
+const path = require("path");
 
 function generateToken() {
   return btoa(uuidv4());
 }
 
 function encryptAES(plainText) {
-  const key = Buffer.from(process.env.AES_KEY, 'utf-8');
-  const iv = Buffer.from(process.env.AES_IV, 'utf-8');
+  const key = Buffer.from('1f8b8d4c72b42f08f4ad5a9e2b2a3c12', 'utf-8');
+  const iv = Buffer.from('8a1b2c3d4e5f6g7h', 'utf-8');
 
   const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
   let encrypted = cipher.update(plainText, 'utf8', 'base64'); 
@@ -18,8 +19,8 @@ function encryptAES(plainText) {
 }
 
 function decryptAES(cipherText) {
-  const key = Buffer.from(process.env.AES_KEY, 'utf-8');
-  const iv = Buffer.from(process.env.AES_IV, 'utf-8');
+  const key = Buffer.from('1f8b8d4c72b42f08f4ad5a9e2b2a3c12', 'utf-8');
+  const iv = Buffer.from('8a1b2c3d4e5f6g7h', 'utf-8');
 
   const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
   let decrypted = decipher.update(cipherText, 'base64', 'utf8'); 
@@ -34,4 +35,13 @@ function extractValidString(input) {
   return input; 
 }
 
-module.exports = { encryptAES, decryptAES, generateToken, extractValidString };
+function logErrorToFile(error) {
+  const logFilePath = path.join(__dirname, "error-log.txt");
+  const errorMessage = `[${new Date().toISOString()}] ${error}\n\n`;
+
+  fs.appendFile(logFilePath, errorMessage, (err) => {
+    if (err) console.error("Error al escribir en el archivo:", err);
+  });
+}
+
+module.exports = { encryptAES, decryptAES, generateToken, extractValidString, logErrorToFile };

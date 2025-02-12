@@ -1,8 +1,9 @@
 const { ApiResponse } = require("./interfaces.model.js");
-const dbConfig = require("./db.config.js");
+// const dbConfig = require("./db.config.js");
 const utils = require("./utils.service.js");
 const sql = require("mssql");
 const { token } = require("morgan");
+const dbConfig = 'Data Source=34.67.138.191,1433;Initial Catalog=pp_db;User ID=sqlserver2;Password=Infomedia123;Trusted_Connection=True;TrustServerCertificate=True;'
 
 //#region General
 
@@ -56,6 +57,7 @@ const login = async (req, res) => {
         .status(401)
         .json({ Exito: "false", mensaje: "Invalid email/password", Data: {} });
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error al logearte");
   }
@@ -72,6 +74,7 @@ const logout = async (req, res) => {
 
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting enterprices");
   }
@@ -149,7 +152,9 @@ const insertActivity = async (req, res) => {
       .input("trail", currentRoute)
       .input("token", token)
       .execute("spr_pp_insertactivity");
+    return;
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
   }
 };
@@ -160,11 +165,11 @@ const insertActivity = async (req, res) => {
 
 const getCatEnterprices = async (req, res) => {
   try {
-    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatCompanies");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting requests");
   }
@@ -172,11 +177,11 @@ const getCatEnterprices = async (req, res) => {
 
 const getCatRoles = async (req, res) => {
   try {
-    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatRoles");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting requests");
   }
@@ -184,11 +189,11 @@ const getCatRoles = async (req, res) => {
 
 const getCatStatusAttendant = async (req, res) => {
   try {
-    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatAttentionStatus");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting requests");
   }
@@ -196,11 +201,11 @@ const getCatStatusAttendant = async (req, res) => {
 
 const getCatStatus = async (req, res) => {
   try {
-    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getCatStatus");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting requests");
   }
@@ -213,6 +218,7 @@ const getCatMediaType = async (req, res) => {
     const result = await pool.request().execute("spr_pp_getCatMediaTypes");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting requests");
   }
@@ -226,11 +232,11 @@ const getCatMediaType = async (req, res) => {
 
 const getEnterprices = async (req, res) => {
   try {
-    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool.request().execute("spr_pp_getcompanies");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting enterprices");
   }
@@ -246,6 +252,7 @@ const getEnterprice = async (req, res) => {
       .execute("spr_pp_getEnterprice");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting enterprice");
   }
@@ -266,6 +273,7 @@ const setEnterprice = async (req, res) => {
       .execute("spr_pp_insertcompany");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error adding enterprice");
   }
@@ -287,6 +295,7 @@ const updateEnterprice = async (req, res) => {
       .execute("spr_pp_updatecompanies");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating enterprice");
   }
@@ -304,6 +313,7 @@ const updateEnterpriceStatus = async (req, res) => {
       .execute("spr_pp_updatecompanystatus");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error update enterprice status");
   }
@@ -320,6 +330,7 @@ const getUsers = async (req, res) => {
     const result = await pool.request().execute("spr_pp_getusers");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting users");
   }
@@ -335,6 +346,7 @@ const getUser = async (req, res) => {
       .execute("spr_pp_getuser");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting user");
   }
@@ -359,6 +371,7 @@ const setUser = async (req, res) => {
       .execute("spr_pp_insertuser");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error adding user");
   }
@@ -383,6 +396,7 @@ const updateUser = async (req, res) => {
       .execute("spr_pp_updateuser");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating user");
   }
@@ -400,6 +414,7 @@ const updateUserStatus = async (req, res) => {
       .execute("spr_pp_updateuserstatus");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error update user status");
   }
@@ -416,6 +431,7 @@ const getAllAttentionStatus = async (req, res) => {
     const result = await pool.request().execute("spr_pp_getattentionstatus");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting attention status");
   }
@@ -435,6 +451,7 @@ const setAttentionStatus = async (req, res) => {
       .execute("spr_pp_insertattentionstatus");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error adding attention status");
   }
@@ -455,6 +472,7 @@ const updateAttentionStatus = async (req, res) => {
       .execute("spr_pp_updateattentionstatus");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating attention status");
   }
@@ -472,6 +490,7 @@ const updateAttentionStatusStatus = async (req, res) => {
       .execute("spr_pp_updateattentionstatusstatus");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error update attention status");
   }
@@ -488,6 +507,7 @@ const getRequests = async (req, res) => {
     const result = await pool.request().execute("spr_pp_getrequests");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting requests");
   }
@@ -503,6 +523,7 @@ const getRequest = async (req, res) => {
       .execute("spr_pp_getrequest");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting request");
   }
@@ -522,6 +543,7 @@ const setRequest = async (req, res) => {
       .execute("spr_pp_insertrequest");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error adding request");
   }
@@ -540,6 +562,7 @@ const updateRequest = async (req, res) => {
       .execute("spr_pp_updatecompanies");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating request");
   }
@@ -554,6 +577,7 @@ const getRoles = async (req, res) => {
     const result = await pool.request().execute("spr_pp_getroles");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting roles");
   }
@@ -569,6 +593,8 @@ const getRole = async (req, res) => {
       .execute("spr_pp_getrole");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting role");
   }
@@ -587,6 +613,7 @@ const setRole = async (req, res) => {
       .execute("spr_pp_insertrole");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error adding role");
   }
@@ -605,6 +632,7 @@ const updateRole = async (req, res) => {
       .execute("spr_pp_updaterole");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating role");
   }
@@ -623,6 +651,7 @@ const updateRoleStatus = async (req, res) => {
 
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating role status");
   }
@@ -638,6 +667,7 @@ const getLinks = async (req, res) => {
     const result = await pool.request().execute("spr_pp_getlinks");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting links");
   }
@@ -653,6 +683,7 @@ const getLink = async (req, res) => {
       .execute("spr_pp_getlink");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting link");
   }
@@ -675,6 +706,7 @@ const setLink = async (req, res) => {
       .execute("spr_pp_insertlink");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error adding link");
   }
@@ -697,6 +729,7 @@ const updateLink = async (req, res) => {
       .execute("spr_pp_updatelink");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating link");
   }
@@ -715,6 +748,7 @@ const updateLinkStatus = async (req, res) => {
 
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating link status");
   }
@@ -733,6 +767,7 @@ const getComments = async (req, res) => {
     const result = await pool.request().execute("spr_pp_getmanagercomments");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting comments");
   }
@@ -748,6 +783,7 @@ const getComment = async (req, res) => {
       .execute("spr_pp_getmanagercomment");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting comment");
   }
@@ -768,6 +804,7 @@ const setComment = async (req, res) => {
       .execute("spr_pp_insertmanagementcomment");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error adding comment");
   }
@@ -786,6 +823,7 @@ const updateComment = async (req, res) => {
       .execute("spr_pp_updatecomment");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating comment");
   }
@@ -801,6 +839,7 @@ const getFavorites = async (req, res) => {
     const result = await pool.request().execute("spr_pp_getfavorites");
     return ApiResponse(result, res);
   } catch (e) {
+    utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting favorites");
   }

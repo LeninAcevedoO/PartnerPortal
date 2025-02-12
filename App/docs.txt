@@ -10,7 +10,7 @@
 3.- Copiar la carpeta completa de Angular/dist/infomedia => App/angular/dist/infomedia
 4.- Pararme en la carpeta App
 5.- Ejecutar el comando:
-gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/ && gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/source/ && gcloud run deploy wre-poc-service;
+gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/ && gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudbuild/source/ && gcloud run deploy pp-resultant;
 
 ----------------- v1 ---------------
 
@@ -48,6 +48,13 @@ gsutil -m setmeta -r -h "Cache-Control:no-cache , max-age=0" gs://wre-poc_cloudb
 
 gsutil -m setmeta -r -h "Cache-Control:no-store" gs://wre-poc_cloudbuild/source/
 gsutil -m setmeta -r -h "Cache-Control:no-store" gs://wre-poc_cloudbuild/
+
+********************** Node Deploy **********************
+
+sudo npm prune --production
+sudo npx webpack
+sudo npm run build
+iisreset
 
 
 
