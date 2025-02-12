@@ -72,29 +72,29 @@ export class ToolbarComponent {
     this.dataSource.data = TREE_DATA;
   }
 
-  // ngOnInit() {
-  //   localStorage.setItem('email', 'jschmoe@aol.com');
-  // }
-
   ngOnInit() {
     this.userRole = this.getUserRole();
+    this.filterMenuItems();
   }
 
   getUserRole(): number {
     return Number(this._context.theRol());
   }
-  
+
+  filterMenuItems() {
+    this.dataSource.data = TREE_DATA.filter(item => this.shouldShowMenuItem(item.name));
+  }
 
   shouldShowMenuItem(menuItem: string): boolean {
     const role = this.userRole;
-  
+
     const permissions: { [key: string]: number[] } = {
       'AI Assistant': [1, 2, 3],
       'Dashboard': [1, 2],
       'Settings': [1],
       'Manager Comments': [2, 3],
     };
-  
+
     return permissions[menuItem] ? permissions[menuItem].includes(role) : true;
   }
 
