@@ -11,7 +11,7 @@ const {
      getLinks, getLink, setLink, updateLink, updateLinkStatus, 
      getCatMediaType, getAllAttentionStatus, setAttentionStatus, 
      updateAttentionStatus, updateAttentionStatusStatus, logout,
-     getFavorites, 
+     getFavorites, getDemos
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -110,7 +110,16 @@ router.put(`${urlBase}/comments`, authValidator, updateComment);
 //#endregion
 
 //#region Favorites
+
 router.get(`${urlBase}/favorites`, authValidator, getFavorites);
+
+//#endregion
+
+//#region Demos
+
+router.get(`${urlBase}/demos/:demo_id`, getDemos);
+router.get(`${urlBase}/demos/verticals/:vertical_id`, getDemos);
+
 //#endregion
 
 module.exports = router;

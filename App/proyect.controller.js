@@ -845,6 +845,7 @@ const updateComment = async (req, res) => {
 //#endregion
 
 //#region Favorites
+
 const getFavorites = async (req, res) => {
   try {
     await insertActivity(req, res);
@@ -857,6 +858,26 @@ const getFavorites = async (req, res) => {
     return ApiResponse(null, res, "Error getting favorites");
   }
 };
+
+//#endregion
+
+//#region Demos
+
+const getDemos = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request()
+    .input("demo_id", req.params.vertical_id)
+    .execute("spr_pp_getDemos");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error getting favorites");
+  }
+};
+
 //#endregion
 
 module.exports = {
@@ -902,4 +923,5 @@ module.exports = {
   updateAttentionStatusStatus,
   logout,
   getFavorites,
+  getDemos
 };
