@@ -61,6 +61,11 @@ export class MainService {
   async setFavorite(favorite_id: any) {
     return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/favorites/${btoa(favorite_id)}`, {});
   }
+
+  getFavorites = async() => {
+    return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/favorites`);
+  }
+
   //#endregion
 
   //#region Administration
@@ -223,11 +228,25 @@ export class MainService {
     }
     
     //#endregion
-    getFavorites = async() => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/favorites`);
-    }
-    //#region Favorites
     
+    //#region Demos
+    
+    getDemos = async(vertix: string) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/demos/${vertix}`);
+    }
+
+    setDemo = async(demo: any) => {
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/demos/`, demo);
+    }
+    
+    updateDemo = async(demo: any) => {
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/demos/`, demo);
+    }
+
+    updateDemoStatus = async(vertix: any) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/demos/${vertix.demo_id}/status/${vertix.status_id}`);
+    }
+
     //#endregion
   //#endregion
 }
