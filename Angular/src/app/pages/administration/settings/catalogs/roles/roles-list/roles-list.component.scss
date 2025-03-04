@@ -4,42 +4,42 @@
 }
 
 .title-container {
-justify-content: space-between;
+  justify-content: space-between;
 }
 
-.finder{
-width: 400px;
-max-width: 100%;
+.finder {
+  width: 400px;
+  max-width: 100%;
 }
 
 .MainTitle {
-font-size: xx-large;
+  font-size: xx-large;
 }
 
 .MainTable {
-width: 100%;
-text-align: center;
-margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .noDataText {
-text-align: center;
-color: blue;
-margin-top: 2rem;
+  text-align: center;
+  color: blue;
+  margin-top: 2rem;
 }
 
 .editBtn {
-color: lightskyblue;
+  color: lightskyblue;
 }
 
 .downLButton {
-position: fixed;
-left: 1rem;
-bottom: 1rem;
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
 }
 
 .downRButton {
-position: fixed;
-right: 1rem;
-bottom: 1rem;
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
 }
