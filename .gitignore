@@ -34,3 +34,4 @@ App/.env
 Build/*
 App/error-log.txt
 App/Archivo.zip
+App/frontend/*
