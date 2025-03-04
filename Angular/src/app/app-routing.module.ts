@@ -2,7 +2,7 @@ import { NgModule, Component } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 //-------------------------- General Compoents ----------------------------
-import { ToolbarComponent } from "./pages/layouts/toolbar/toolbar.component";
+import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { SettingsComponent } from "./pages/administration/settings/settings.component";
 import { LoginComponent } from "./components/auth/login/login.component";
 //-------------------------- Settings Components ----------------------------
@@ -14,6 +14,8 @@ import { HomeComponent } from "./pages/home/home.component";
 import { AboutUsComponent } from "./pages/about-us/about-us.component";
 import { FavoritesComponent } from "./pages/favorites/favorites.component";
 import { PServiceComponent } from "./pages/p-service/p-service.component";
+import { VerticalsComponent } from "./pages/verticals/verticals.component";
+import { DemosComponent } from "./pages/verticals/demos/demos.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -26,6 +28,14 @@ const routes: Routes = [
       {
         path: "home",
         component: HomeComponent,
+      },
+      {
+        path: "verticals",
+        component: VerticalsComponent,
+      },
+      {
+        path: "verticals/:vertix",
+        component: DemosComponent,
       },
       {
         path: "settings",

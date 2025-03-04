@@ -1,0 +1,21 @@
+<div class="w-full flex-center min-h-full verticals-container">
+    <mat-card *ngFor="let vertix of verticals" class="vertix-card" [routerLink]="vertix.route">
+        <mat-card-title>{{ vertix.title }}</mat-card-title>
+        <mat-card-content>
+            <div class="w-full flex-center">
+                <mat-icon class="card-icon">{{ vertix.icon }}</mat-icon>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+
+<button
+  mat-fab
+  color="primary"
+  class="downRButton"
+  routerLink="/settings/verticals"
+  matTooltip="Manage vertical/demos"
+>
+  <mat-icon>route</mat-icon>
+</button>

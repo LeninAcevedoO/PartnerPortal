@@ -17,7 +17,7 @@ import { SpinnerInterceptor } from './services/interceptors/spinner.interceptor'
 import { ContextService } from './services/services/context.service';
 import { HandleErrorInterceptor } from './services/interceptors/handle-error.interceptor';
 //------------------------- Componentes ---------------------------------
-import { ToolbarComponent } from './pages/layouts/toolbar/toolbar.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './pages/home/home.component';
 import { SingUpComponent } from './components/auth/sing-up/sing-up.component';
@@ -33,6 +33,8 @@ import { CarrouselComponent } from './pages/home/carrousel/carrousel.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { PServiceComponent } from './pages/p-service/p-service.component';
+import { VerticalsComponent } from './pages/verticals/verticals.component';
+import { DemosComponent } from './pages/verticals/demos/demos.component';
 
 
 
@@ -56,6 +58,8 @@ import { PServiceComponent } from './pages/p-service/p-service.component';
     AboutUsComponent,
     FavoritesComponent,
     PServiceComponent,
+    VerticalsComponent,
+    DemosComponent
   ],
   imports: [
     BrowserModule,

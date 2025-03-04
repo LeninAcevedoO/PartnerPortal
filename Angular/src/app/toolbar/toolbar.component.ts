@@ -7,8 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { ContextService } from 'src/app/services/services/context.service';
 import { FlatTreeControl, NestedTreeControl } from '@angular/cdk/tree';  
 import { MatDialog } from '@angular/material/dialog'; 
-import { NewManagementCommentComponent } from '../../new-management-comment/new-management-comment.component';
 import { MainService } from 'src/app/services/services/main.service';
+import { NewManagementCommentComponent } from '../pages/new-management-comment/new-management-comment.component';
 
 const TREE_DATA: any[] = [
   {
@@ -132,7 +132,7 @@ export class ToolbarComponent {
       Advertisements: '/home',
       Favorites: '/favorites',
       Services: '/services',
-      Verticals: '/home'
+      Verticals: '/verticals'
     };
 
     if (node.name === 'Manager Comments') {

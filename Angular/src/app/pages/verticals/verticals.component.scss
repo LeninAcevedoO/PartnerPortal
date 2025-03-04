@@ -1,0 +1,31 @@
+.vertix-card {
+  width: 48rem;
+  height: 40vh;
+  transition: all ease-in-out 300ms;
+}
+
+.vertix-card:hover {
+  scale: 1.05;
+  cursor: pointer;
+}
+
+.verticals-container {
+  justify-content: space-evenly;
+  margin-top: 58px;
+  gap: 1.5rem;
+}
+
+.min-h-full {
+  min-height: calc(100vh - 4rem);
+}
+
+.card-icon {
+  transform: translateY(11px);
+  scale: 12;
+}
+
+.downRButton {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+}
