@@ -105,6 +105,7 @@ button:hover {
     background-color: var(--mat-badge-disabled-state-text-color);
 }
 
+
 .overlay {
     position: fixed;
     width: 100%;
@@ -185,4 +186,40 @@ button:hover {
 
 mat-icon {
     font-family: 'Material Icons Outlined', sans-serif;
+}
+
+@media screen and (max-width: 1024px) {
+    .isPC {
+        display: none;
+    }
+
+    .isPCTablet {
+        display: '';
+    }
+
+    .isTablet {
+        display: '';
+    }
+
+    .isMovil {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .isPC {
+        display: none;
+    }
+
+    .isPCTablet {
+        display: none;
+    }
+
+    .isTablet {
+        display: none;
+    }
+
+    .isMovil {
+        display: '';
+    }
 }

@@ -17,8 +17,8 @@
   </div>
   <span class="spacer"></span>
   <div class="flex-center pbr">
-    <h1>POWERED BY RESULTANT</h1>
-    <img src="/assets/img/resultantLogo.png">
+    <h1 class="isPCTablet">POWERED BY RESULTANT</h1>
+    <img src="/assets/img/resultantLogo.png" />
   </div>
   <!-- <button type="button" mat-raised-button color="warn" (click)="logout()"> // logut button and menus
     <mat-icon>logout</mat-icon> Logout
@@ -52,7 +52,6 @@
 
 <mat-sidenav-container autosize [hasBackdrop]="true">
   <mat-sidenav #sidenav [(opened)]="opened" mode="side">
-
     <!-- <mat-nav-list>
       <a class="hvr" mat-list-item routerLink="/home" (click)="opened = !opened">
         <div class="flex-center list-item-label">
@@ -79,42 +78,49 @@
         </div>
       </a>
     </mat-nav-list> -->
-    
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-    <ng-container *ngIf="node.permissions.includes(this.userRole)">
-      <!-- (mouseover)="onMouseOver($event)"
-      (mouseleave)="onMouseLeave($event)" -->
-      <div
-        class="tree-node-container hover-shadow"
-        (click)="actionClick(node)"
-      >
-        <button mat-icon-button disabled></button>
-        <mat-icon class="menu-icon">{{ node.icon }}</mat-icon>
-        <span>{{ node.name }}</span>
-      </div>
-    </ng-container>
-  </mat-tree-node>
-  
-  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matTreeNodeToggle>
-    <ng-container *ngIf="node.permissions.includes(this.userRole)">
-      <!-- (mouseover)="onMouseOver($event)"
-      (mouseleave)="onMouseLeave($event)" -->
-      <div
-        class="tree-node-container hover-shadow"
-        (click)="actionClick(node)"
-      >
-        <button mat-icon-button disabled matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-          <mat-icon *ngIf="false"></mat-icon>
-        </button>
-        <mat-icon class="menu-icon">{{  node.icon }}</mat-icon> 
-        <span>{{node.name}}</span>
-      </div>
-    </ng-container>
-  </mat-tree-node>
-</mat-tree>
 
-    
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <ng-container *ngIf="node.permissions.includes(this.userRole)">
+          <!-- (mouseover)="onMouseOver($event)"
+      (mouseleave)="onMouseLeave($event)" -->
+          <div
+            class="tree-node-container hover-shadow"
+            (click)="actionClick(node)"
+          >
+            <button mat-icon-button disabled></button>
+            <mat-icon class="menu-icon">{{ node.icon }}</mat-icon>
+            <span>{{ node.name }}</span>
+          </div>
+        </ng-container>
+      </mat-tree-node>
+
+      <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        matTreeNodePadding
+        matTreeNodeToggle
+      >
+        <ng-container *ngIf="node.permissions.includes(this.userRole)">
+          <!-- (mouseover)="onMouseOver($event)"
+      (mouseleave)="onMouseLeave($event)" -->
+          <div
+            class="tree-node-container hover-shadow"
+            (click)="actionClick(node)"
+          >
+            <button
+              mat-icon-button
+              disabled
+              matTreeNodeToggle
+              [attr.aria-label]="'Toggle ' + node.name"
+            >
+              <mat-icon *ngIf="false"></mat-icon>
+            </button>
+            <mat-icon class="menu-icon">{{ node.icon }}</mat-icon>
+            <span>{{ node.name }}</span>
+          </div>
+        </ng-container>
+      </mat-tree-node>
+    </mat-tree>
   </mat-sidenav>
   <mat-sidenav-content class="routerContainer">
     <router-outlet></router-outlet>
