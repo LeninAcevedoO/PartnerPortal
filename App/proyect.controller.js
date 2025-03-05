@@ -859,6 +859,41 @@ const getFavorites = async (req, res) => {
   }
 };
 
+const setFavorites = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("user_id", req.body.user_id)
+      .input("favorites", req.body.favorites)      
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .execute("spr_pp_insertfavorites");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error adding favorites");
+  }
+};
+
+const updateFavorites = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("favorites", req.body.favorites)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .execute("spr_pp_updatefavorites");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error updating favorites");
+  }
+};
+
 //#endregion
 
 //#region Demos
@@ -874,10 +909,63 @@ const getDemos = async (req, res) => {
   } catch (e) {
     utils.logErrorToFile(e);
     console.log(e);
-    return ApiResponse(null, res, "Error getting favorites");
+    return ApiResponse(null, res, "Error getting demos");
   }
 };
 
+
+const setDemos = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("demo_id", req.body.demo_id)
+      .input("demo_name", req.body.demo_name)
+      .input("description", req.body.description)
+      .input("information", req.body.information)
+      .input("release_date", req.body.release_date)
+      .input("vertical_id", req.body.expiration_date)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .input("modified_at", utils.decryptAES(req.headers["x-user"]))
+      .input("multimedia_link", req.body.multimedia_link)
+      .input("multimedia_type_id", req.body.multimedia_type_id)
+      .input("demo_status", req.body.demo_status)
+      .execute("spr_pp_insertdemos");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error adding demos");
+  }
+};
+
+
+const updateDemos = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("demo_id", req.body.demo_id)
+      .input("demo_name", req.body.demo_name)
+      .input("description", req.body.desciption)
+      .input("information", req.body.information)
+      .input("release_date", req.body.release_date)
+      .input("vertical_id", req.body.vertical_id)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .input("multimedia_link", req.body.multimedia_link)
+      .input("multimedia_type_id", req.body.multimedia_type_id)
+      .input("demo_status", req.body.demo_status)
+      .execute("spr_pp_updatedemos");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error updating demos");
+
+  }
+};
 //#endregion
 
 module.exports = {
@@ -923,5 +1011,9 @@ module.exports = {
   updateAttentionStatusStatus,
   logout,
   getFavorites,
-  getDemos
+  setFavorites,
+  updateFavorites,
+  getDemos,
+  setDemos,
+  updateDemos
 };
