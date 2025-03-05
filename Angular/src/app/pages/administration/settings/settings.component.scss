@@ -38,3 +38,9 @@
   left: 1rem;
   bottom: 1rem;
 }
+
+@media screen and (max-width: 768px) {
+  .CardsContainer {
+    margin-top: 2rem;
+  }
+}
