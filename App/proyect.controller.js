@@ -365,7 +365,7 @@ const getUser = async (req, res) => {
 const setUser = async (req, res) => {
   try {
     const decryptedData = utils.decryptAES(req.body.data);
-     req.body = JSON.parse(decryptedData);
+    req.body = JSON.parse(decryptedData);
     // await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
@@ -381,7 +381,7 @@ const setUser = async (req, res) => {
       .input("status_id", req.body.status_id)
       .input("modified_by", -1)
       .execute("spr_pp_insertuser");
-      // utils.logErrorToFile(JSON.stringify(result));
+    // utils.logErrorToFile(JSON.stringify(result));
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
@@ -704,6 +704,19 @@ const getLink = async (req, res) => {
 
 const setLink = async (req, res) => {
   try {
+    const base64String = "data:image/png;base64,iVBORw0K...";
+    const base64Data = base64String.split(",")[1];
+    const mimeType = req.body.mimeType; // image/png
+    const fileName = req.body.fileName; // archivo.png
+    let gcloud_url = ""; // 
+    try {
+      await utils.uploadBase64File(base64Data, fileName, mimeType)
+        .then((url) => (gcloud_url = url))
+        .catch((err) => console.error("Error:", err));
+    } catch(e) {
+      console.log(e);
+    }
+
     await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
@@ -866,7 +879,7 @@ const setFavorites = async (req, res) => {
     const result = await pool
       .request()
       .input("user_id", req.body.user_id)
-      .input("favorites", req.body.favorites)      
+      .input("favorites", req.body.favorites)
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertfavorites");
     return ApiResponse(result, res);
@@ -902,9 +915,10 @@ const getDemos = async (req, res) => {
   try {
     await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
-    const result = await pool.request()
-    .input("demo_id", req.params.vertical_id)
-    .execute("spr_pp_getDemos");
+    const result = await pool
+      .request()
+      .input("demo_id", req.params.vertical_id)
+      .execute("spr_pp_getDemos");
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
@@ -912,7 +926,6 @@ const getDemos = async (req, res) => {
     return ApiResponse(null, res, "Error getting demos");
   }
 };
-
 
 const setDemos = async (req, res) => {
   try {
@@ -940,7 +953,6 @@ const setDemos = async (req, res) => {
   }
 };
 
-
 const updateDemos = async (req, res) => {
   try {
     await insertActivity(req, res);
@@ -963,7 +975,6 @@ const updateDemos = async (req, res) => {
     utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error updating demos");
-
   }
 };
 //#endregion
@@ -1015,5 +1026,5 @@ module.exports = {
   updateFavorites,
   getDemos,
   setDemos,
-  updateDemos
+  updateDemos,
 };
