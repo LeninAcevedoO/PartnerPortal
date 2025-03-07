@@ -1,4 +1,4 @@
-const utils = require("./utils.service.js");
+const utils = require("./utils.js");
 
 const ApiResponse = (poolResult, res, mensaje) => {
   try {
