@@ -865,7 +865,7 @@ const setFavorites = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("user_id", req.body.user_id)
+      .input("user_id", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"])))
       .input("favorites", req.body.favorites)      
       .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertfavorites");
@@ -879,7 +879,7 @@ const setFavorites = async (req, res) => {
 
 const updateFavorites = async (req, res) => {
   try {
-    await insertActivity(req, res);
+    //await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
