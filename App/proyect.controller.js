@@ -1,6 +1,6 @@
 const { ApiResponse } = require("./interfaces.model.js");
 // const dbConfig = require("./db.config.js");
-const utils = require("./utils.service.js");
+const utils = require("./utils.js");
 const sql = require("mssql");
 const { token } = require("morgan");
 const dbConfig =
