@@ -138,9 +138,9 @@ const authValidator = async (req, res, next) => {
     // }
 
     next();
-  } catch (err) {
+  } catch (e) {
     utils.logErrorToFile(e);
-    console.error("Error en la validación:", err);
+    console.error("Error en la validación:", e);
     res.status(500).json({ mensaje: "Error interno en la validación" });
   }
 };
@@ -867,7 +867,7 @@ const setFavorites = async (req, res) => {
       .request()
       .input("user_id", req.body.user_id)
       .input("favorites", req.body.favorites)      
-      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertfavorites");
     return ApiResponse(result, res);
   } catch (e) {
@@ -883,8 +883,9 @@ const updateFavorites = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
+      .input("user_id", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
       .input("favorites", req.body.favorites)
-      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updatefavorites");
     return ApiResponse(result, res);
   } catch (e) {
@@ -919,15 +920,13 @@ const setDemos = async (req, res) => {
     await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
-      .request()
-      .input("demo_id", req.body.demo_id)
+      .request()      
       .input("demo_name", req.body.demo_name)
       .input("description", req.body.description)
       .input("information", req.body.information)
       .input("release_date", req.body.release_date)
-      .input("vertical_id", req.body.expiration_date)
-      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
-      .input("modified_at", utils.decryptAES(req.headers["x-user"]))
+      .input("vertical_id", req.body.vertical_id)
+      .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))      
       .input("multimedia_link", req.body.multimedia_link)
       .input("multimedia_type_id", req.body.multimedia_type_id)
       .input("demo_status", req.body.demo_status)
@@ -943,17 +942,17 @@ const setDemos = async (req, res) => {
 
 const updateDemos = async (req, res) => {
   try {
-    await insertActivity(req, res);
+    //await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("demo_id", req.body.demo_id)
       .input("demo_name", req.body.demo_name)
-      .input("description", req.body.desciption)
+      .input("description", req.body.description)
       .input("information", req.body.information)
       .input("release_date", req.body.release_date)
       .input("vertical_id", req.body.vertical_id)
-      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
       .input("multimedia_link", req.body.multimedia_link)
       .input("multimedia_type_id", req.body.multimedia_type_id)
       .input("demo_status", req.body.demo_status)

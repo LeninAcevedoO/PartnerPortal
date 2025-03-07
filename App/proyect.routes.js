@@ -11,7 +11,11 @@ const {
      getLinks, getLink, setLink, updateLink, updateLinkStatus, 
      getCatMediaType, getAllAttentionStatus, setAttentionStatus, 
      updateAttentionStatus, updateAttentionStatusStatus, logout,
-     getFavorites, getDemos
+     getFavorites, getDemos,
+     setDemos,
+     updateDemos,
+     setFavorites,
+     updateFavorites
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -112,6 +116,8 @@ router.put(`${urlBase}/comments`, authValidator, updateComment);
 //#region Favorites
 
 router.get(`${urlBase}/favorites`, authValidator, getFavorites);
+router.post(`${urlBase}/favorites`, setFavorites);
+router.put(`${urlBase}/favorites`, updateFavorites);
 
 //#endregion
 
@@ -119,6 +125,9 @@ router.get(`${urlBase}/favorites`, authValidator, getFavorites);
 
 router.get(`${urlBase}/demos/:demo_id`, getDemos);
 router.get(`${urlBase}/demos/verticals/:vertical_id`, getDemos);
+router.post(`${urlBase}/demos`, setDemos);
+router.put(`${urlBase}/demos`, updateDemos);
+
 
 //#endregion
 
