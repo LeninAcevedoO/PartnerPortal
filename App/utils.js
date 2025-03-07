@@ -3,6 +3,7 @@ require('dotenv').config();
 const { v4: uuidv4 } = require('uuid'); 
 const fs = require("fs");
 const path = require("path");
+const { Storage } = require('@google-cloud/storage');
 
 function generateToken() {
   return btoa(uuidv4());
@@ -44,4 +45,29 @@ function logErrorToFile(error) {
   });
 }
 
-module.exports = { encryptAES, decryptAES, generateToken, extractValidString, logErrorToFile };
+const storage = new Storage({
+    keyFilename: path.join(__dirname, process.env.GCP_JSON), // GCP JSON Credentials route
+});
+
+const bucketName = 'partner_portal_bucket';
+
+async function uploadBase64File(base64Data, fileName, mimeType) {
+    try {
+        const buffer = Buffer.from(base64Data, 'base64');
+        const file = storage.bucket(bucketName).file(fileName);
+        
+        await file.save(buffer, {
+            metadata: { contentType: mimeType },
+        });
+
+        await file.makePublic();
+
+        const publicUrl = `https://storage.googleapis.com/${bucketName}/${fileName}`;
+        return publicUrl;
+    } catch (error) {
+        console.error('Error al subir archivo:', error);
+        throw error;
+    }
+}
+
+module.exports = { encryptAES, decryptAES, generateToken, extractValidString, logErrorToFile, uploadBase64File };
