@@ -978,6 +978,28 @@ const updateDemos = async (req, res) => {
 };
 //#endregion
 
+//#region Information
+
+const getInformation = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("info_id", req.params.info_id)
+      .execute("spr_pp_getinformation");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error getting information");
+  }
+};
+
+//#endregion
+
+
+
 module.exports = {
   ConnectionTest,
   login,
@@ -1026,4 +1048,5 @@ module.exports = {
   getDemos,
   setDemos,
   updateDemos,
+  getInformation,
 };
