@@ -49,6 +49,11 @@ const storage = new Storage({
     keyFilename: path.join(__dirname, process.env.GCP_JSON), // GCP JSON Credentials route
 });
 
+// const credentials=process.env.GCP_JSON;
+// const storage = new Storage({
+//     keyFilename: path.join(__dirname, credentials), // GCP JSON Credentials route
+// });
+
 const bucketName = 'partner_portal_bucket';
 
 async function uploadBase64File(base64Data, fileName, mimeType) {

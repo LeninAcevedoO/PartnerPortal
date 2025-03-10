@@ -722,7 +722,7 @@ const setLink = async (req, res) => {
     const result = await pool
       .request()
       .input("attention_status_id", req.body.status_assign_id)
-      .input("link_url", req.body.link_url)
+      .input("link_url", gcloud_url)
       .input("description", req.body.description)
       .input("status_id", req.body.status_id)
       .input("company_id", req.body.company_id)
