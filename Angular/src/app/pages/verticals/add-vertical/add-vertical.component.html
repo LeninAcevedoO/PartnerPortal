@@ -1,94 +1,113 @@
 <mat-dialog-content>
-    <mat-card class="MainCard">
-      <mat-card-title>{{ titulo }}</mat-card-title>
-      <mat-card-content>
-        <form
-          [formGroup]="formDemo"
-          (ngSubmit)="AddEditEnterpice()"
-          class="w-full flex-center formClass"
+  <mat-card class="MainCard">
+    <mat-card-title>{{ titulo }}</mat-card-title>
+    <mat-card-content>
+      <form
+        [formGroup]="formDemo"
+        (ngSubmit)="AddEditVertical()"
+        class="w-full flex-center formClass"
+      >
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Demo name</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="demo_name"
+            placeholder="Demo name"
+            max="128"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Short description</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="description"
+            placeholder="Short description"
+            max="256"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Complete information</mat-label>
+          <textarea
+            type="text"
+            matInput
+            formControlName="information"
+            placeholder="Complete information"
+            max="512"
+            rows="3"
+          ></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-49">
+          <mat-label>Release date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="release_date"
+            [max]="today"
+            (focus)="picker.open()"
+          />
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-49">
+          <mat-label>Vertical</mat-label>
+          <mat-select formControlName="vertical_id">
+            <mat-option
+              *ngFor="let company of cats.verticals"
+              [value]="company.id"
+            >
+              {{ company.description }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="w-full flex-center">
+          <button
+        type="button"
+          mat-raised-button
+          color="accent"
+          (click)="inputMiniature.click()"
+          class="btnUpload"
         >
-          <mat-form-field appearance="outline" class="w-49">
-            <mat-label>Commercial name</mat-label>
-            <input
-              type="text"
-              matInput
-              formControlName="company_name"
-              placeholder="Commercial name"
-              max="128"
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="w-49">
-            <mat-label>Legal name</mat-label>
-            <input
-              type="text"
-              matInput
-              formControlName="legal_name"
-              placeholder="Legal name"
-              max="256"
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="w-49">
-            <mat-label>E-mail</mat-label>
-            <input
-              type="email"
-              matInput
-              formControlName="company_email"
-              placeholder="E-mail"
-              max="256"
-            />
-            <span
-              style="color: red"
-              *ngIf="formDemo.controls['company_email'].hasError('email')"
-              >The email isn't valid.</span
-            >
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="w-49">
-            <mat-label>Phone number</mat-label>
-            <input
-              type="text"
-              matInput
-              formControlName="phone_number"
-              placeholder="Phone number"
-              max="24"
-              (keypress)="
-                validateNumbers(formDemo.value.phone_number, $event)
-              "
-            />
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="w-full">
-            <mat-label>Adress</mat-label>
-            <textarea
-              type="text"
-              matInput
-              formControlName="address"
-              placeholder="Adress"
-              max="512"
-              rows="3"
-            ></textarea>
-          </mat-form-field>
-          <div class="w-full flex-center buttonsContainer">
-            <button
-              type="button"
-              mat-raised-button
-              color="warn"
-              matTooltip="Close"
-              (click)="onNoClick()"
-              style="width: 10rem;"
-            >
-              <mat-icon>close</mat-icon> Close
-            </button>
-            <button
-              type="submit"
-              mat-raised-button
-              color="primary"
-              matTooltip="save"
-              style="width: 10rem;"
-            >
-              <mat-icon>save</mat-icon>Save
-            </button>
-          </div>
-        </form>
-      </mat-card-content>
-    </mat-card>
-  </mat-dialog-content>
-  
+          <mat-icon>upload</mat-icon>
+          Upload miniature
+        </button>
+        <div class="w-full flex-center" style="margin-top: 5px;" *ngIf="formDemo.value.miniature">
+          <img [src]="formDemo.value.miniature" alt="" class="verticalImg" (click)="openVisualizer()">
+          <span class="w-full" style="text-align: center;">Click to open bigger</span>
+        </div>
+        <input
+          #inputMiniature
+          type="file"
+          hidden
+          (change)="onFileSelected($event)"
+        />
+        </div>
+        <div class="w-full flex-center buttonsContainer">
+          <button
+            type="button"
+            mat-raised-button
+            color="warn"
+            matTooltip="Close"
+            (click)="onNoClick()"
+            style="width: 10rem"
+          >
+            <mat-icon>close</mat-icon> Close
+          </button>
+          <button
+            type="submit"
+            mat-raised-button
+            color="primary"
+            matTooltip="save"
+            style="width: 10rem"
+          >
+            <mat-icon>save</mat-icon>Save
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
