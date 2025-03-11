@@ -7,6 +7,7 @@ import { UtilsService } from 'src/app/shared/utils/utils.service';
 import * as platform from 'platform';
 import { Router } from '@angular/router';
 import { ContextService } from '../services/context.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HandleErrorInterceptor implements HttpInterceptor {
@@ -53,7 +54,7 @@ export class HandleErrorInterceptor implements HttpInterceptor {
         });
 
         if (request.body) {
-          // console.log(request.body);
+          if (!environment.production) console.log(request.body);
           const encryptedBody = this._utilsSvc.encryptAES(JSON.stringify(request.body));
           modifiedRequest = modifiedRequest.clone({ body: { "data": encryptedBody } });
         }

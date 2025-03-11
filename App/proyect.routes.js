@@ -15,7 +15,8 @@ const {
      setDemos,
      updateDemos,
      setFavorites,
-     updateFavorites
+     updateFavorites,
+     getInformation
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -125,10 +126,15 @@ router.put(`${urlBase}/favorites`, updateFavorites);
 
 router.get(`${urlBase}/demos/:demo_id`, getDemos);
 router.get(`${urlBase}/demos/verticals/:vertical_id`, getDemos);
-router.post(`${urlBase}/demos`, setDemos);
+router.post(`${urlBase}/demos`,authValidator, setDemos);
 router.put(`${urlBase}/demos`, updateDemos);
 
-
 //#endregion
+
+//#region Information
+
+router.get(`${urlBase}/information`, getInformation);
+
+
 
 module.exports = router;

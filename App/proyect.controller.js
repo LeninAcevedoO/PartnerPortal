@@ -940,7 +940,7 @@ const setDemos = async (req, res) => {
       .input("release_date", req.body.release_date)
       .input("vertical_id", req.body.vertical_id)
       .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))      
-      .input("multimedia_link", req.body.multimedia_link)
+      .input("multimedia_link", req.body.multimedia_link || '')
       .input("multimedia_type_id", req.body.multimedia_type_id)
       .input("demo_status", req.body.demo_status)
       .execute("spr_pp_insertdemos");
@@ -977,6 +977,28 @@ const updateDemos = async (req, res) => {
   }
 };
 //#endregion
+
+//#region Information
+
+const getInformation = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("info_id", req.params.info_id)
+      .execute("spr_pp_getinformation");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error getting information");
+  }
+};
+
+//#endregion
+
+
 
 module.exports = {
   ConnectionTest,
@@ -1026,4 +1048,5 @@ module.exports = {
   getDemos,
   setDemos,
   updateDemos,
+  getInformation,
 };
