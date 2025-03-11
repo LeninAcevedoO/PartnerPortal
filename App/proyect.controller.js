@@ -702,7 +702,7 @@ const getLink = async (req, res) => {
   }
 };
 
-const setLink = async (req, res) => {
+ const setLink = async (req, res) => {
   try {
     const base64String = "data:image/png;base64,iVBORw0K...";
     const base64Data = base64String.split(",")[1];
