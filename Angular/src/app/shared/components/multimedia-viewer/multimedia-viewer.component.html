@@ -1,0 +1,16 @@
+<mat-dialog-content>
+  <mat-card class="w-full flex-center" *ngIf="data">
+    <mat-card-content>
+      <div class="w-full flex-center topContainer">
+        <h1>Multimedia viwer</h1>
+        <button mat-stroked-button type="button" (click)="onNoClick()" color="warn"><mat-icon>close</mat-icon>Close</button>
+      </div>
+      <img
+      *ngIf="data.mimeType == 'img'"
+      [src]="data.b64"
+      alt=""
+      class="viewersStyle"
+    />
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>

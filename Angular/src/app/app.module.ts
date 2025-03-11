@@ -59,7 +59,7 @@ import { DemosComponent } from './pages/verticals/demos/demos.component';
     FavoritesComponent,
     PServiceComponent,
     VerticalsComponent,
-    DemosComponent
+    DemosComponent,
   ],
   imports: [
     BrowserModule,

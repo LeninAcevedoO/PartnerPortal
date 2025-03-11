@@ -11,6 +11,7 @@ import { BuscadorGenericoPipe } from '../pipes/buscador-generico.pipe';
 import { CardPipe } from '../pipes/card.pipe';
 import { PhoneNumberPipe } from '../pipes/phone-number.pipe';
 import { CustomCurrencyPipe } from '../pipes/custom-currency.pipe';
+import { MultimediaViewerComponent } from '../components/multimedia-viewer/multimedia-viewer.component';
 
 const modules = [
   FormsModule,
@@ -26,6 +27,7 @@ const GenericComponents = [
   CardPipe,
   CustomCurrencyPipe,
   PhoneNumberPipe,
+  MultimediaViewerComponent
 ]
 
 @NgModule({

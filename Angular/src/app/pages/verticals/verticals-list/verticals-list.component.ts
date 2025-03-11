@@ -26,7 +26,7 @@ buscador = "";
   }
 
   async getdemos() {
-    (await this._service.getDemos('all')).subscribe((resp: Resultado) => {
+    (await this._service.getDemos('1')).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
         this.Verticals = resp.data;
         this.cdRef.detectChanges();

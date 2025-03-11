@@ -136,10 +136,38 @@ export class NewMediaLinksComponent {
     else this.AddLink();
   }
 
+  // AddLink = async () => {
+  //   let link = {
+  //     ...this.formlink.value,
+  //     expiration_date: moment(this.formlink.value.expiration_date).format('YYYY-MM-DD') 
+  //   };
+  
+  //   (await this._service.setLink(link)).subscribe((resp: Resultado) => {
+  //     if (resp.success == "true") {
+  //       this.toastr.success("The link was added successfully", "Success");
+  //       this.onNoClick(true);
+  //     } else {
+  //       this.toastr.error(resp.message, "Error");
+  //     }
+  //   });
+  // };
+
   AddLink = async () => {
-    let link = {
+    if (!this.fileBase64) {
+      this.toastr.warning("You must select a file to upload.", "No File Selected");
+      return;
+    }
+  
+    const mimeType = this.getMimeType(this.fileBase64);
+    const fileName = `media_${Date.now()}`; // Genera un nombre único
+    const base64Data = this.fileBase64.split(',')[1]; // Extrae solo los datos base64
+  
+    const link = {
       ...this.formlink.value,
-      expiration_date: moment(this.formlink.value.expiration_date).format('YYYY-MM-DD') 
+      expiration_date: moment(this.formlink.value.expiration_date).format('YYYY-MM-DD'),
+      base64Data,
+      mimeType,
+      fileName
     };
   
     (await this._service.setLink(link)).subscribe((resp: Resultado) => {
@@ -151,6 +179,13 @@ export class NewMediaLinksComponent {
       }
     });
   };
+  
+  // Método para obtener el MIME type del archivo
+  getMimeType(base64: string): string {
+    const match = base64.match(/^data:(.*);base64,/);
+    return match ? match[1] : '';
+  }
+  
   
   EditLink = async () => {
     let link = {

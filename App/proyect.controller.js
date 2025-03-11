@@ -702,7 +702,7 @@ const getLink = async (req, res) => {
   }
 };
 
-const setLink = async (req, res) => {
+ const setLink = async (req, res) => {
   try {
     const base64String = "data:image/png;base64,iVBORw0K...";
     const base64Data = base64String.split(",")[1];
@@ -956,7 +956,7 @@ const setDemos = async (req, res) => {
       .input("release_date", req.body.release_date)
       .input("vertical_id", req.body.vertical_id)
       .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))      
-      .input("multimedia_link", req.body.multimedia_link)
+      .input("multimedia_link", req.body.multimedia_link || '')
       .input("multimedia_type_id", req.body.multimedia_type_id)
       .input("demo_status", req.body.demo_status)
       .execute("spr_pp_insertdemos");
