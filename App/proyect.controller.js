@@ -915,11 +915,27 @@ const updateFavorites = async (req, res) => {
 const getDemos = async (req, res) => {
   try {
     await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);    
+    const result = await pool
+    .request()
+    .execute("spr_pp_getdemos");       
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error getting demos");
+  }
+};
+
+
+const getDemosById = async (req, res) => {
+  try {
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
       .input("demo_id", req.params.vertical_id)
-      .execute("spr_pp_getDemos");
+      .execute("spr_pp_getdemosByVertical");
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
@@ -1046,6 +1062,7 @@ module.exports = {
   setFavorites,
   updateFavorites,
   getDemos,
+  getDemosById,
   setDemos,
   updateDemos,
   getInformation,
