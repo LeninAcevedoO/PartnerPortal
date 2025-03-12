@@ -1,12 +1,12 @@
 <div class="w-full flex-center log">
   <mat-card class="carder">
     <mat-card-title>
-      <h1 class="txtClipped">Login</h1>
+      <h1 class="txtClipped">Welcome</h1>
     </mat-card-title>
     <mat-card-content>
       <form [formGroup]="clientCredentials" (ngSubmit)="login()" class="w-full flex-center" style="margin-top: 2rem;">
         <mat-form-field appearance="outline" class="w-full">
-          <mat-label class="label">E-mail address</mat-label>
+          <mat-label class="label">Username</mat-label>
           <input matInput formControlName="username" placeholder="Username" maxlength="64" />
         </mat-form-field>
         <mat-form-field appearance="outline" class="w-full">
@@ -23,21 +23,19 @@
         </mat-form-field>
 
 
-        <div class="w-full flex-center btnContainer">
-          <button type="submit" mat-raised-button class="btnLogin">
-            <mat-icon>login</mat-icon> Login
-          </button>
-          
+        <div class="w-full flex-center btnContainer">          
           <div class="remember-container">
+            <h3 class="txtLink">Forgot your password?</h3>
             <mat-checkbox formControlName="rememberMe" class="remember-checkbox">
               <h3 class="txtLink">Remember Me</h3>
             </mat-checkbox>
-            
-            <h3 class="txtLink">Forgot your password?</h3>
           </div>
-          
-          <h3 class="w-full txtLink" (click)="openModalNewUser()">Sign up</h3>
+          <!-- <h3 class="w-full txtLink" (click)="openModalNewUser()">Sign up</h3> -->
         </div>
+
+        <button type="submit" mat-raised-button class="btnLogin">
+          <mat-icon>login</mat-icon> Login
+        </button>
         
       </form>
     </mat-card-content>
