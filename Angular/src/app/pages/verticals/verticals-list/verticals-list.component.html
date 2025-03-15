@@ -29,12 +29,10 @@
       <mat-card-content>
         <table class="MainTable" *ngIf="Verticals.length > 0">
           <thead style="border-bottom: 1px solid black">
-            <th>Enterpice Id</th>
-            <th>Comercial name</th>
-            <th>Legal name</th>
-            <th>E-mail</th>
-            <th>Phone number</th>
-            <th>Adress</th>
+            <th>Demo id</th>
+            <th>Demo name</th>
+            <th>Realease date</th>
+            <th>Vertical</th>
             <th>Status</th>
             <th>Actions</th>
           </thead>
@@ -43,19 +41,17 @@
               *ngFor="let vertical of Verticals | buscadorGenerico : buscador"
               class="hvrPush"
             >
-              <td>{{ vertical.company_id }}</td>
-              <td>{{ vertical.company_name }}</td>
-              <td>{{ vertical.legal_name }}</td>
-              <td>{{ vertical.company_email }}</td>
-              <td>{{ vertical.phone_number }}</td>
-              <td>{{ vertical.address }}</td>
+              <td>{{ vertical.demo_id }}</td>
+              <td>{{ vertical.demo_name }}</td>
+              <td>{{ vertical.release_date }}</td>
+              <td>{{ vertical.venrtical }}</td>
               <td>
                 <mat-slide-toggle
-                  [checked]="vertical.status_id ? true : false"
+                  [checked]="vertical.demo_status ? true : false"
                   (change)="changedemoStatus(vertical, $event)"
                 >
                   {{
-                    vertical.status_id ? "enabled" : "disabled"
+                    vertical.demo_status ? "enabled" : "disabled"
                   }}</mat-slide-toggle
                 >
               </td>
