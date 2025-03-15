@@ -64,6 +64,7 @@ export class HandleErrorInterceptor implements HttpInterceptor {
             if (data.type !== 0) {
               if (data.body.data && ![null, undefined, '', '{}', '[]'].includes(data.body.data)) {
                 data.body.data = JSON.parse(this._utilsSvc.decryptAES(data.body.data));
+                if(!environment.production) console.log(data.body.data);
               }
             }
           }),          
