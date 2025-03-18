@@ -3,14 +3,30 @@
     <mat-card-content>
       <div class="w-full flex-center topContainer">
         <h1>Multimedia viwer</h1>
-        <button mat-stroked-button type="button" (click)="onNoClick()" color="warn"><mat-icon>close</mat-icon>Close</button>
+        <div class="zoom-buttons">
+          <button mat-icon-button (click)="zoomIn()">
+            <mat-icon>zoom_in</mat-icon>
+          </button>
+          <button mat-icon-button (click)="zoomOut()">
+            <mat-icon>zoom_out</mat-icon>
+          </button>
+        </div>
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="onNoClick()"
+          color="warn"
+        >
+          <mat-icon>close</mat-icon>Close
+        </button>
       </div>
       <img
-      *ngIf="data.mimeType == 'img'"
-      [src]="data.b64"
-      alt=""
-      class="viewersStyle"
-    />
+        *ngIf="data.mimeType == 'img'"
+        [src]="data.b64"
+        alt=""
+        class="viewersStyle"
+        [style.transform]="'scale(' + zoom + ')'"
+      />
     </mat-card-content>
   </mat-card>
 </mat-dialog-content>
