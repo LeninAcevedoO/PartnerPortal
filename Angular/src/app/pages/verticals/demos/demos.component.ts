@@ -10,8 +10,10 @@ import { Resultado } from "src/app/shared/models/general.model";
   styleUrls: ["./demos.component.scss"],
 })
 export class DemosComponent {
+
   vertical: string = "";
   demos: any[] = [];
+  buscador = '';
 
   constructor(
     private aRoute: ActivatedRoute,
