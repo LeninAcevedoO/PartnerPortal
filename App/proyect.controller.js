@@ -702,18 +702,19 @@ const getLink = async (req, res) => {
   }
 };
 
- const setLink = async (req, res) => {
+const setLink = async (req, res) => {
   try {
     const base64String = "data:image/png;base64,iVBORw0K...";
     const base64Data = base64String.split(",")[1];
     const mimeType = req.body.mimeType; // image/png
     const fileName = req.body.fileName; // archivo.png
-    let gcloud_url = ""; // 
+    let gcloud_url = ""; //
     try {
-      await utils.uploadBase64File(base64Data, fileName, mimeType)
+      await utils
+        .uploadBase64File(base64Data, fileName, mimeType)
         .then((url) => (gcloud_url = url))
         .catch((err) => console.error("Error:", err));
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
 
@@ -878,7 +879,7 @@ const setFavorites = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("user_id",  utils.decryptAES(req.headers["x-user"]))
+      .input("user_id", utils.decryptAES(req.headers["x-user"]))
       .input("favorites", req.body.favorites)
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertfavorites");
@@ -896,9 +897,9 @@ const updateFavorites = async (req, res) => {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("user_id", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
+      .input("user_id", req.headers["x-user"]) //utils.decryptAES(req.headers["x-user"]))
       .input("favorites", req.body.favorites)
-      .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
+      .input("modified_by", req.headers["x-user"]) //utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updatefavorites");
     return ApiResponse(result, res);
   } catch (e) {
@@ -915,10 +916,9 @@ const updateFavorites = async (req, res) => {
 const getDemos = async (req, res) => {
   try {
     await insertActivity(req, res);
-    const pool = await sql.connect(dbConfig);    
-    const result = await pool
-    .request()
-    .execute("spr_pp_getdemos");       
+    const pool = await sql.connect(dbConfig);
+    const result = await pool.request().execute("spr_pp_getdemos");
+    console.log(result);
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
@@ -927,6 +927,22 @@ const getDemos = async (req, res) => {
   }
 };
 
+const getDemosByVertical = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("vertical_id", req.params.vertical_id)
+      .execute("spr_pp_getDemosByVertical");
+    console.log(result);
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error getting demos");
+  }
+};
 
 const getDemosById = async (req, res) => {
   try {
@@ -945,20 +961,36 @@ const getDemosById = async (req, res) => {
 };
 
 const setDemos = async (req, res) => {
+  let gcloud_url = "";
   try {
+    if (req.body.miniature) {
+      const base64String = req.body.miniature;
+      const base64Data = base64String.split(",")[1];
+      const mimeType = req.body.mimeType; // image/png
+      const fileName = `${req.body.fileName.replace(/ /g, "")}.${
+        req.body.mimeType.split("/")[1]
+      }`;
+      try {
+        const pl = await utils
+          .uploadBase64File(base64Data, fileName, mimeType)
+          .then((url) => (gcloud_url = url))
+          .catch((err) => console.error("Error:", err));
+      } catch (e) {
+        console.log(e);
+      }
+    }
     await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
-      .request()      
+      .request()
       .input("demo_name", req.body.demo_name)
       .input("description", req.body.description)
       .input("information", req.body.information)
       .input("release_date", req.body.release_date)
       .input("vertical_id", req.body.vertical_id)
-      .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))      
-      .input("multimedia_link", req.body.multimedia_link || '')
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .input("multimedia_link", gcloud_url)
       .input("multimedia_type_id", req.body.multimedia_type_id)
-      .input("demo_status", req.body.demo_status)
       .execute("spr_pp_insertdemos");
     return ApiResponse(result, res);
   } catch (e) {
@@ -970,7 +1002,7 @@ const setDemos = async (req, res) => {
 
 const updateDemos = async (req, res) => {
   try {
-    //await insertActivity(req, res);
+    await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -980,11 +1012,29 @@ const updateDemos = async (req, res) => {
       .input("information", req.body.information)
       .input("release_date", req.body.release_date)
       .input("vertical_id", req.body.vertical_id)
-      .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
+      .input("modified_by", req.headers["x-user"]) //utils.decryptAES(req.headers["x-user"]))
       .input("multimedia_link", req.body.multimedia_link)
       .input("multimedia_type_id", req.body.multimedia_type_id)
       .input("demo_status", req.body.demo_status)
       .execute("spr_pp_updatedemos");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error updating demos");
+  }
+};
+
+const updateStatusDemo = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("demo_id", req.params.demo_id)
+      .input("status_id", req.params.demo_status)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .execute("spr_pp_UpdateStatusDemo");
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
@@ -1013,8 +1063,6 @@ const getInformation = async (req, res) => {
 };
 
 //#endregion
-
-
 
 module.exports = {
   ConnectionTest,
@@ -1066,4 +1114,6 @@ module.exports = {
   setDemos,
   updateDemos,
   getInformation,
+  updateStatusDemo,
+  getDemosByVertical
 };

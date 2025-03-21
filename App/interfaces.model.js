@@ -4,12 +4,14 @@ const ApiResponse = (poolResult, res, mensaje) => {
   try {
     // console.log(poolResult)
     // utils.logErrorToFile(JSON.stringify(poolResult));
-    if (poolResult)
-      return res.status(200).json(jsonResult(true, null, poolResult.recordset));
+    if (poolResult.recordset.length > 0)
+      return res.status(200).json(jsonResult(true, null, poolResult.recordset))
     else if (poolResult.rowsAffected[0] != 0)
       return res.status(201).json(jsonResult(true, null, {}));
     else if (poolResult.rowsAffected[0] === 0)
-      return res.status(404).json(jsonResult(true, null, {}));
+      return res.status(404).json(jsonResult(true, null, {})); 
+    else if (poolResult)
+      return res.status(200).json(jsonResult(true, null, poolResult.recordset));
     else if (mensaje && !poolResult)
       return res.status(500).json(jsonResult(false, mensaje, {}));
     else
