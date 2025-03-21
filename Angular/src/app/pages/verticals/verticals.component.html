@@ -1,5 +1,5 @@
 <div class="w-full flex-center min-h-full verticals-container">
-    <mat-card *ngFor="let vertix of verticals" class="vertix-card" [routerLink]="vertix.route">
+    <mat-card *ngFor="let vertix of verticals" class="vertix-card" [routerLink]="vertix.id">
         <mat-card-title>{{ vertix.title }}</mat-card-title>
         <mat-card-content>
             <div class="w-full flex-center">
