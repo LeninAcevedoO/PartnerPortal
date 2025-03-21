@@ -24,6 +24,7 @@
     "mssql": "^11.0.1",
     "nodemon": "^3.1.0",
     "partner-portal-api": "file:",
+    "path": "^0.12.7",
     "uuid": "^11.0.5"
   },
   "engines": {
