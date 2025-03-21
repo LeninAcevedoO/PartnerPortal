@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MainService } from 'src/app/services/services/main.service';
 import { MultimediaViewerComponent } from 'src/app/shared/components/multimedia-viewer/multimedia-viewer.component';
 import { Resultado } from 'src/app/shared/models/general.model';
-import { validarNumeros } from 'src/app/shared/utils/utils.functions';
+import { getMimeTypeFromBase64, validarNumeros } from 'src/app/shared/utils/utils.functions';
 
 @Component({
   selector: 'app-add-vertical',
@@ -24,6 +24,7 @@ export class AddVerticalComponent {
     release_date: new FormControl<string>('', Validators.required),
     vertical_id: new FormControl<string>('', Validators.required),
     miniature: new FormControl<string>(''),
+    fileName: new FormControl<string>(''),
     multimedia_type_id: new FormControl<string>(''),
   });
   today = new Date();
@@ -75,7 +76,9 @@ export class AddVerticalComponent {
   AddVertical = async () => {
     let demo = { ...this.formDemo.value,
       release_date: moment(this.formDemo.value.release_date).format('YYYY-MM-DD'),
-      multimedia_type_id: 1
+      multimedia_type_id: 1,
+      mimeType: getMimeTypeFromBase64(this.formDemo.value.miniature || ''),
+      fileName: this.formDemo.value.demo_name,
      };
     (await this._service.setDemo(demo)).subscribe((resp: Resultado) => {
       if(resp.success == 'true') {
@@ -102,7 +105,8 @@ export class AddVerticalComponent {
       reader.readAsDataURL(file);
       reader.onload = () => { 
         this.formDemo.patchValue({
-          miniature: String(reader.result)
+          miniature: String(reader.result),
+          fileName: file.name,
         });
       };
     }
