@@ -8,7 +8,7 @@
   <h1 *ngIf="!demos" style="font-size: 30vw">
     There's no demos for this vertical
   </h1>
-  <mar-card *ngFor="let demo of demos | buscadorGenerico: buscador" class="demo-card">
+  <!-- <mar-card *ngFor="let demo of demos | buscadorGenerico: buscador" class="demo-card">
     <mat-card-title>{{ demo.demo_name }}</mat-card-title>
     <mat-card-subtitle>{{ demo.description }}</mat-card-subtitle>
     <mat-card-content>
@@ -28,7 +28,10 @@
         <mat-icon style="color: yellow">star</mat-icon>
       </button>
     </mat-card-actions>
-  </mar-card>
+  </mar-card> -->
+  <div *ngIf="demos" class="w-full flex-center demosContainer">
+    <app-demo-card *ngFor="let demo of demos | buscadorGenerico: buscador" [favorite]="demo"></app-demo-card>
+  </div>
 </div>
 
 <button

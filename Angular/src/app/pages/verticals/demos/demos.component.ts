@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectorRef } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { MainService } from "src/app/services/services/main.service";
@@ -10,17 +10,17 @@ import { Resultado } from "src/app/shared/models/general.model";
   styleUrls: ["./demos.component.scss"],
 })
 export class DemosComponent {
-
-  vertical: string = "";
+  vertical: number = 0;
   demos: any[] = [];
-  buscador = '';
+  buscador = "";
 
   constructor(
     private aRoute: ActivatedRoute,
     private _service: MainService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cdRef: ChangeDetectorRef
   ) {
-    this.vertical = this.aRoute.snapshot.paramMap.get("vertix") || "";
+    this.vertical = Number(this.aRoute.snapshot.paramMap.get("vertix"));
   }
 
   ngOnInit() {
@@ -28,10 +28,11 @@ export class DemosComponent {
   }
 
   async getDemos() {
-    (await this._service.getDemos(this.vertical)).subscribe(
+    (await this._service.getDemosByVertical(this.vertical)).subscribe(
       (resp: Resultado) => {
         if (resp.success == "true") {
           this.demos = resp.data;
+          this.cdRef.detectChanges();
         } else this.toastr.error(resp.message, "Error");
       }
     );
