@@ -29,10 +29,7 @@
 
     <mat-card-content>
       <div class="card-container">
-        <mat-card class="favorite-card" *ngFor="let favorite of favorites | buscadorGenerico : buscador">
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Default Image">
-          <mat-card-title>{{ favorite.favorites }}</mat-card-title>
-        </mat-card>
+        <app-demo-card *ngFor="let favorite of favorites | buscadorGenerico : buscador" [favorite]="favorite"></app-demo-card>
       </div>
 
       <div *ngIf="favorites.length === 0" class="w-full flex-center">
