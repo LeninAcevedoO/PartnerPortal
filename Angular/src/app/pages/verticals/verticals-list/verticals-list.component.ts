@@ -36,7 +36,7 @@ buscador = "";
 
   changedemoStatus = async (demo: any, toStatus: any) => {
     let verticalStatus = {
-      company_id: demo.company_id,
+      demo_id: demo.demo_id,
       status_id: [0, 2].includes(toStatus)
         ? toStatus
         : Number(toStatus.checked),

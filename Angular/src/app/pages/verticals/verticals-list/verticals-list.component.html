@@ -44,14 +44,14 @@
               <td>{{ vertical.demo_id }}</td>
               <td>{{ vertical.demo_name }}</td>
               <td>{{ vertical.release_date }}</td>
-              <td>{{ vertical.venrtical }}</td>
+              <td>{{ vertical.vertical_desc }}</td>
               <td>
                 <mat-slide-toggle
-                  [checked]="vertical.demo_status ? true : false"
+                  [checked]="vertical.status_id ? true : false"
                   (change)="changedemoStatus(vertical, $event)"
                 >
                   {{
-                    vertical.demo_status ? "enabled" : "disabled"
+                    vertical.status_id ? "enabled" : "disabled"
                   }}</mat-slide-toggle
                 >
               </td>
