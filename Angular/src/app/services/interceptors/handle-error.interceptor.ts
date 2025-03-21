@@ -80,7 +80,7 @@ export class HandleErrorInterceptor implements HttpInterceptor {
               this.toastr.warning('You\'re not authorizated', 'Error 401');
               this._context.logout();
             } else if (err.status === 404) {
-              this.toastr.error('There\'s no information found', 'Error 404');
+              this.toastr.info('There\'s no information found', 'Error 404');
             } else {
               const mensaje = err.error?.mensaje || err.error?.message || 'Something went wrong, try again later';
               this.toastr.error(mensaje, `Error ${err.status}`);
