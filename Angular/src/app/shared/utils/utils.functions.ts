@@ -78,17 +78,20 @@ export function invertHexColor(hex: string): string {
   return `rgb(${invertedR}, ${invertedG}, ${invertedB})`;
 }
 
-
 export function getWhiteBlackColor(hex: string): string {
-    if (hex.startsWith("#")) {
-      hex = hex.slice(1);
-    }
-  
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-
-    if (r > 122 || g > 122 || b > 122)
-        return 'black';
-    else return 'white';
+  if (hex.startsWith("#")) {
+    hex = hex.slice(1);
   }
+
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+
+  if (r > 122 || g > 122 || b > 122) return "black";
+  else return "white";
+}
+
+export function getMimeTypeFromBase64(base64: string): string | null {
+  const match = base64.match(/^data:([a-zA-Z0-9-+/]+);base64,/);
+  return match ? match[1] : null;
+}
