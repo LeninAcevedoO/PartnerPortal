@@ -23,10 +23,6 @@ export class MainService {
 
   logRouteVisit(data: any) {
     return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/activity`, data);
-    // .subscribe({
-    //   next: () => console.log('Registro enviado con éxito'),
-    //   error: (err) => console.error('Error al enviar el registro', err),
-    // });
   }
 
   //#endregion
@@ -235,6 +231,10 @@ export class MainService {
       return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/demos/${vertix}`);
     }
 
+    getDemosByVertical = async(vertix: number) => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/demos/verticals/${vertix}`);
+    }
+
     setDemo = async(demo: any) => {
       return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/demos/`, demo);
     }
@@ -244,7 +244,7 @@ export class MainService {
     }
 
     updateDemoStatus = async(vertix: any) => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/demos/${vertix.demo_id}/status/${vertix.status_id}`);
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/demos/${vertix.demo_id}/status/${vertix.status_id}`, {});
     }
 
     //#endregion
