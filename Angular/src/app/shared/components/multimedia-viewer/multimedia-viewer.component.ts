@@ -25,10 +25,6 @@ export class MultimediaViewerComponent {
     }
   }
 
-  ngOnInit() {
-    console.log(this.data)
-  }
-
   onNoClick() {
     this.dialogRef.close();
   }

@@ -120,7 +120,6 @@ export class NewMediaLinksComponent {
     reader.readAsDataURL(file);
     reader.onload = () => {
       this.fileBase64 = reader.result as string;
-      console.log("Base64 Encoded File:", this.fileBase64);
     };
     reader.onerror = (error) => {
       console.error("Error converting file to Base64:", error);
