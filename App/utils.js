@@ -45,9 +45,14 @@ function logErrorToFile(error) {
   });
 }
 
+// const storage = new Storage({
+//     keyFilename: path.join(__dirname, process.env.GCP_JSON), // GCP JSON Credentials route
+// });
+
 const storage = new Storage({
-    keyFilename: path.join(__dirname, process.env.GCP_JSON), // GCP JSON Credentials route
+  keyFilename: process.env.GCP_JSON, // Sin path.join
 });
+
 
 // const credentials=process.env.GCP_JSON;
 // const storage = new Storage({
