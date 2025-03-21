@@ -76,8 +76,10 @@ router.get(`${urlBase}/catalogs/media-types`, authValidator, getCatMediaType);
 
     //#region Links
     
-    router.get(`${urlBase}/links`, authValidator, getLinks);
-    router.get(`${urlBase}/links/:link_id`, authValidator, getLink);
+    //router.get(`${urlBase}/links`, authValidator, getLinks);
+    router.get(`${urlBase}/links`, getLinks);
+    //router.get(`${urlBase}/links/:link_id`, authValidator, getLink);
+    router.get(`${urlBase}/links/:link_id`, getLink);
     router.post(`${urlBase}/links`, authValidator, setLink);
     router.put(`${urlBase}/links`, authValidator, updateLink);
     router.put(`${urlBase}/links/:link_id/status/:status`, authValidator, updateLinkStatus);
@@ -116,7 +118,8 @@ router.put(`${urlBase}/comments`, authValidator, updateComment);
 
 //#region Favorites
 
-router.get(`${urlBase}/favorites`, authValidator, getFavorites);
+//router.get(`${urlBase}/favorites`, authValidator, getFavorites);
+router.get(`${urlBase}/favorites`, getFavorites);
 router.post(`${urlBase}/favorites`, setFavorites);
 router.put(`${urlBase}/favorites`, updateFavorites);
 
