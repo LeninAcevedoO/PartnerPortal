@@ -1,0 +1,32 @@
+<!-- <mat-card class="favorite-card">
+  <img
+    mat-card-image
+    [src]=""
+    alt="Default Image"
+  />
+  <mat-card-title>{{ favorite.favorites }}</mat-card-title>
+</mat-card> -->
+
+<mat-card class="demo-card">
+  <mat-card-title>{{ favorite.demo_name }}</mat-card-title>
+  <mat-card-subtitle>{{ favorite.description }}</mat-card-subtitle>
+  <mat-card-content>
+    <div class="w-full flex-center bodyImg">
+      <img
+        *ngIf="favorite.multimedia_link && favorite.multimedia_type_id == 1"
+        [src]="favorite.multimedia_link"
+        class="card-image"
+      />
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="w-full flex-center">
+      <button type="button" mat-icon-button (click)="navigateToDemo()" matTooltip="View details of demo">
+        <mat-icon style="color: green">visibility</mat-icon>
+      </button>
+      <button type="button" mat-icon-button (click)="addFavorite(favorite)" matTooltip="Add to favorites">
+        <mat-icon style="color: yellow">star</mat-icon>
+      </button>
+    </div>
+  </mat-card-actions>
+</mat-card>
