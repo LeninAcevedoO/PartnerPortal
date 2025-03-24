@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  gcloud: "http://34.45.187.32:8001/",
+  gcloud: "http://34.45.187.32:8001",
   debugPC: "http://localhost:8001",
   //debugPC: 'http://192.168.68.107:3000',
   aesKey: "1f8b8d4c72b42f08f4ad5a9e2b2a3c12",
