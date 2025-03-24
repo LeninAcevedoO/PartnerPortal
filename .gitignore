@@ -33,5 +33,6 @@ App/package-lock.json
 App/.env
 Build/*
 App/error-log.txt
-App/Archivo.zip
+App/*.zip
 App/frontend/*
+App/Archivo/*
