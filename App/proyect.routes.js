@@ -1,7 +1,7 @@
 const { Router } = require("express"); 
 
 const {
-     ConnectionTest, login, authValidator, getEnterprices,  getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus, getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, getComments, getComment, setComment, updateComment, getRoles,getRole,setRole,updateRole,updateRoleStatus, getRequests, getRequest, setRequest, updateRequest, getLinks, getLink, setLink, updateLink, updateLinkStatus, getCatMediaType, getAllAttentionStatus, setAttentionStatus, updateAttentionStatus, updateAttentionStatusStatus, logout,getFavorites, getDemos, getDemosByVertical, setDemos,updateStatusDemo, updateDemos, setFavorites, updateFavorites, getInformation
+     ConnectionTest, login, authValidator, getEnterprices,  getEnterprice, setEnterprice, updateEnterprice, updateEnterpriceStatus, getUsers, getUser, setUser, updateUser, updateUserStatus, getCatEnterprices, getCatRoles, getCatStatusAttendant, getCatStatus, getComments, getComment, setComment, updateComment, getRoles,getRole,setRole,updateRole,updateRoleStatus, getRequests, getRequest, setRequest, updateRequest, getLinks, getLink, setLink, updateLink, updateLinkStatus, getCatMediaType, getAllAttentionStatus, setAttentionStatus, updateAttentionStatus, updateAttentionStatusStatus, logout,getFavorites, getDemos, getDemosByVertical, setDemos,updateStatusDemo, updateDemos, setFavorites, updateFavorites, getInformation, getLinksToShow
 } = require("./proyect.controller.js");
 
 const router = Router();
@@ -63,6 +63,7 @@ router.get(`${urlBase}/catalogs/media-types`, authValidator, getCatMediaType);
     
     //router.get(`${urlBase}/links`, authValidator, getLinks);
     router.get(`${urlBase}/links`, getLinks);
+    router.get(`${urlBase}/links/show`, authValidator, getLinksToShow);
     //router.get(`${urlBase}/links/:link_id`, authValidator, getLink);
     router.get(`${urlBase}/links/:link_id`, getLink);
     router.post(`${urlBase}/links`, authValidator, setLink);

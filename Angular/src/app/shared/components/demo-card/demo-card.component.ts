@@ -1,6 +1,17 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { NewProductsDetailsComponent } from 'src/app/pages/new-products-details/new-products-details.component';
+
+export interface genericCard {
+  id: number | string,
+  title: string,
+  multimedia_link: string,
+  multimedia_type_id: number,
+  description: string, 
+  subtitle?: string
+}
 
 @Component({
   selector: 'app-demo-card',
@@ -9,23 +20,30 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DemoCardComponent {
 
-  @Input() favorite: any = {};
+  @Input() genData!: genericCard;
 
   constructor(private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private dialog: MatDialog
   ) {}
 
-  ngOnInit() {
-    console.log(this.favorite)
-    console.log(this.favorite.multimedia_link)
-  }
-
   navigateToDemo() {
-    this.router.navigate(['demos', this.favorite.id]);
+    this.router.navigate(['demos', this.genData.id]);
   }
 
   addFavorite(favorite: any) {
     this.toastr.success('Demo added to favorites', 'Favorite');
 
+  }
+
+  requestDetails(d: any) {
+    const data = {
+      id: d.id,
+      title: d.title,
+    }
+    this.dialog.open(NewProductsDetailsComponent, {
+      data: data,
+      panelClass: 'post-dialog-container',
+    })
   }
 }

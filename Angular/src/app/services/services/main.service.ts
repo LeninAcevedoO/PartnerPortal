@@ -207,6 +207,10 @@ export class MainService {
       return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/links`);
     }
 
+    getLinksToShow = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/links/show`);
+    }
+
     getLink = async(idlink: any) => {
       return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/links/${idlink}`);
     }

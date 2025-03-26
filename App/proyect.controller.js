@@ -686,6 +686,22 @@ const getLinks = async (req, res) => {
   }
 };
 
+const getLinksToShow = async (req, res) => {
+  try {
+    await insertActivity(req, res);
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("idEmpresa", req.headers["x-company"])
+      .execute("spr_pp_getLinksToShow");
+    return ApiResponse(result, res);
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error getting links");
+  }
+};
+
 const getLink = async (req, res) => {
   try {
     await insertActivity(req, res);
@@ -703,19 +719,23 @@ const getLink = async (req, res) => {
 };
 
 const setLink = async (req, res) => {
+  let gcloud_url = "";
   try {
-    const base64String = "data:image/png;base64,iVBORw0K...";
-    const base64Data = base64String.split(",")[1];
-    const mimeType = req.body.mimeType; // image/png
-    const fileName = req.body.fileName; // archivo.png
-    let gcloud_url = ""; //
-    try {
-      await utils
-        .uploadBase64File(base64Data, fileName, mimeType)
-        .then((url) => (gcloud_url = url))
-        .catch((err) => console.error("Error:", err));
-    } catch (e) {
-      console.log(e);
+    if (req.body.miniature) {
+      const base64String = req.body.miniature;
+      const base64Data = base64String.split(",")[1];
+      const mimeType = req.body.mimeType; // image/png
+      const fileName = `${req.body.fileName.replace(/ /g, "")}.${
+        req.body.mimeType.split("/")[1]
+      }`;
+      try {
+        const pl = await utils
+          .uploadBase64File(base64Data, fileName, mimeType)
+          .then((url) => (gcloud_url = url))
+          .catch((err) => console.error("Error:", err));
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     await insertActivity(req, res);
@@ -881,7 +901,7 @@ const setFavorites = async (req, res) => {
       .request()
       .input("user_id", utils.decryptAES(req.headers["x-user"]))
       .input("favorites", req.body.favorites)
-      .input("modified_by", req.headers["x-user"])//utils.decryptAES(req.headers["x-user"]))
+      .input("modified_by", req.headers["x-user"]) //utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_insertfavorites");
     return ApiResponse(result, res);
   } catch (e) {
@@ -1115,5 +1135,6 @@ module.exports = {
   updateDemos,
   getInformation,
   updateStatusDemo,
-  getDemosByVertical
+  getDemosByVertical,
+  getLinksToShow,
 };

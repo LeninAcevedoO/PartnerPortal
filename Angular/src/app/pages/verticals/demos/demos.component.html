@@ -30,7 +30,7 @@
     </mat-card-actions>
   </mar-card> -->
   <div *ngIf="demos" class="w-full flex-center demosContainer">
-    <app-demo-card *ngFor="let demo of demos | buscadorGenerico: buscador" [favorite]="demo"></app-demo-card>
+    <app-demo-card *ngFor="let demo of demos | buscadorGenerico: buscador" [genData]="demo"></app-demo-card>
   </div>
 </div>
 

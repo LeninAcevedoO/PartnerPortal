@@ -68,18 +68,6 @@ export class NewMediaLinksComponent {
     });
   };
 
-  // getCatMediaType = async () => {
-  //   (await this._service.getCatMediaType()).subscribe((resp: Resultado) => {
-  //     if (resp.success == "true") {
-  //       this.cats.multimedia_types = resp.data;
-  //       console.log('Multimedia Types:', this.cats.multimedia_types);
-  //     } else {
-  //       this.toastr.error(resp.message, "Error");
-  //     }
-  //   });
-  // };
-  
-  //Only accept these files
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -164,7 +152,7 @@ export class NewMediaLinksComponent {
     const link = {
       ...this.formlink.value,
       expiration_date: moment(this.formlink.value.expiration_date).format('YYYY-MM-DD'),
-      base64Data,
+      miniature: base64Data,
       mimeType,
       fileName
     };

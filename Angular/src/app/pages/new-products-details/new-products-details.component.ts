@@ -35,6 +35,8 @@ export class NewProductsDetailsComponent {
       this.getProductDetail();
       this.titulo = "Update information request";
       this.isTaken = true;
+    } else {
+      this.titulo = `I'd like more details about ${this.data.title}`;
     }
   }
 
