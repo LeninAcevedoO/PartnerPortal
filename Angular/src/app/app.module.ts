@@ -32,9 +32,9 @@ import { NewUserComponent } from './pages/administration/settings/users/new-user
 import { CarrouselComponent } from './pages/home/carrousel/carrousel.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
-import { PServiceComponent } from './pages/p-service/p-service.component';
 import { VerticalsComponent } from './pages/verticals/verticals.component';
 import { DemosComponent } from './pages/verticals/demos/demos.component';
+import { ContentListComponent } from './pages/content/content-list/content-list.component';
 
 
 
@@ -57,9 +57,9 @@ import { DemosComponent } from './pages/verticals/demos/demos.component';
     CarrouselComponent,
     AboutUsComponent,
     FavoritesComponent,
-    PServiceComponent,
     VerticalsComponent,
-    DemosComponent
+    DemosComponent,
+    ContentListComponent
   ],
   imports: [
     BrowserModule,
