@@ -2,9 +2,9 @@ const utils = require("./utils.js");
 
 const ApiResponse = (poolResult, res, mensaje) => {
   try {
-    // console.log(poolResult)
+    console.log(poolResult)
     // utils.logErrorToFile(JSON.stringify(poolResult));
-    if (poolResult.recordset.length > 0)
+    if (poolResult.recordset)
       return res.status(200).json(jsonResult(true, null, poolResult.recordset))
     else if (poolResult.rowsAffected[0] != 0)
       return res.status(201).json(jsonResult(true, null, {}));
