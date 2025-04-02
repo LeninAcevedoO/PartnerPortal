@@ -1,12 +1,48 @@
 @use '@angular/material' as mat;
+@use 'sass:map';
 
-$my-primary: mat.define-palette(mat.$blue-palette, 700);
+// Definir una paleta personalizada basada en azul con el color deseado
+$my-custom-primary: mat.define-palette((
+  50: #e3eff7,
+  100: #b9d7eb,
+  200: #8dbedd,
+  300: #61a5cf,
+  400: #3e91c3,
+  500: #1b7db7,
+  600: #166fa7,
+  700: #004987, // Color principal definido por ti
+  800: #0d4e7f,
+  900: #08355d,
+  A100: #d1e7ff,
+  A200: #9fcfff,
+  A400: #6db7ff,
+  A700: #54aaff,
+  contrast: (
+    50: black,
+    100: black,
+    200: black,
+    300: black,
+    400: black,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: black,
+    A200: black,
+    A400: black,
+    A700: black,
+  )
+));
+
+// Definir las demás paletas
 $my-accent: mat.define-palette(mat.$teal-palette, 700);
 $my-warn: mat.define-palette(mat.$pink-palette, 600);
 
+// Definir el tema con la paleta primaria personalizada
 $my-theme: mat.define-light-theme((
   color: (
-    primary: $my-primary,
+    primary: $my-custom-primary,
     accent: $my-accent,
     warn: $my-warn,
   ),
