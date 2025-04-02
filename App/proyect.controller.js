@@ -19,7 +19,7 @@ const ConnectionTest = (req, res) => {
 const login = async (req, res) => {
   try {
     req.body = JSON.parse(utils.decryptAES(req.body.data));
-    await insertActivity(req, res);
+    // await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
@@ -55,11 +55,12 @@ const login = async (req, res) => {
     else if (
       utils.decryptAES(result.recordset[0].password_hash) === req.body.password
     ) {
+      console.log('get login info')
       let R_info = await pool
         .request()
         .input("email", req.body.email)
         .execute("spr_pp_getlogininformation");
-      R_info.recordset[0] = [{ ...R_info.recordset[0], token: token }];
+      R_info.recordset[0] = { ...R_info.recordset[0], token: token };
       return ApiResponse(R_info, res);
     } else
       return res
