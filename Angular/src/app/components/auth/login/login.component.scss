@@ -28,15 +28,8 @@
 }
 
 .txtClipped {
-  scale: 3;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.1) 0,
-    rgb(0, 0, 0) 50%
-  );
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  scale: 1;
+  color: var(--primary-color);
   text-align: center;
   margin-top: 15%;
 }
@@ -82,7 +75,7 @@ button.mat-icon-button .mat-icon {
 // }
 
 .btnLogin {
-  background: linear-gradient(90deg, #743fa9, #2b72df, #2b9adf);
+  background: linear-gradient(-30deg, #009dd7 0%, #0075c9 65%, #004987 90%);
   color: white !important;
   width: 100%;
   height: 50px;
@@ -94,8 +87,7 @@ button.mat-icon-button .mat-icon {
   // min-height: calc(100vh - 58px);
   min-height: 100vh;
   // background: linear-gradient(103deg, #7e3da0 4%, #0075c9 65%, #009DD7 95%);
-  //background: linear-gradient(-117deg, #004987 48%, #0075c9 75%, #009dd7 92%);
-  background-color: #0b6dc4;
+  background: linear-gradient(-30deg, #004987 0%,  #0075c9 90%);
 }
 
 .label {
@@ -146,4 +138,21 @@ button.mat-icon-button .mat-icon {
   display: flex;
   justify-content: end;
   padding-right: 0.7rem;
+}
+
+.resultantLogo {
+  width: 80%;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.resultantLogoWt {
+  width: 500px;
+  object-fit: contain;
+  margin-bottom: 2.5rem;
+  mix-blend-mode: color-dodge;
+}
+
+.logoContainer {
+  justify-content: left;
 }
