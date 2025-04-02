@@ -7,18 +7,23 @@
 </mat-toolbar> -->
 <!---------------toolbar----------------------->
 <mat-toolbar class="topBar">
-  <button mat-icon-button type="button" (click)="opened = !opened">
-    <mat-icon>menu</mat-icon>
+  <button type="button" mat-button routerLink="/home" class="btnHome2"><mat-icon>home</mat-icon>Partner Portal</button>
+  <!-- <button mat-icon-button type="button" routerLink="/home" (click)="opened = !opened">
+    <mat-icon>home</mat-icon>
   </button>
   <div style="text-align: center">
-    <!-- <img src="assets/img/logoUpset.png" class="toolbar-logo" /> -->
-    <!-- <h1>UpLink</h1> -->
     <h1 class="tittle" routerLink="/home">Partner Portal</h1>
-  </div>
+  </div> -->
   <span class="spacer"></span>
   <div class="flex-center pbr">
-    <h1 class="isPCTablet">POWERED BY RESULTANT</h1>
-    <img src="/assets/img/resultantLogo.png" />
+    <div class="w-full flex-center" style="gap: 0.5rem; justify-content: end;"  matTooltip="About us" routerLink="https://resultant.com/">
+      <h3 class="isPCTablet" style="font-size: 1rem;">POWERED BY RESULTANT</h3>
+      <img src="assets/img/resultantLogo.png" class="rsLogo"/>
+    </div>
+    <div class="w-full flex-center" style="justify-content: end">
+      <button type="button" mat-button routerLink="/settings" matTooltip="Admin panel" style="color: white;"><mat-icon>admin_panel_settings</mat-icon>Admin</button>
+      <button type="button" mat-button (click)="logout()" matTooltip="Logout" style="color: white;"><mat-icon>logout</mat-icon>Logout</button>
+    </div>
   </div>
   <!-- <button type="button" mat-raised-button color="warn" (click)="logout()"> // logut button and menus
     <mat-icon>logout</mat-icon> Logout

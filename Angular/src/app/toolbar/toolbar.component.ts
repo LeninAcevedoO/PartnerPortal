@@ -25,26 +25,26 @@ const TREE_DATA: any[] = [
         icon: "campaign",
         permissions: [1, 2, 3, 4],
       },
-      {
-        name: "About us",
-        onClick: "/about-us",
-        icon: "info",
-        permissions: [1, 2, 3, 4],
-      },
+      // {
+      //   name: "About us",
+      //   onClick: "/about-us",
+      //   icon: "info",
+      //   permissions: [1, 2, 3, 4],
+      // },
     ],
   },
-  {
-    name: "Favorites",
-    onClick: "/favorites",
-    icon: "star",
-    permissions: [1, 2, 3, 4],
-  },
-  {
-    name: "AI Assistant",
-    permissions: [1, 2, 3],
-    onClick: "/login",
-    icon: "support_agent",
-  },
+  // {
+  //   name: "Favorites",
+  //   onClick: "/favorites",
+  //   icon: "star",
+  //   permissions: [1, 2, 3, 4],
+  // },
+  // {
+  //   name: "AI Assistant",
+  //   permissions: [1, 2, 3],
+  //   onClick: "/login",
+  //   icon: "support_agent",
+  // },
   {
     name: "Verticals",
     onClick: "/verticals",
@@ -52,12 +52,12 @@ const TREE_DATA: any[] = [
     permissions: [1, 2, 3, 4],
   },
   // { name: 'Services' },
-  {
-    name: "Manager Comments",
-    permissions: [1, 2, 3, 4],
-    onClick: "openModalNewComment",
-    icon: "contact_mail",
-  },
+  // {
+  //   name: "Manager Comments",
+  //   permissions: [1, 2, 3, 4],
+  //   onClick: "openModalNewComment",
+  //   icon: "contact_mail",
+  // },
   {
     name: "Dashboard",
     permissions: [1, 2],
@@ -70,12 +70,12 @@ const TREE_DATA: any[] = [
     onClick: "/settings",
     icon: "settings",
   },
-  {
-    name: "Logout",
-    onClick: "Logout",
-    icon: "logout",
-    permissions: [1, 2, 3, 4],
-  },
+  // {
+  //   name: "Logout",
+  //   onClick: "Logout",
+  //   icon: "logout",
+  //   permissions: [1, 2, 3, 4],
+  // },
 ];
 
 @Component({

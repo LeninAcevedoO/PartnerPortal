@@ -4,7 +4,7 @@
   top: 0;
   z-index: 1001;
   background: url('/assets/img/bg-toolbar.png') no-repeat center center, 
-              linear-gradient(to right, #0275c9, #004986);
+  linear-gradient(30deg, #0075c9 10%, #004987 100%);
   background-size: cover, cover;
   color: white;
 }
@@ -77,19 +77,16 @@ html,
 .pbr {
   color: lightgray;
   font-weight: lighter;
-  gap: 1rem;
   height: 1px;
   opacity: 0.6;
+  line-height: 0;
+  width: 300px;  
+  justify-content: end;
+}
 
-  h1 {
-    transform: translateY(0.2rem);
-    font-size: 1rem;
-  }
-
-  img {
-    width: 35px;
-    object-fit: contain;
-  }
+.rsLogo {
+  width: 35px;
+  object-fit: contain;
 }
 
 .Back{
@@ -136,4 +133,9 @@ html,
 .tittle:hover {
   cursor: pointer;
   scale: 1.05;
+}
+
+.btnHome2 {
+  scale: 1.5;
+  margin-left: 2rem;
 }
