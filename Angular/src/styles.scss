@@ -1,9 +1,16 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$custom-typography: mat.define-typography-config(
+  $font-family: 'Gibson, sans-serif'
+);
+
+@include mat.all-component-typographies($custom-typography);
+
 html,
 body {
   height: 100vh;
-  // zoom: 0.9;
-  // -moz-transform: scale(0.89);
-  // -moz-transform-origin: 0 0;
 }
 
 @font-face {
@@ -23,9 +30,25 @@ body {
 
 body {
   margin: 0;
-  // font-family: 'Rubik', sans-serif;
-  font-family: 'Gibson', sans-serif;
+  font-family: 'Gibson', sans-serif !important;
 }
+
+::ng-deep .mat-typography {
+  font-family: 'Gibson', sans-serif !important;
+}
+
+::ng-deep .mat-typography h1, 
+.mat-typography h2, 
+.mat-typography h3, 
+.mat-typography h4, 
+.mat-typography h5, 
+.mat-typography h6, 
+.mat-typography p, 
+.mat-typography span, 
+.mat-typography button {
+  font-family: 'Gibson', sans-serif !important;
+}
+
 
 :root {
   --primary-color: #004986;
