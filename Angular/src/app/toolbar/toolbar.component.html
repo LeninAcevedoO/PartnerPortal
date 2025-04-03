@@ -7,7 +7,9 @@
 </mat-toolbar> -->
 <!---------------toolbar----------------------->
 <mat-toolbar class="topBar">
-  <button type="button" mat-button routerLink="/home" class="btnHome2"><mat-icon>home</mat-icon>Partner Portal</button>
+  <button type="button" mat-button routerLink="/home" class="btnHome2">
+    <mat-icon>home</mat-icon>Partner Portal
+  </button>
   <!-- <button mat-icon-button type="button" routerLink="/home" (click)="opened = !opened">
     <mat-icon>home</mat-icon>
   </button>
@@ -16,13 +18,34 @@
   </div> -->
   <span class="spacer"></span>
   <div class="flex-center pbr">
-    <div class="w-full flex-center" style="gap: 0.5rem; justify-content: end;"  matTooltip="About us" routerLink="https://resultant.com/">
-      <h3 class="isPCTablet" style="font-size: 1rem;">POWERED BY RESULTANT</h3>
-      <img src="assets/img/resultantLogo.png" class="rsLogo"/>
-    </div>
+    <a
+      class="w-full flex-center txt-powered"
+      matTooltip="About us"
+      href="https://resultant.com/"
+      target="_blank"
+    >
+      <h3 class="isPCTablet" style="font-size: 1rem; margin-top: 0.5rem;">POWERED BY RESULTANT</h3>
+      <img src="assets/img/resultantLogo.png" class="rsLogo" />
+    </a>
     <div class="w-full flex-center" style="justify-content: end">
-      <button type="button" mat-button routerLink="/settings" matTooltip="Admin panel" style="color: white;"><mat-icon>admin_panel_settings</mat-icon>Admin</button>
-      <button type="button" mat-button (click)="logout()" matTooltip="Logout" style="color: white;"><mat-icon>logout</mat-icon>Logout</button>
+      <button
+        type="button"
+        mat-button
+        routerLink="/settings"
+        matTooltip="Admin panel"
+        style="color: white"
+      >
+        <mat-icon>admin_panel_settings</mat-icon>Admin
+      </button>
+      <button
+        type="button"
+        mat-button
+        (click)="logout()"
+        matTooltip="Logout"
+        style="color: white"
+      >
+        <mat-icon>logout</mat-icon>Logout
+      </button>
     </div>
   </div>
   <!-- <button type="button" mat-raised-button color="warn" (click)="logout()"> // logut button and menus

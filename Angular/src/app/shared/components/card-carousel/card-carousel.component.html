@@ -1,0 +1,34 @@
+<div class="w-full flex-center">
+  <ngx-slick-carousel
+    class="carousel"
+    #slickModal="slick-carousel"
+    [config]="slideConfig"
+  >
+    <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+      <div class="img-style flex-center" matTooltip="More details">
+        <img [src]="slide.img" class="mg" [routerLink]="slide.link" />
+        <h3 class="title w-full">{{ slide.title }}</h3>
+      </div>
+    </div>
+  </ngx-slick-carousel>
+
+  <button
+    type="button"
+    mat-mini-fab
+    (click)="slickModal.slickNext()"
+    class="btnFoward"
+    matTooltip="Next slide"
+  >
+    <mat-icon>arrow_forward_ios</mat-icon>
+  </button>
+
+  <button
+    type="button"
+    mat-mini-fab
+    (click)="slickModal.slickPrev()"
+    class="btnBack"
+    matTooltip="Prev slide"
+  >
+    <mat-icon>arrow_back_ios</mat-icon>
+  </button>
+</div>

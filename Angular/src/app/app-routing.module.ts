@@ -15,6 +15,8 @@ import { AboutUsComponent } from "./pages/about-us/about-us.component";
 import { FavoritesComponent } from "./pages/favorites/favorites.component";
 import { VerticalsComponent } from "./pages/verticals/verticals.component";
 import { DemosComponent } from "./pages/verticals/demos/demos.component";
+import { FullCarouselComponent } from "./shared/components/full-carousel/full-carousel.component";
+import { CardCarouselComponent } from "./shared/components/card-carousel/card-carousel.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -31,6 +33,14 @@ const routes: Routes = [
       {
         path: "verticals",
         component: VerticalsComponent,
+      },
+      {
+        path: "carousels",
+        component: FullCarouselComponent,
+      },
+      {
+        path: "cardesel",
+        component: CardCarouselComponent,
       },
       {
         path: "verticals/:vertix",

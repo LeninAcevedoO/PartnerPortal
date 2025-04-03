@@ -3,8 +3,8 @@
   // top: 40px;
   top: 0;
   z-index: 1001;
-  background: url('/assets/img/bg-toolbar.png') no-repeat center center, 
-  linear-gradient(30deg, #0075c9 10%, #004987 100%);
+  background: url("/assets/img/bg-toolbar.png") no-repeat center center,
+    linear-gradient(30deg, #0075c9 10%, #004987 100%);
   background-size: cover, cover;
   color: white;
 }
@@ -17,7 +17,7 @@
 //   background-color: #082444;
 //   color: #EDEDEE;
 //   height: 40px;
-//   align-items: center; 
+//   align-items: center;
 // }
 
 mat-sidenav {
@@ -80,16 +80,17 @@ html,
   height: 1px;
   opacity: 0.6;
   line-height: 0;
-  width: 300px;  
+  width: 300px;
   justify-content: end;
 }
 
 .rsLogo {
-  width: 35px;
+  width: 25px;
   object-fit: contain;
+  margin-top: 8px;
 }
 
-.Back{
+.Back {
   font-size: 15px;
 }
 
@@ -108,12 +109,12 @@ html,
   margin: 4px 0;
   border-radius: 4px;
   transition: box-shadow 0.5s ease, background-color 0.5s ease;
-  width: 100%; 
+  width: 100%;
   box-sizing: border-box;
 }
 
 .tree-node-container:hover {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .hover-shadow:hover {
@@ -127,7 +128,7 @@ html,
 }
 
 .tree-node-container span {
-  margin-left: 4px; 
+  margin-left: 4px;
 }
 
 .tittle:hover {
@@ -138,4 +139,16 @@ html,
 .btnHome2 {
   scale: 1.5;
   margin-left: 2rem;
+}
+
+.txt-powered {
+  gap: 0.5rem;
+  justify-content: end;
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
