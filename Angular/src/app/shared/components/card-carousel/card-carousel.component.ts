@@ -17,27 +17,27 @@ export class CardCarouselComponent {
   // @Input()
   slides: any[] = [
     {
-      img: "assets/img/demos/Workforce/image1.jpg",
+      img: "assets/img/demos/Workforce/image1.webp",
       title: "Item name",
       description: "A little descriptionabout the demo",
     },
     {
-      img: "assets/img/demos/HHS/image1.jpg",
+      img: "assets/img/demos/HHS/image1.webp",
       title: "Item name",
       description: "A little descriptionabout the demo",
     },
     {
-      img: "assets/img/demos/Workforce/image3.jpg",
+      img: "assets/img/demos/Workforce/image3.webp",
       title: "Item name",
       description: "A little descriptionabout the demo",
     },
     {
-      img: "assets/img/demos/HHS/image2.jpg",
+      img: "assets/img/demos/HHS/image2.webp",
       title: "Item name",
       description: "A little descriptionabout the demo",
     },
     {
-      img: "assets/img/demos/HHS/image3.jpg",
+      img: "assets/img/demos/HHS/image3.webp",
       title: "Item name",
       description: "A little descriptionabout the demo",
     },

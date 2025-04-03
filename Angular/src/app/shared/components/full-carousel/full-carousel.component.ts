@@ -16,10 +16,10 @@ import { SlickCarouselModule } from "ngx-slick-carousel";
 export class FullCarouselComponent {
   // @Input() 
   slides: any[] = [
-    { img: "assets/img/demos/Workforce/image1.jpg", title: 'Demo name', description: 'A little description about the demo' },
-    { img: "assets/img/demos/HHS/image1.jpg", title: 'Demo name', description: 'A little description about the demo' },
-    { img: "assets/img/demos/Workforce/image3.jpg", title: 'Demo name', description: 'A little description about the demo' },
-    { img: "assets/img/demos/HHS/image2.jpg", title: 'Demo name', description: 'A little description about the demo' },
+    { img: "assets/img/demos/Workforce/image1.webp", title: 'Demo name', description: 'A little description about the demo' },
+    { img: "assets/img/demos/HHS/image1.webp", title: 'Demo name', description: 'A little description about the demo' },
+    { img: "assets/img/demos/Workforce/image3.webp", title: 'Demo name', description: 'A little description about the demo' },
+    { img: "assets/img/demos/HHS/image2.webp", title: 'Demo name', description: 'A little description about the demo' },
   ];
 
   slideConfig = {
