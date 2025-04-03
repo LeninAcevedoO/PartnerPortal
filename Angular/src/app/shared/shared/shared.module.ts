@@ -13,7 +13,6 @@ import { PhoneNumberPipe } from "../pipes/phone-number.pipe";
 import { CustomCurrencyPipe } from "../pipes/custom-currency.pipe";
 import { MultimediaViewerComponent } from "../components/multimedia-viewer/multimedia-viewer.component";
 import { DemoCardComponent } from "../components/demo-card/demo-card.component";
-import { CardDemoItemComponent } from "../components/card-demo-item/card-demo-item.component";
 import { CardCarouselComponent } from "../components/card-carousel/card-carousel.component";
 import { FullCarouselComponent } from "../components/full-carousel/full-carousel.component";
 
@@ -38,7 +37,6 @@ const GenericComponents = [
   PhoneNumberPipe,
   MultimediaViewerComponent,
   DemoCardComponent,
-  CardDemoItemComponent,
 ];
 
 @NgModule({

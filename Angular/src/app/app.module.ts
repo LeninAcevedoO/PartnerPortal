@@ -35,7 +35,6 @@ import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { VerticalsComponent } from './pages/verticals/verticals.component';
 import { DemosComponent } from './pages/verticals/demos/demos.component';
 import { ContentListComponent } from './pages/content/content-list/content-list.component';
-import { CardDemoItemComponent } from './shared/components/card-demo-item/card-demo-item.component';
 import { CardCarouselComponent } from './shared/components/card-carousel/card-carousel.component';
 
 
