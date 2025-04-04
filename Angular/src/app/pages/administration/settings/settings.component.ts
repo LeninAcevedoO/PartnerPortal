@@ -14,7 +14,7 @@ export class SettingsComponent {
     {title: 'Links', icon: 'link', route: '/settings/links', badge: 0},
     {title: 'Product details', icon: 'inbox', route: '/settings/product-details', badge: 0},
     {title: 'Manager comments', icon: 'report', route: '/settings/management-comments', badge: 0},
-    {title: 'Verticals', icon: 'view_column', route: '/settings/verticals', badge: 0},
+    {title: 'Demos', icon: 'view_column', route: '/settings/verticals', badge: 0},
   ];
 
   catsOptions = [
