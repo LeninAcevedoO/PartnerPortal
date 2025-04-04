@@ -116,7 +116,7 @@ router.put(`${urlBase}/favorites`, updateFavorites);
 router.get(`${urlBase}/demos/:demo_id`, getDemos);
 router.get(`${urlBase}/demos/verticals/:vertical_id`, getDemosByVertical);
 router.post(`${urlBase}/demos`,authValidator, setDemos);
-router.put(`${urlBase}/demos`, updateDemos);
+router.put(`${urlBase}/demos`, authValidator, updateDemos);
 router.put(`${urlBase}/demos/:demo_id/status/:demo_status`, updateStatusDemo);
 
 //#endregion

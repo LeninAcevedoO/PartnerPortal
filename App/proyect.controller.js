@@ -55,7 +55,7 @@ const login = async (req, res) => {
     else if (
       utils.decryptAES(result.recordset[0].password_hash) === req.body.password
     ) {
-      console.log('get login info')
+      console.log("get login info");
       let R_info = await pool
         .request()
         .input("email", req.body.email)
@@ -992,7 +992,7 @@ const setDemos = async (req, res) => {
         req.body.mimeType.split("/")[1]
       }`;
       try {
-        const pl = await utils
+        await utils
           .uploadBase64File(base64Data, fileName, mimeType)
           .then((url) => (gcloud_url = url))
           .catch((err) => console.error("Error:", err));
@@ -1022,7 +1022,28 @@ const setDemos = async (req, res) => {
 };
 
 const updateDemos = async (req, res) => {
+  let gcloud_url = "";
+  console.log("req.body", req.body);
   try {
+    if (req.body.miniature) {
+      const base64String = req.body.miniature;
+      const base64Data = base64String.split(",")[1];
+      const mimeType = req.body.mimeType; // image/png
+      // const fileName = `${req.body.fileName.replace(/ /g, "")}.${
+      //   req.body.mimeType.split("/")[1]
+      // }`;
+      const fileName = req.body.fileName
+      try {
+        await utils
+          .uploadBase64File(base64Data, fileName, mimeType)
+          .then((url) => (gcloud_url = url))
+          .catch((err) => console.error("Error:", err));
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    console.log("gcloud_url", gcloud_url);
+    console.log("req.body", req.body);
     await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
@@ -1033,10 +1054,9 @@ const updateDemos = async (req, res) => {
       .input("information", req.body.information)
       .input("release_date", req.body.release_date)
       .input("vertical_id", req.body.vertical_id)
-      .input("modified_by", req.headers["x-user"]) //utils.decryptAES(req.headers["x-user"]))
-      .input("multimedia_link", req.body.multimedia_link)
+      .input("modified_by", utils.decryptAES(req.headers["x-user"]))
+      .input("multimedia_link", gcloud_url)
       .input("multimedia_type_id", req.body.multimedia_type_id)
-      .input("demo_status", req.body.demo_status)
       .execute("spr_pp_updatedemos");
     return ApiResponse(result, res);
   } catch (e) {
