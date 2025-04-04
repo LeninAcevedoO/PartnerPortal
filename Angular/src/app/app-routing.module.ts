@@ -17,6 +17,7 @@ import { VerticalsComponent } from "./pages/verticals/verticals.component";
 import { DemosComponent } from "./pages/verticals/demos/demos.component";
 import { FullCarouselComponent } from "./shared/components/full-carousel/full-carousel.component";
 import { CardCarouselComponent } from "./shared/components/card-carousel/card-carousel.component";
+import { HomeOnlineComponent } from "./pages/home-online/home-online.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: "home",
         component: HomeComponent,
+      },
+      {
+        path: "home-online",
+        component: HomeOnlineComponent,
       },
       {
         path: "verticals",

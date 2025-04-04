@@ -15,6 +15,8 @@ import { MultimediaViewerComponent } from "../components/multimedia-viewer/multi
 import { DemoCardComponent } from "../components/demo-card/demo-card.component";
 import { CardCarouselComponent } from "../components/card-carousel/card-carousel.component";
 import { FullCarouselComponent } from "../components/full-carousel/full-carousel.component";
+import { CardCarouselOnlineComponent } from "../components/card-carousel-online/card-carousel-online.component";
+import { FullCarouselOnlineComponen } from "../components/full-carousel-online/full-carousel-online.component";
 
 const modules = [
   FormsModule,
@@ -28,6 +30,8 @@ const modules = [
   CommonModule,
   FullCarouselComponent,
   CardCarouselComponent,
+  CardCarouselOnlineComponent,
+  FullCarouselOnlineComponen,
 ];
 
 const GenericComponents = [

@@ -46,7 +46,7 @@
   left: 3rem;
   z-index: 10;
   background: rgba(0, 0, 0, 0.5);
-  padding: 1rem;
+  padding: 2.5rem 1rem;
   border-radius: 8px;
 }
 
@@ -66,18 +66,25 @@
   color: white;
   font-size: 2rem;
   font-weight: bold;
-  width: 70%;
-  margin-left: 20%;
+  text-align: justify;
+  text-align-last: center;
+  width: 60%;
+  // margin-left: 20%;
+  margin-top: 1rem;
 }
 
 .description {
   color: white;
   font-size: 1.2rem;
   text-align: justify;
-  width: 70%;
-  margin-left: 20%;
+  text-align-last: center;
+  width: 60%;
+  // margin-left: 20%;
+
+  text-overflow: ellipsis;
+  min-width: 200px;
 }
 
 .w-51 {
-    width: 51%;
+    width: 65%;
 }

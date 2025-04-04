@@ -35,7 +35,9 @@ import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { VerticalsComponent } from './pages/verticals/verticals.component';
 import { DemosComponent } from './pages/verticals/demos/demos.component';
 import { ContentListComponent } from './pages/content/content-list/content-list.component';
-import { CardCarouselComponent } from './shared/components/card-carousel/card-carousel.component';
+import { HomeOnlineComponent } from './pages/home-online/home-online.component';
+import { CardCarouselOnlineComponent } from './shared/components/card-carousel-online/card-carousel-online.component';
+import { FullCarouselOnlineComponen } from './shared/components/full-carousel-online/full-carousel-online.component';
 
 
 
@@ -61,6 +63,7 @@ import { CardCarouselComponent } from './shared/components/card-carousel/card-ca
     VerticalsComponent,
     DemosComponent,
     ContentListComponent,
+    HomeOnlineComponent,
   ],
   imports: [
     BrowserModule,
