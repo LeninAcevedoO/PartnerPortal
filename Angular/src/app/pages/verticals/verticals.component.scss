@@ -2,9 +2,10 @@
   min-width: 400px;
   width: 40vw;
   // max-width: 31vw;
-  height: 42vh;
+  height: 40vh;
   transition: all ease-in-out 300ms;
   margin-top: 1.2rem;
+  text-align: center;
 }
 
 .vertix-card:hover {
@@ -25,7 +26,7 @@
 
 .card-icon {
   transform: translateY(11px);
-  scale: 10;
+  scale: 8;
 }
 
 .downRButton {

@@ -5,21 +5,28 @@
 .OptionsCard {
   width: 350px;
   max-width: 95%;
-  height: 350px;
+  height: 255px;
   transition: all ease-in-out 300ms;
   border-radius: 20px !important;
 }
 
 .CardTitle {
-  font-size: 50px;
+  font-size: 35px;
   text-align: center;
   line-height: 2.8rem;
 }
 
 .IconCard {
-  scale: 9;
-  transform: translate(60%, 40%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 150px;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  scale: 1;
 }
+
 
 .OptionsCard:hover {
   scale: 1.05;
