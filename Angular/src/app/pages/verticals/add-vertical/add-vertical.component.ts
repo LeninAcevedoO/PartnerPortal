@@ -34,6 +34,8 @@ export class AddVerticalComponent {
       {id: 2, description: 'Human/Health Services'},
       {id: 3, description: 'Workforce Development '},
       {id: 4, description: 'DOC & Criminal Justice'},
+      {id: 5, description: 'Private Sector Solutions'},
+      {id: 6, description: 'Others'},
     ]
   }
 
