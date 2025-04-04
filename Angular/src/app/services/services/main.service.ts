@@ -240,11 +240,11 @@ export class MainService {
     }
 
     setDemo = async(demo: any) => {
-      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/demos/`, demo);
+      return this.http.post<Resultado>(`${this.UrlBase}/api/pp/v1/demos`, demo);
     }
     
     updateDemo = async(demo: any) => {
-      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/demos/`, demo);
+      return this.http.put<Resultado>(`${this.UrlBase}/api/pp/v1/demos`, demo);
     }
 
     updateDemoStatus = async(vertix: any) => {
