@@ -9,11 +9,7 @@
         class="img-style flex-center"
         matTooltip="More details"
         *ngIf="slide.multimedia_link"
-        [ngStyle]="{
-          'background-image': 'url(' + slide.multimedia_link + ')',
-          'background-size': 'cover',
-          'background-position': 'center'
-        }"
+        [ngStyle]="{'background-image': 'url(' + slide.multimedia_link + ')'}"
       >
         <!-- <img [src]="slide.multimedia_link" class="mg" /> -->
         <h3 class="title w-full">{{ slide.demo_name }}</h3>

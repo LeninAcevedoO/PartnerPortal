@@ -1,14 +1,15 @@
 .img-style {
-  height: 100%;
-  width: 95%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+  height: 350px;
+  max-width: 98%;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  border-radius: 8px;
 
   &:hover {
     cursor: pointer;
+    scale: 1.01;
   }
 }
 
@@ -20,6 +21,7 @@
   border-radius: 8px 8px 0 0;
   z-index: 1;
 }
+
 .carousel {
   width: 100%;
   height: 350px;
@@ -38,23 +40,25 @@
   left: 2rem;
   margin-top: 8%;
 }
-
 .title {
   color: white;
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: bold;
-  padding: 1rem;
   background-color: var(--primary-head-color);
   border-radius: 0 0 8px 8px;
   z-index: 2;
+  padding: 1rem;
   position: absolute;
   bottom: 0;
+  transform: translateY(1rem);
+  width: 100%;
+  height: 3.8rem;
 
-  /* Ellipsis */
-  white-space: nowrap;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-
-  /* Asegúrate de que tenga ancho limitado */
-  width: 100%;
+  line-height: 18px;
 }

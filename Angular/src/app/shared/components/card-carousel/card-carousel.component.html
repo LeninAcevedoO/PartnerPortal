@@ -1,13 +1,17 @@
-<div class="w-full flex-center">
+<div class="w-full flex-center" *ngIf="slides && slides.length > 0">
   <ngx-slick-carousel
     class="carousel"
     #slickModal="slick-carousel"
     [config]="slideConfig"
   >
-    <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-      <div class="img-style flex-center" matTooltip="More details">
-        <img [src]="slide.img" class="mg" [routerLink]="slide.link" />
-        <h3 class="title w-full">{{ slide.title }}</h3>
+    <div ngxSlickItem *ngFor="let slide of slides" class="slide" [ngStyle]="{'visibility': slide.multimedia_link ? 'visible' : 'hidden'}">
+      <div
+        class="img-style flex-center"
+        matTooltip="More details"
+        [ngStyle]="{'background-image': 'url(' + slide.multimedia_link + ')'}"
+      >
+        <!-- <img [src]="slide.multimedia_link" class="mg" /> -->
+        <h3 class="title w-full">{{ slide.demo_name }}</h3>
       </div>
     </div>
   </ngx-slick-carousel>

@@ -17,28 +17,28 @@ export class CardCarouselComponent {
   // @Input()
   slides: any[] = [
     {
-      img: "assets/img/demos/Workforce/image1.webp",
-      title: "Item name",
+      multimedia_link: "assets/img/demos/Workforce/image1.webp",
+      demo_name: "Item name 1",
       description: "A little descriptionabout the demo",
     },
     {
-      img: "assets/img/demos/HHS/image1.webp",
-      title: "Item name",
+      multimedia_link: "assets/img/demos/HHS/image1.webp",
+      demo_name: "Item name 2",
       description: "A little descriptionabout the demo",
     },
     {
-      img: "assets/img/demos/Workforce/image3.webp",
-      title: "Item name",
+      multimedia_link: "assets/img/demos/Workforce/image3.webp",
+      demo_name: "Item name 3",
       description: "A little descriptionabout the demo",
     },
     {
-      img: "assets/img/demos/HHS/image2.webp",
-      title: "Item name",
+      multimedia_link: "assets/img/demos/HHS/image2.webp",
+      demo_name: "Item name 4",
       description: "A little descriptionabout the demo",
     },
     {
-      img: "assets/img/demos/HHS/image3.webp",
-      title: "Item name",
+      multimedia_link: "assets/img/demos/HHS/image3.webp",
+      demo_name: "Item name 5 jkashksadjkhakjsdksahdkjahskdjjahsdkjsahjhdjksadhaskjhdjkhsadhjsahjkdz",
       description: "A little descriptionabout the demo",
     },
   ];
@@ -46,7 +46,7 @@ export class CardCarouselComponent {
   slideConfig = {
     slidesToShow: 4,
     slidesToScroll:4,
-    autoplay: true,
+    // autoplay: true,
     autoplaySpeed: 4000,
     pauseOnHover: true,
     arrows: true,
