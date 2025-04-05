@@ -29,11 +29,11 @@ const routes: Routes = [
     children: [
       {
         path: "home",
-        component: HomeComponent,
+        component: HomeOnlineComponent,
       },
       {
-        path: "home-online",
-        component: HomeOnlineComponent,
+        path: "home-static",
+        component: HomeComponent,
       },
       {
         path: "verticals",
