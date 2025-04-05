@@ -15,7 +15,7 @@ export class SettingsComponent {
     {title: 'Product details', icon: 'inbox', route: '/settings/product-details', badge: 0},
     {title: 'Manager comments', icon: 'report', route: '/settings/management-comments', badge: 0},
     {title: 'Demos', icon: 'view_column', route: '/settings/verticals', badge: 0},
-    {title: 'Home online', icon: 'home_work', route: '/home-online', badge: 0},
+    {title: 'Home Static', icon: 'home_work', route: '/home-static', badge: 0},
   ];
 
   catsOptions = [
