@@ -990,9 +990,7 @@ const setDemos = async (req, res) => {
       const base64String = req.body.miniature;
       const base64Data = base64String.split(",")[1];
       const mimeType = req.body.mimeType; // image/png
-      const fileName = `${uuidv4()}${
-        req.body.mimeType.split("/")[1]
-      }`;
+      const fileName = `${uuidv4()}.${req.body.mimeType}`;
       // const fileName = req.body.fileName
       try {
         await utils
@@ -1032,9 +1030,7 @@ const updateDemos = async (req, res) => {
       const base64String = req.body.miniature;
       const base64Data = base64String.split(",")[1];
       const mimeType = req.body.mimeType; // image/png
-      const fileName = `${uuidv4()}${
-        req.body.mimeType.split("/")[1]
-      }`;
+      const fileName = `${uuidv4()}.${req.body.mimeType}`;
       // const fileName = req.body.fileName
       try {
         await utils
