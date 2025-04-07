@@ -32,6 +32,7 @@ export class HomeOnlineComponent {
     this.getVerticals(3, "Workforce");
     this.getVerticals(4, "Corrections");
     this.getVerticals(5, "PublicSector");
+    this.getVerticals(7, "PrivateSector");
     this.getVerticals(6, "Others");
   }
 
