@@ -7,6 +7,7 @@
     <div ngxSlickItem *ngFor="let slide of slides" class="slide">
       <div
         class="img-style"
+        (click)="openDialogDetails(slide)"
         >
         <!-- [style.background-image]="'url(' + slide.multimedia_link + ')'" -->
         <div class="genTxt flex-center">
