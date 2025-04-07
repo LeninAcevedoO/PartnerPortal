@@ -11,6 +11,14 @@
         </div>
         <div class="w-full">
             <h2>Attatchments</h2>
+            <div class="w-full flex-center dattatchContainer">
+                <div class="itemIcon" *ngFor="let item of data.attachments">
+                    <a [href]="item.link" target="_blank">
+                        <img src="assets/img/attatchments/{{item.link_type}}.webp" class="iconSt">
+                    </a>
+                    
+                </div>
+            </div>
         </div>
         <div class="w-full flex-center">
             <button type="button" mat-raised-button color="warn" (click)="onNoclick()"><mat-icon>close</mat-icon>Close</button>
