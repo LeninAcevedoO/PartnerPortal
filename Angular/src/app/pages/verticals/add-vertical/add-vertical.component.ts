@@ -28,7 +28,7 @@ export class AddVerticalComponent {
     multimedia_type_id: new FormControl<string>(''),
   });
   today = new Date();
-  cats = {
+  cats: any = {
     verticals: [
       {id: 1, description: 'Education'},
       {id: 2, description: 'Human/Health Services'},
