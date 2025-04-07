@@ -954,16 +954,37 @@ const getDemosByVertical = async (req, res) => {
   try {
     await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
-    const result = await pool
+    let result = await pool
       .request()
       .input("vertical_id", req.params.vertical_id)
       .execute("spr_pp_getDemosByVertical");
-    console.log(result);
+    let rsp = [];
+    if (result.recordset.length > 0) {
+      result.recordset.foreach(async (item) => {
+        rsp.push({...item, links: await getLinksByDemo(req, res)});
+      });
+    }
+    result.recordset = rsp;
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
     console.log(e);
     return ApiResponse(null, res, "Error getting demos");
+  }
+};
+
+const getLinksByDemo = async (req, res) => {
+  try {
+    const pool = await sql.connect(dbConfig);
+    const result = await pool
+      .request()
+      .input("demo_id", req.params.demo_id)
+      .execute("spr_pp_getLinksByDemo");
+    return result.recordset ? result.recordset : [];
+  } catch (e) {
+    utils.logErrorToFile(e);
+    console.log(e);
+    return ApiResponse(null, res, "Error updating demos");
   }
 };
 
