@@ -12,9 +12,9 @@
         <div class="w-full">
             <h2>Solution Assets</h2>
             <div class="w-full flex-center dattatchContainer">
-                <div class="itemIcon" *ngFor="let item of data.attachments">
-                    <a [href]="item.link" target="_blank">
-                        <img src="assets/img/attatchments/{{item.link_type}}.webp" class="iconSt">
+                <div class="itemIcon" *ngFor="let item of data.links">
+                    <a [href]="item.URI" target="_blank" matTooltip="Go to {{item.URI}}">
+                        <img src="assets/img/attachments/{{item.link_type}}.webp" class="iconSt">
                     </a>
                     
                 </div>

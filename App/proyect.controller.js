@@ -954,18 +954,24 @@ const getDemosByVertical = async (req, res) => {
   try {
     await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
-    let result = await pool
+    const result = await pool
       .request()
       .input("vertical_id", req.params.vertical_id)
       .execute("spr_pp_getDemosByVertical");
+    const pl = result.recordset;
     let rsp = [];
-    if (result.recordset.length > 0) {
-      result.recordset.foreach(async (item) => {
-        rsp.push({...item, links: await getLinksByDemo(req, res)});
-      });
+    if (Array.isArray(pl)) {
+      const results = await Promise.all(
+        pl.map(async (item) => {
+          const links = await getLinksByDemo(item.demo_id);
+          return { ...item, links };
+        })
+      );
+      rsp.push(...results);
     }
-    result.recordset = rsp;
-    return ApiResponse(result, res);
+    const rs = {recordset: rsp};
+    console.log(rs);
+    return ApiResponse(rs, res);
   } catch (e) {
     utils.logErrorToFile(e);
     console.log(e);
@@ -973,12 +979,12 @@ const getDemosByVertical = async (req, res) => {
   }
 };
 
-const getLinksByDemo = async (req, res) => {
+const getLinksByDemo = async (demo_id) => {
   try {
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      .input("demo_id", req.params.demo_id)
+      .input("demo_id", demo_id)
       .execute("spr_pp_getLinksByDemo");
     return result.recordset ? result.recordset : [];
   } catch (e) {
