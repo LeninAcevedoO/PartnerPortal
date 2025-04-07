@@ -15,6 +15,7 @@ export class HomeOnlineComponent {
     Workforce: [],
     Corrections: [],
     PublicSector: [],
+    Others: [],
   };
   demosLoaded: string[] = [];
   demosLoadedArr: any[] = [];
@@ -31,6 +32,7 @@ export class HomeOnlineComponent {
     this.getVerticals(3, "Workforce");
     this.getVerticals(4, "Corrections");
     this.getVerticals(5, "PublicSector");
+    this.getVerticals(6, "Others");
   }
 
   async getVerticals(idVertical: number, vertical: string) {
