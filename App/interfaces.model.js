@@ -2,7 +2,7 @@ const utils = require("./utils.js");
 
 const ApiResponse = (poolResult, res, mensaje) => {
   try {
-    console.log(poolResult)
+    // console.log(poolResult)
     // utils.logErrorToFile(JSON.stringify(poolResult));
     if (poolResult.recordset)
       return res.status(200).json(jsonResult(true, null, poolResult.recordset))
@@ -27,7 +27,7 @@ const ApiResponse = (poolResult, res, mensaje) => {
 
 const jsonResult = (exito, mensaje, data) => {
   try {
-     console.log(data)
+    //  console.log(data)
     // console.log({ success: "true", message: "Operation successful", data: data ? utils.encryptAES(JSON.stringify(data)) : null })
      // utils.logErrorToFile(JSON.stringify(data));
     if (exito === true)

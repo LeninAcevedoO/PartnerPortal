@@ -3,6 +3,8 @@ const { ApiResponse } = require("./interfaces.model.js");
 const utils = require("./utils.js");
 const sql = require("mssql");
 const { token } = require("morgan");
+const { randomUUID } = require("crypto");
+const { v4: uuidv4 } = require('uuid'); 
 const dbConfig =
   "Data Source=34.67.138.191,1433;Initial Catalog=pp_db;User ID=sqlserver2;Password=Infomedia123;Trusted_Connection=True;TrustServerCertificate=True;";
 
@@ -988,9 +990,10 @@ const setDemos = async (req, res) => {
       const base64String = req.body.miniature;
       const base64Data = base64String.split(",")[1];
       const mimeType = req.body.mimeType; // image/png
-      const fileName = `${req.body.fileName.replace(/ /g, "")}.${
+      const fileName = `${uuidv4()}${
         req.body.mimeType.split("/")[1]
       }`;
+      // const fileName = req.body.fileName
       try {
         await utils
           .uploadBase64File(base64Data, fileName, mimeType)
@@ -1029,10 +1032,10 @@ const updateDemos = async (req, res) => {
       const base64String = req.body.miniature;
       const base64Data = base64String.split(",")[1];
       const mimeType = req.body.mimeType; // image/png
-      // const fileName = `${req.body.fileName.replace(/ /g, "")}.${
-      //   req.body.mimeType.split("/")[1]
-      // }`;
-      const fileName = req.body.fileName
+      const fileName = `${uuidv4()}${
+        req.body.mimeType.split("/")[1]
+      }`;
+      // const fileName = req.body.fileName
       try {
         await utils
           .uploadBase64File(base64Data, fileName, mimeType)
