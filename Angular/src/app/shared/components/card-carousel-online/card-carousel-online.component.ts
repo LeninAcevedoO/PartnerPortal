@@ -1,10 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
+import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterModule } from "@angular/router";
 import { SlickCarouselModule } from "ngx-slick-carousel";
+import { ModalDemoDetailsComponent } from "src/app/pages/verticals/modal-demo-details/modal-demo-details.component";
 
 @Component({
   selector: "app-card-carousel-online",
@@ -23,7 +25,7 @@ import { SlickCarouselModule } from "ngx-slick-carousel";
 export class CardCarouselOnlineComponent implements OnChanges{
   @Input() slides: any[] = [];
 
-  constructor(private cdRef: ChangeDetectorRef) {}
+  constructor(private cdRef: ChangeDetectorRef, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     console.log('Slides recibidos:', this.slides);
@@ -71,4 +73,11 @@ export class CardCarouselOnlineComponent implements OnChanges{
       },
     ],
   };
+
+  openDialogDetails(slide: any) {
+    this.dialog.open(ModalDemoDetailsComponent, {
+      data: slide,
+      width: "80%",
+    });
+  }
 }

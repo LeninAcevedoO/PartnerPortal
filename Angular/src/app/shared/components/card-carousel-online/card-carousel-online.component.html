@@ -1,4 +1,4 @@
-<div class="w-full flex-center" *ngIf="slides && slides.length > 0">
+<div class="w-full flex-center" *ngIf="slides">
   <ngx-slick-carousel
     class="carousel"
     #slickModal="slick-carousel"
@@ -9,6 +9,7 @@
         class="img-style flex-center"
         matTooltip="More details"
         [ngStyle]="{'background-image': 'url(' + slide.multimedia_link + ')'}"
+        (click)="openDialogDetails(slide)"
       >
         <!-- <img [src]="slide.multimedia_link" class="mg" /> -->
         <h3 class="title w-full">{{ slide.demo_name }}</h3>
