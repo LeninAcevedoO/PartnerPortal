@@ -1,18 +1,18 @@
 <div class="w-full flex-center min-h-full mainContainer">
   <h1 class="txtContainer">Welcome to the Resultant Partner Demo Portal!</h1>
-  <app-full-carousel-online *ngIf="demosLoadedArr.length > 0" class="w-full" [slides]="demosLoadedArr"></app-full-carousel-online>
-  <h1 *ngIf="demos.Education.length > 0" class="txtSubContainer">Education</h1>
-  <app-card-carousel-online *ngIf="demos.Education.length > 0" class="w-full" [slides]="demos.Education"></app-card-carousel-online>
-  <h1 *ngIf="demos.Workforce.length > 0" class="txtSubContainer">Workforce</h1>
-  <app-card-carousel-online *ngIf="demos.Workforce.length > 0" class="w-full" [slides]="demos.Workforce"></app-card-carousel-online>
-  <h1 *ngIf="demos.Health.length > 0" class="txtSubContainer">Health and Human Services</h1>
-  <app-card-carousel-online *ngIf="demos.Health.length > 0" class="w-full" [slides]="demos.Health"></app-card-carousel-online>
-  <h1 *ngIf="demos.Corrections.length > 0" class="txtSubContainer">Corrections</h1>
-  <app-card-carousel-online *ngIf="demos.Corrections.length > 0" class="w-full" [slides]="demos.Corrections"></app-card-carousel-online>
-  <h1 *ngIf="demos.PublicSector.length > 0" class="txtSubContainer">Public Sector Solutions</h1>
-  <app-card-carousel-online *ngIf="demos.PublicSector.length > 0" class="w-full" [slides]="demos.PublicSector"></app-card-carousel-online>
-  <h1 *ngIf="demos.PublicSector.length > 0" class="txtSubContainer">Private Sector Solutions</h1>
-  <app-card-carousel-online *ngIf="demos.PrivateSector.length > 0" class="w-full" [slides]="demos.PrivateSector"></app-card-carousel-online>
-  <h1 *ngIf="demos.PublicSector.length > 0" class="txtSubContainer">Other Solutions</h1>
+  <app-full-carousel-online *ngIf="demosLoadedArr" class="w-full" [slides]="demosLoadedArr"></app-full-carousel-online>
+  <h1 *ngIf="demos.Education" class="txtSubContainer">Education</h1>
+  <app-card-carousel-online *ngIf="demos.Education" class="w-full" [slides]="demos.Education"></app-card-carousel-online>
+  <h1 *ngIf="demos.Workforce" class="txtSubContainer">Workforce</h1>
+  <app-card-carousel-online *ngIf="demos.Workforce" class="w-full" [slides]="demos.Workforce"></app-card-carousel-online>
+  <h1 *ngIf="demos.Health" class="txtSubContainer">Health and Human Services</h1>
+  <app-card-carousel-online *ngIf="demos.Health" class="w-full" [slides]="demos.Health"></app-card-carousel-online>
+  <h1 *ngIf="demos.Corrections" class="txtSubContainer">Corrections</h1>
+  <app-card-carousel-online *ngIf="demos.Corrections" class="w-full" [slides]="demos.Corrections"></app-card-carousel-online>
+  <h1 *ngIf="demos.PublicSector" class="txtSubContainer">Public Sector Solutions</h1>
+  <app-card-carousel-online *ngIf="demos.PublicSector" class="w-full" [slides]="demos.PublicSector"></app-card-carousel-online>
+  <h1 *ngIf="demos.PublicSector" class="txtSubContainer">Private Sector Solutions</h1>
+  <app-card-carousel-online *ngIf="demos.PrivateSector" class="w-full" [slides]="demos.PrivateSector"></app-card-carousel-online>
+  <h1 *ngIf="demos.PublicSector" class="txtSubContainer">Other Solutions</h1>
   <app-card-carousel-online *ngIf="demos.Otherlength > 0" class="w-full" [slides]="demos.Other" style="height: 600px"></app-card-carousel-online>
 </div>

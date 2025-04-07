@@ -38,6 +38,7 @@ import { ContentListComponent } from './pages/content/content-list/content-list.
 import { HomeOnlineComponent } from './pages/home-online/home-online.component';
 import { CardCarouselOnlineComponent } from './shared/components/card-carousel-online/card-carousel-online.component';
 import { FullCarouselOnlineComponen } from './shared/components/full-carousel-online/full-carousel-online.component';
+import { ModalDemoDetailsComponent } from './pages/verticals/modal-demo-details/modal-demo-details.component';
 
 
 
@@ -64,6 +65,7 @@ import { FullCarouselOnlineComponen } from './shared/components/full-carousel-on
     DemosComponent,
     ContentListComponent,
     HomeOnlineComponent,
+    ModalDemoDetailsComponent,
   ],
   imports: [
     BrowserModule,
