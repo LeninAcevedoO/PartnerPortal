@@ -7,16 +7,20 @@
     <div ngxSlickItem *ngFor="let slide of slides" class="slide">
       <div
         class="img-style"
-        [style.background-image]="'url(' + slide.multimedia_link + ')'"
-      >
-        <div class="w-51">
+        >
+        <!-- [style.background-image]="'url(' + slide.multimedia_link + ')'" -->
+        <div class="genTxt flex-center">
           <h1 class="w-full title">{{ slide.demo_name }}</h1>
-        </div>
-        <div class="w-51">
           <h3 class="description">
             {{ slide.information }}
           </h3>
         </div>
+        <img
+          [src]="slide.multimedia_link"
+          class="imgSt"
+          [routerLink]="slide.link"
+          matTooltip="More details"
+        />
       </div>
       <!-- <img [src]="slide.img" class="img-style" [routerLink]="slide.link" matTooltip="More details"/> -->
     </div>
