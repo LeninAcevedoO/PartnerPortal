@@ -27,17 +27,10 @@ export class CardCarouselOnlineComponent implements OnChanges{
 
   constructor(private cdRef: ChangeDetectorRef, private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    console.log('Slides recibidos:', this.slides);
-  }  
 
   ngOnChanges(changes: SimpleChanges): void {
     this.cdRef.detectChanges();
     if (changes["slides"]) {
-      // Puedes validar aquí si el array tiene contenido
-      console.log("Cambios en slides:", this.slides);
-
-      // Forzar detección de cambios si es necesario
       this.cdRef.detectChanges();
     }
   }
