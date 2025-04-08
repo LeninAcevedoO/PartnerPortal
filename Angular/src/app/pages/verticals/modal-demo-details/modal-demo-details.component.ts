@@ -46,6 +46,8 @@ export class ModalDemoDetailsComponent {
         return "Whitepaper";
       case 6:
         return "Pitch Deck";
+      case 7:
+        return "Brochure";
       default:
         return "Demo";
     }
