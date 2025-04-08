@@ -35,13 +35,13 @@ export class ModalDemoDetailsComponent {
   getLabelAssetsBox(link_type: number) {
     switch (link_type) {
       case 1:
-        return "Demo image";
+        return "Image";
       case 2:
-        return "Demo video";
+        return "Video";
       case 3:
         return "Infosheet";
       case 4:
-        return "Demo live link";
+        return "Demo Live Link";
       case 5:
         return "Whitepaper";
       case 6:
