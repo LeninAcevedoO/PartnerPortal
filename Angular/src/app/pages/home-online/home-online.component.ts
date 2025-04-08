@@ -20,7 +20,11 @@ export class HomeOnlineComponent {
   demosLoaded: string[] = [];
   demosLoadedArr: any[] = [];
 
-  constructor(private toastr: ToastrService, private _serice: MainService, private cdRef: ChangeDetectorRef) {}
+  constructor(
+    private toastr: ToastrService,
+    private _serice: MainService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.getAllDemos();
@@ -34,6 +38,8 @@ export class HomeOnlineComponent {
     this.getVerticals(5, "PublicSector");
     this.getVerticals(7, "PrivateSector");
     this.getVerticals(6, "Others");
+
+    this.fillFullCarousel();
   }
 
   async getVerticals(idVertical: number, vertical: string) {
@@ -42,8 +48,8 @@ export class HomeOnlineComponent {
         if (resp.success == "true") {
           if (resp.data.length > 0) {
             this.demosLoaded.push(vertical);
-            this.fillFullCarousel();
             this.cdRef.detectChanges();
+            if (idVertical == 6) this.fillFullCarousel();
           }
           this.demos[vertical] = resp.data;
         } else this.toastr.error(resp.message);
@@ -53,10 +59,9 @@ export class HomeOnlineComponent {
 
   fillFullCarousel() {
     if (this.demosLoaded.length > 0) {
-      this.demosLoaded.forEach((el: string) => {
-        this.demosLoadedArr.push(...this.demos[el]);
-        this.cdRef.detectChanges();
-      });
-    }
+      const tempArr = this.demosLoaded.flatMap((el: string) => this.demos[el]);
+      this.demosLoadedArr.push(...tempArr);
+      this.cdRef.detectChanges();
+    }    
   }
 }
