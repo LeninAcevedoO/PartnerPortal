@@ -4,13 +4,10 @@
     #slickModal="slick-carousel"
     [config]="slideConfig"
   >
-    <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-      <div
-        class="img-style"
-        (click)="openDialogDetails(slide)"
-        >
+    <div ngxSlickItem *ngFor="let slide of slides" class="slide" (click)="openDialogDetails(slide)">
+      <div class="img-style">
         <!-- [style.background-image]="'url(' + slide.multimedia_link + ')'" -->
-        <div class="genTxt flex-center">
+        <div class="genTxt flex-center" >
           <h1 class="w-full title">{{ slide.demo_name }}</h1>
           <h3 class="description">
             {{ slide.information }}
