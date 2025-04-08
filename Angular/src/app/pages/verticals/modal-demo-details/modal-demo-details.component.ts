@@ -41,7 +41,7 @@ export class ModalDemoDetailsComponent {
       case 3:
         return "Infosheet";
       case 4:
-        return "Demo Live Link";
+        return "Live Demo";
       case 5:
         return "Whitepaper";
       case 6:
