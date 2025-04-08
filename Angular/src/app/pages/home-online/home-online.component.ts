@@ -14,7 +14,7 @@ export class HomeOnlineComponent {
     Health: [],
     Workforce: [],
     Corrections: [],
-    PublicSector: [],
+    // PublicSector: [],
     Others: [],
   };
   demosLoaded: string[] = [];
@@ -35,7 +35,7 @@ export class HomeOnlineComponent {
     this.getVerticals(2, "Health");
     this.getVerticals(3, "Workforce");
     this.getVerticals(4, "Corrections");
-    this.getVerticals(5, "PublicSector");
+    // this.getVerticals(5, "PublicSector");
     this.getVerticals(7, "PrivateSector");
     this.getVerticals(6, "Others");
 
