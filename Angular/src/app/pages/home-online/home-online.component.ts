@@ -60,7 +60,9 @@ export class HomeOnlineComponent {
   fillFullCarousel() {
     if (this.demosLoaded.length > 0) {
       const tempArr = this.demosLoaded.flatMap((el: string) => this.demos[el]);
-      this.demosLoadedArr.push(...tempArr);
+      console.log(tempArr)
+      const demosToMainCarousel = tempArr.filter((x: any) => [1, true].includes(x.isMainCarusel));
+      this.demosLoadedArr.push(...demosToMainCarousel);
       this.cdRef.detectChanges();
     }    
   }
