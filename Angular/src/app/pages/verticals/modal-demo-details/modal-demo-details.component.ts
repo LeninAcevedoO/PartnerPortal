@@ -32,6 +32,23 @@ export class ModalDemoDetailsComponent {
     }
   }
 
+  getLabelAssetsBox(link_type: number) {
+    switch (link_type) {
+      case 1:
+        return "Demo image";
+      case 2:
+        return "Demo video";
+      case 3:
+        return "Infosheet";
+      case 4:
+        return "Demo live link";
+      case 5:
+        return "Whitepaper";
+      default:
+        return "Demo";
+    }
+  }
+
   onNoclick() {
     this.dialogRef.close();
   }

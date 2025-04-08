@@ -11,6 +11,7 @@
 
 .txtInfo {
     text-align: justify ;
+    margin-top: 2rem;
 }
 
 .iconSt {
@@ -33,4 +34,11 @@
 .dattatchContainer {
     gap: 1rem;
     justify-content: left;
+}
+
+.assetBox {
+    background-color: #0075c9;
+    color: white;
+    padding: 0 10px;
+    border-radius: 5px;
 }
