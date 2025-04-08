@@ -15,10 +15,6 @@ export class ModalDemoDetailsComponent {
     private dialogRef: MatDialogRef<ModalDemoDetailsComponent>
   ) {}
 
-  ngOnInit() {
-    console.log(this.data)
-  }
-
   onNoclick() {
     this.dialogRef.close();
   }
