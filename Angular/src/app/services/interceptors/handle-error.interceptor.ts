@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HandleErrorInterceptor implements HttpInterceptor {
-  private readonly REQUEST_TIMEOUT = 10000;
+  private readonly REQUEST_TIMEOUT = 15000;
   
   constructor(
     private toastr: ToastrService, 
