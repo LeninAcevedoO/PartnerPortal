@@ -14,6 +14,7 @@
             <div class="w-full flex-center dattatchContainer">
                 <div class="itemIcon" *ngFor="let item of data.links">
                     <a [href]="item.URI" target="_blank" matTooltip="Go to {{item.URI}}">
+                        <h3>{{getDemoLinkName(item.link_type)}}</h3>
                         <img src="assets/img/attachments/{{item.link_type}}.webp" class="iconSt">
                     </a>
                     

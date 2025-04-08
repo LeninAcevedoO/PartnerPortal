@@ -15,6 +15,23 @@ export class ModalDemoDetailsComponent {
     private dialogRef: MatDialogRef<ModalDemoDetailsComponent>
   ) {}
 
+  getDemoLinkName(demo_type: number){
+    switch (demo_type) {
+      case 1:
+        return "Demo video";
+      case 2:
+        return "Pitch Deck";
+      case 3:
+        return "Infosheet";
+      case 4:
+        return "Demo Link";
+      case 5:
+        return "Whitepaper";
+      default:
+        return "Demo";
+    }
+  }
+
   onNoclick() {
     this.dialogRef.close();
   }
