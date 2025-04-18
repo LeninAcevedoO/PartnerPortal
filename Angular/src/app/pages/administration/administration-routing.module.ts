@@ -9,7 +9,6 @@ import { ProductsDetailsListComponent } from './settings/product-details/product
 import { EnterpriceListComponent } from './settings/catalogs/enterprices/enterprice-list/enterprice-list.component';
 import { RolesListComponent } from './settings/catalogs/roles/roles-list/roles-list.component';
 import { StatusAtendantListComponent } from './settings/catalogs/status-atendant/status-atendant-list/status-atendant-list.component';
-import { CatalogsComponent } from './settings/catalogs/catalogs.component';
 import { adminGuard } from 'src/app/shared/guards/admin.guard';
 import { VerticalsListComponent } from '../verticals/verticals-list/verticals-list.component';
 
