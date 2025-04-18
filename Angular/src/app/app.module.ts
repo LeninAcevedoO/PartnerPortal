@@ -9,17 +9,15 @@ registerLocaleData(localeES, 'es');
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './shared/shared/shared.module';
+import { SharedModule } from './shared/shared.module';
 
 //------------------------- Interceptors ---------------------------------
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SpinnerInterceptor } from './services/interceptors/spinner.interceptor';
 import { ContextService } from './services/services/context.service';
 import { HandleErrorInterceptor } from './services/interceptors/handle-error.interceptor';
 //------------------------- Componentes ---------------------------------
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './pages/home/home.component';
 import { SingUpComponent } from './components/auth/sing-up/sing-up.component';
 import { LoginComponent } from './components/auth/login/login.component';
 // ----------------------- Modules --------------------------------------
@@ -29,8 +27,6 @@ import { AutoLogoutComponent } from './shared/components/auto-logout/auto-logout
 import { NewProductsDetailsComponent } from './pages/new-products-details/new-products-details.component';
 import { NewManagementCommentComponent } from './pages/new-management-comment/new-management-comment.component';
 import { NewUserComponent } from './pages/administration/settings/users/new-user/new-user.component';
-import { CarrouselComponent } from './pages/home/carrousel/carrousel.component';
-import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { VerticalsComponent } from './pages/verticals/verticals.component';
 import { DemosComponent } from './pages/verticals/demos/demos.component';
@@ -50,7 +46,6 @@ import { ModalDemoDetailsComponent } from './pages/verticals/modal-demo-details/
     ToolbarComponent,
     // --- User compoents ---
     SingUpComponent,
-    HomeComponent,
     LoginComponent,
     NewUserComponent,
     // --- Pages ---
@@ -58,8 +53,6 @@ import { ModalDemoDetailsComponent } from './pages/verticals/modal-demo-details/
     AutoLogoutComponent,
     NewProductsDetailsComponent,
     NewManagementCommentComponent,
-    CarrouselComponent,
-    AboutUsComponent,
     FavoritesComponent,
     VerticalsComponent,
     DemosComponent,
@@ -77,7 +70,6 @@ import { ModalDemoDetailsComponent } from './pages/verticals/modal-demo-details/
   ],
   providers: [
     ContextService,
-    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es' },
     { provide: HTTP_INTERCEPTORS, useClass: HandleErrorInterceptor, multi: true },],
   bootstrap: [AppComponent],

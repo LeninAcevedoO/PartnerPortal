@@ -8,27 +8,6 @@
   <h1 *ngIf="!demos" style="font-size: 30vw">
     There's no demos for this vertical
   </h1>
-  <!-- <mar-card *ngFor="let demo of demos | buscadorGenerico: buscador" class="demo-card">
-    <mat-card-title>{{ demo.demo_name }}</mat-card-title>
-    <mat-card-subtitle>{{ demo.description }}</mat-card-subtitle>
-    <mat-card-content>
-      <div class="w-full flex-center" *ngIf="demo.multimedia_type_id == 1">
-        <img [src]="demo.multimedia_link" alt="" class="card-image" />
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button
-        type="button"
-        mat-icon-button
-        [routerLink]="['/demos/', demo.demo_id]"
-      >
-        <mat-icon style="color: green">visibility</mat-icon>
-      </button>
-      <button type="button" mat-icon-button (click)="addFavorite(demo)">
-        <mat-icon style="color: yellow">star</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mar-card> -->
   <div *ngIf="demos" class="w-full flex-center demosContainer">
     <app-demo-card *ngFor="let demo of demos | buscadorGenerico: buscador" [genData]="demo"></app-demo-card>
   </div>

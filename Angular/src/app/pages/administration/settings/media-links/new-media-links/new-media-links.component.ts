@@ -23,14 +23,12 @@ export class NewMediaLinksComponent {
     link_url: new FormControl<string>("", Validators.required),
     description: new FormControl<string>("", Validators.required),
     company_id: new FormControl<number | null>(null, Validators.required),
-    // multimedia_id: new FormControl<number | null>(null, Validators.required),
     expiration_date: new FormControl<Date | null>(null, [
       Validators.required,]),
   });
 
   cats: any = {
     companies: [],
-    // multimedia_types: [],
   };
 
   filePreview: string | ArrayBuffer | null = null;
@@ -57,7 +55,6 @@ export class NewMediaLinksComponent {
 
   getCats = async () => {
     await this.getCatEnterprices();
-    // await this.getCatMediaType();
     this.cdRef.detectChanges();
   };
 
@@ -123,22 +120,6 @@ export class NewMediaLinksComponent {
     else this.AddLink();
   }
 
-  // AddLink = async () => {
-  //   let link = {
-  //     ...this.formlink.value,
-  //     expiration_date: moment(this.formlink.value.expiration_date).format('YYYY-MM-DD') 
-  //   };
-  
-  //   (await this._service.setLink(link)).subscribe((resp: Resultado) => {
-  //     if (resp.success == "true") {
-  //       this.toastr.success("The link was added successfully", "Success");
-  //       this.onNoClick(true);
-  //     } else {
-  //       this.toastr.error(resp.message, "Error");
-  //     }
-  //   });
-  // };
-
   AddLink = async () => {
     if (!this.fileBase64) {
       this.toastr.warning("You must select a file to upload.", "No File Selected");
@@ -146,8 +127,8 @@ export class NewMediaLinksComponent {
     }
   
     const mimeType = this.getMimeType(this.fileBase64);
-    const fileName = `media_${Date.now()}`; // Genera un nombre único
-    const base64Data = this.fileBase64.split(',')[1]; // Extrae solo los datos base64
+    const fileName = `media_${Date.now()}`;
+    const base64Data = this.fileBase64.split(',')[1];
   
     const link = {
       ...this.formlink.value,
@@ -167,7 +148,6 @@ export class NewMediaLinksComponent {
     });
   };
   
-  // Método para obtener el MIME type del archivo
   getMimeType(base64: string): string {
     const match = base64.match(/^data:(.*);base64,/);
     return match ? match[1] : '';

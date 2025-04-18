@@ -33,7 +33,6 @@
     <mat-card-content>
       <table class="MainTable" *ngIf="attentions.length > 0">
         <thead style="border-bottom: 1px solid black">
-          <!-- <th>Attention Status Id</th> -->
           <th>Order</th>
           <th>Attention Status</th>
           <th>Color</th>
@@ -45,7 +44,6 @@
             *ngFor="let attention of attentions | buscadorGenerico : buscador"
             class="hvrPush"
           >
-            <!-- <td>{{ attention.attention_status_id }}</td> -->
             <td>{{ attention.charging_order }}</td>
             <td>{{ attention.attention_status_name }}</td>
             <td>

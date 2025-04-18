@@ -107,18 +107,4 @@ export class LoginComponent {
   private clearStoredCredentials() {
     localStorage.removeItem("rememberedCredentials");
   }
-
-  // validarEntrada(event: KeyboardEvent): boolean {
-  //   const valorActual = this.clientCredentials.value.numEmpleado;
-
-  //   if (event.key === 'Backspace')
-  //     return true;
-  //   const nuevoValor = valorActual + event.key;
-  //   const patronRegex: RegExp = /^[0-9]\d*$/;
-  //   if (!patronRegex.test(nuevoValor)) {
-  //     event.preventDefault();
-  //     return false;
-  //   }
-  //   return true;
-  // }
 }

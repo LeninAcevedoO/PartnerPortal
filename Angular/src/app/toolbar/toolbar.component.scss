@@ -1,6 +1,5 @@
 .topBar {
   position: fixed;
-  // top: 40px;
   top: 0;
   z-index: 1001;
   background: url("/assets/img/bg-toolbar.png") no-repeat center center,
@@ -9,32 +8,18 @@
   color: white;
 }
 
-// .topBartop {
-//   position: fixed;
-//   top: 0;
-//   z-index: 1001;
-//   margin-top: 0px;
-//   background-color: #082444;
-//   color: #EDEDEE;
-//   height: 40px;
-//   align-items: center;
-// }
-
 mat-sidenav {
   min-width: 360px;
   cursor: pointer;
   position: absolute;
   margin-top: 57px;
   z-index: 9999999999;
-  // min-height: calc(100vh - 104px);
   min-height: 100vh;
 }
 
 body,
 html,
 .routerContainer {
-  // margin-top: 58px;
-  // min-height: calc(100vh - 58px);
   min-height: 100vh;
 }
 
@@ -47,10 +32,6 @@ html,
 .list-item-label {
   justify-content: left;
   padding-top: 1.3rem;
-
-  // mat-icon {
-  //   margin-top: 1rem;
-  // }
 }
 
 .list-item-label:hover {

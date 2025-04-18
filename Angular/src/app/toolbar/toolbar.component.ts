@@ -25,39 +25,14 @@ const TREE_DATA: any[] = [
         icon: "campaign",
         permissions: [1, 2, 3, 4],
       },
-      // {
-      //   name: "About us",
-      //   onClick: "/about-us",
-      //   icon: "info",
-      //   permissions: [1, 2, 3, 4],
-      // },
     ],
   },
-  // {
-  //   name: "Favorites",
-  //   onClick: "/favorites",
-  //   icon: "star",
-  //   permissions: [1, 2, 3, 4],
-  // },
-  // {
-  //   name: "AI Assistant",
-  //   permissions: [1, 2, 3],
-  //   onClick: "/login",
-  //   icon: "support_agent",
-  // },
   {
     name: "Verticals",
     onClick: "/verticals",
     icon: "vertical_distribute",
     permissions: [1, 2, 3, 4],
   },
-  // { name: 'Services' },
-  // {
-  //   name: "Manager Comments",
-  //   permissions: [1, 2, 3, 4],
-  //   onClick: "openModalNewComment",
-  //   icon: "contact_mail",
-  // },
   {
     name: "Dashboard",
     permissions: [1, 2],
@@ -70,12 +45,6 @@ const TREE_DATA: any[] = [
     onClick: "/settings",
     icon: "settings",
   },
-  // {
-  //   name: "Logout",
-  //   onClick: "Logout",
-  //   icon: "logout",
-  //   permissions: [1, 2, 3, 4],
-  // },
 ];
 
 @Component({
@@ -127,32 +96,11 @@ export class ToolbarComponent {
 
   ngOnInit() {
     this.userRole = this.getUserRole();
-    // this.filterMenuItems();
   }
 
   getUserRole(): number {
     return Number(this._context.theRol());
   }
-
-  // filterMenuItems() {
-  //   this.dataSource.data = TREE_DATA.filter(item => item.permissions.includes(this.userRole));
-  //   //this.shouldShowMenuItem(item.name));
-  // }
-
-  // shouldShowMenuItem(menuItem: string): boolean {
-  //   const role = this.userRole;
-
-  //   const permissions: { [key: string]: number[] } = {
-  //     'AI Assistant': [1, 2, 3],
-  //     'Dashboard': [1, 2],
-  //     'Settings': [1],
-  //     'Manager Comments': [1, 2, 3, 4],
-  //   };
-
-  //   return permissions[menuItem] ? permissions[menuItem].includes(role) : true;
-  // }
-
-  openModalProfile() {}
 
   openModalNewComment() {
     this.dialog
@@ -174,16 +122,6 @@ export class ToolbarComponent {
   }
 
   actionClick(node: any) {
-    // const routes: { [key: string]: string } = {
-    //   'AI Assistant': '/login',
-    //   Dashboard: '/login',
-    //   Settings: '/settings',
-    //   'About us': '/about-us',
-    //   Advertisements: '/home',
-    //   Favorites: '/favorites',
-    //   Services: '/services',
-    //   Verticals: '/verticals'
-    // };
     if (node.onClick.length > 2) {
       switch (node.onClick) {
         case "openModalNewComment":
@@ -198,48 +136,5 @@ export class ToolbarComponent {
           break;
       }
     }
-    // if (node.name === 'Manager Comments') {
-    //   this.openModalNewComment();
-    //   return;
-    // }
-
-    // if (node.name === 'Logout') {
-    //   this.logout();
-    //   return;
-    // }
-
-    // const route = routes[node.name];
-    // if (route) {
-    //   this.router.navigate([route]);
-    //   this.opened = false;
-    // }
   }
-
-  // onMouseOver(event: MouseEvent): void {
-  //   const target = event.currentTarget as HTMLElement;
-  //   target.classList.add('hover-shadow');
-  // }
-
-  // onMouseLeave(event: MouseEvent): void {
-  //   const target = event.currentTarget as HTMLElement;
-  //   target.classList.remove('hover-shadow');
-  // }
-
-  // getIcon(name: string): string {
-  //   const iconMap: { [key: string]: string } = {
-  //     Home: 'home',
-  //     Advertisements: 'campaign',
-  //     'About us': 'info',
-  //     'AI Assistant': 'support_agent',
-  //     Dashboard: 'dashboard',
-  //     'Manager Comments': 'contact_mail',
-  //     Settings: 'settings',
-  //     Services: 'linked_services',
-  //     Favorites: 'star',
-  //     Verticals: 'vertical_distribute',
-  //     Logout: 'logout',
-  //   };
-
-  //   return iconMap[name] || 'help';
-  // }
 }

@@ -14,7 +14,6 @@ export class HomeOnlineComponent {
     Health: [],
     Workforce: [],
     Corrections: [],
-    // PublicSector: [],
     Others: [],
   };
   demosLoaded: string[] = [];

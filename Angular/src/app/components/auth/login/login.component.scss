@@ -19,12 +19,6 @@
   max-width: 95%;
   text-align: center;
   padding: 16px;
-  // border-radius: 10px !important;
-  //background: rgba(255, 255, 255, 0.1);
-  //border-radius: 20px !important;
-  //box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  //backdrop-filter: blur(10px);
-  //border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .txtClipped {
@@ -60,20 +54,6 @@ button.mat-icon-button .mat-icon {
   margin-bottom: 10%;
 }
 
-// .btnLogin {
-//   margin-top: 8%;
-//   background-color: white;
-//   background: linear-gradient(90deg, #743fa9, #2b72df, #2b9adf);
-//   color: white !important;
-//   width: 40%;
-//   height: 50px;
-//   font-size: 1.2rem;
-//   border-radius: 2px;
-// border: 2px solid black !important;
-//   margin-right: 55%;
-//   margin-bottom: 10%;
-// }
-
 .btnLogin {
   background: linear-gradient(-30deg, #009dd7 0%, #0075c9 65%, #004987 90%);
   color: white !important;
@@ -93,12 +73,9 @@ button.mat-icon-button .mat-icon {
 }
 
 .txtLink {
-  // text-align: end;
-  // margin-top: 0.7rem;
   color: gray;
   font-size: 14px;
   font-weight: bold;
-  // line-height: 0.1rem;
 }
 
 .txtLink {
@@ -124,13 +101,6 @@ button.mat-icon-button .mat-icon {
 .remember-container .txtLink {
   margin: 0; 
 }
-
-// .space{
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   width: 90%;
-// }
 
 .singupContainer {
   display: flex;

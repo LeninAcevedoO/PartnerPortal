@@ -1,5 +1,4 @@
 const { ApiResponse } = require("./interfaces.model.js");
-// const dbConfig = require("./db.config.js");
 const utils = require("./utils.js");
 const sql = require("mssql");
 const { token } = require("morgan");
@@ -369,11 +368,9 @@ const setUser = async (req, res) => {
   try {
     const decryptedData = utils.decryptAES(req.body.data);
     req.body = JSON.parse(decryptedData);
-    // await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
       .request()
-      // .input("username", utils.generateToken())
       .input("password_hash", req.body.password_hash)
       .input("email", req.body.email)
       .input("first_name", req.body.first_name)
@@ -384,7 +381,6 @@ const setUser = async (req, res) => {
       .input("status_id", req.body.status_id)
       .input("modified_by", -1)
       .execute("spr_pp_insertuser");
-    // utils.logErrorToFile(JSON.stringify(result));
     return ApiResponse(result, res);
   } catch (e) {
     utils.logErrorToFile(e);
@@ -400,7 +396,6 @@ const updateUser = async (req, res) => {
     const result = await pool
       .request()
       .input("user_id", req.body.user_id)
-      // .input("password_hash", req.body.password_hash)
       .input("email", req.body.email)
       .input("first_name", req.body.first_name)
       .input("last_name", req.body.last_name)
@@ -502,7 +497,6 @@ const updateAttentionStatusStatus = async (req, res) => {
       .request()
       .input("attention_status_id", req.params.attention_id)
       .input("status_id", req.params.status)
-      // .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .execute("spr_pp_updateattentionstatusstatus");
     return ApiResponse(result, res);
   } catch (e) {
@@ -625,7 +619,6 @@ const setRole = async (req, res) => {
       .input("role_name", req.body.role_name)
       .input("description", req.body.description)
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
-      // .input("status_id", req.body.status_id)
       .execute("spr_pp_insertrole");
     return ApiResponse(result, res);
   } catch (e) {
@@ -727,7 +720,7 @@ const setLink = async (req, res) => {
     if (req.body.miniature) {
       const base64String = req.body.miniature;
       const base64Data = base64String.split(",")[1];
-      const mimeType = req.body.mimeType; // image/png
+      const mimeType = req.body.mimeType;
       const fileName = `${req.body.fileName.replace(/ /g, "")}.${
         req.body.mimeType.split("/")[1]
       }`;
@@ -850,7 +843,6 @@ const setComment = async (req, res) => {
       .input("comment_title", req.body.comment_title)
       .input("comment_content", req.body.comment_content)
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
-      // .input("route", req.body.route)
       .execute("spr_pp_insertmanagementcomment");
     return ApiResponse(result, res);
   } catch (e) {
@@ -1016,9 +1008,8 @@ const setDemos = async (req, res) => {
     if (req.body.miniature) {
       const base64String = req.body.miniature;
       const base64Data = base64String.split(",")[1];
-      const mimeType = req.body.mimeType; // image/png
+      const mimeType = req.body.mimeType;
       const fileName = `${uuidv4()}.${req.body.mimeType}`;
-      // const fileName = req.body.fileName
       try {
         await utils
           .uploadBase64File(base64Data, fileName, mimeType)
@@ -1056,9 +1047,8 @@ const updateDemos = async (req, res) => {
     if (req.body.miniature) {
       const base64String = req.body.miniature;
       const base64Data = base64String.split(",")[1];
-      const mimeType = req.body.mimeType; // image/png
+      const mimeType = req.body.mimeType;
       const fileName = `${uuidv4()}.${req.body.mimeType}`;
-      // const fileName = req.body.fileName
       try {
         await utils
           .uploadBase64File(base64Data, fileName, mimeType)

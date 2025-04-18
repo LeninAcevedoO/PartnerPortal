@@ -1,5 +1,4 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
 const { encryptAES, decryptAES } = require('./utils.service'); 
 const app = express();
 const port = 3000;

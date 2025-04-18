@@ -24,13 +24,6 @@ export function validarSoloTexto(event: KeyboardEvent, value: any): boolean {
   return true;
 }
 
-export function CurrentMethodName() {
-  // const e = new Error('dummy');
-  // let stack = e.stack.split('\n')[2].replace(/^\s+at\s+(.+?)\s.+/g, '$1');
-  // stack = stack.slice(stack.indexOf('.') + 1, length-1)
-  // return (new Error()).stack.match(/at (\S+)/g)[1].slice(3);
-}
-
 export function compare(
   a: number | string,
   b: number | string,

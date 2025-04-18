@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, from } from 'rxjs';
-import { catchError, tap, timeout, switchMap } from 'rxjs/operators';
+import { catchError, tap, timeout, switchMap, finalize } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { UtilsService } from 'src/app/shared/utils/utils.service';
 import * as platform from 'platform';
 import { Router } from '@angular/router';
 import { ContextService } from '../services/context.service';
 import { environment } from 'src/environments/environment';
+import { SpinnerService } from '../services/spinner.service';
 
 @Injectable()
 export class HandleErrorInterceptor implements HttpInterceptor {
@@ -17,8 +18,11 @@ export class HandleErrorInterceptor implements HttpInterceptor {
     private toastr: ToastrService, 
     private _utilsSvc: UtilsService,
     private router: Router,
-    private _context: ContextService
-  ) {}
+    private _context: ContextService,
+    private _spinnerSvr: SpinnerService
+  ) {
+    this._spinnerSvr.llamarSpiner();
+  }
 
   private async getClientIp(): Promise<string> {
     try {
@@ -87,7 +91,8 @@ export class HandleErrorInterceptor implements HttpInterceptor {
             }
 
             return throwError(() => new Error(err.message));
-          })
+          }),
+          finalize(() => this._spinnerSvr.detenerSpiner())
         );
       })
     );
