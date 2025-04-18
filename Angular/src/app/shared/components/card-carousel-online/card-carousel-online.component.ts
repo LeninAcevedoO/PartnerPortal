@@ -1,5 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
@@ -22,11 +28,10 @@ import { ModalDemoDetailsComponent } from "src/app/pages/verticals/modal-demo-de
     MatTooltipModule,
   ],
 })
-export class CardCarouselOnlineComponent implements OnChanges{
+export class CardCarouselOnlineComponent implements OnChanges {
   @Input() slides: any[] = [];
 
   constructor(private cdRef: ChangeDetectorRef, private dialog: MatDialog) {}
-
 
   ngOnChanges(changes: SimpleChanges): void {
     this.cdRef.detectChanges();

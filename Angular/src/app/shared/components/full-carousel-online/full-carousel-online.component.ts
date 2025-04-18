@@ -1,5 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialog } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
@@ -23,23 +29,13 @@ import { ModalDemoDetailsComponent } from "src/app/pages/verticals/modal-demo-de
   ],
 })
 export class FullCarouselOnlineComponen implements OnChanges {
-
   @Input() slides: any[] = [];
 
-  constructor(private cdRef: ChangeDetectorRef,
-              private dialog: MatDialog
-  ) {}
-  
-  ngOnInit(): void {
-    console.log('Slides recibidos:', this.slides);
-  }
-  
+  constructor(private cdRef: ChangeDetectorRef, private dialog: MatDialog) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.cdRef.detectChanges();
     if (changes["slides"]) {
-      console.log("Cambios en slides:", this.slides);
-
       this.cdRef.detectChanges();
     }
   }
@@ -50,6 +46,8 @@ export class FullCarouselOnlineComponen implements OnChanges {
     autoplay: true,
     autoplaySpeed: 4000,
     pauseOnHover: true,
+    arrows: true,
+    dots: true,
     responsive: [
       {
         breakpoint: 1920,
@@ -74,11 +72,10 @@ export class FullCarouselOnlineComponen implements OnChanges {
     ],
   };
 
-
-    openDialogDetails(slide: any) {
-      this.dialog.open(ModalDemoDetailsComponent, {
-        data: slide,
-        width: "80%",
-      });
-    }
+  openDialogDetails(slide: any) {
+    this.dialog.open(ModalDemoDetailsComponent, {
+      data: slide,
+      width: "80%",
+    });
+  }
 }

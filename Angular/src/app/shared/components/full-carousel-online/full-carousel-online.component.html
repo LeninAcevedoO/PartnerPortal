@@ -1,12 +1,16 @@
-<div class="w-full flex-center" *ngIf="slides && slides.length > 0">
+<div class="w-full flex-center" *ngIf="slides">
   <ngx-slick-carousel
     class="carousel"
     #slickModal="slick-carousel"
     [config]="slideConfig"
   >
     <div ngxSlickItem *ngFor="let slide of slides" class="slide">
-      <div class="img-style">
-        <div class="genTxt flex-center" (click)="openDialogDetails(slide)">
+      <div
+        class="img-style"
+        matTooltip="More details"
+        (click)="openDialogDetails(slide)"
+      >
+        <div class="genTxt flex-center">
           <h1 class="w-full title">{{ slide.demo_name }}</h1>
           <h3 class="description">
             {{ slide.information }}
@@ -16,8 +20,6 @@
           [src]="slide.multimedia_link"
           class="imgSt"
           [routerLink]="slide.link"
-          matTooltip="More details"
-          (click)="openDialogDetails(slide)"
         />
       </div>
     </div>
