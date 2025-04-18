@@ -13,7 +13,6 @@ import { RolesListComponent } from "./settings/catalogs/roles/roles-list/roles-l
 import { NewRolComponent } from "./settings/catalogs/roles/new-rol/new-rol.component";
 import { StatusAtendantListComponent } from "./settings/catalogs/status-atendant/status-atendant-list/status-atendant-list.component";
 import { StatusNewAtendantComponent } from "./settings/catalogs/status-atendant/status-new-atendant/status-new-atendant.component";
-import { CatalogsComponent } from "./settings/catalogs/catalogs.component";
 import { SharedModule } from "src/app/shared/shared.module";
 import { ManagementCommentListComponent } from "./settings/management-comments/management-comment-list/management-comment-list.component";
 import { VerticalsListComponent } from "../verticals/verticals-list/verticals-list.component";
@@ -32,7 +31,6 @@ import { AddVerticalComponent } from "../verticals/add-vertical/add-vertical.com
     NewRolComponent,
     StatusAtendantListComponent,
     StatusNewAtendantComponent,
-    CatalogsComponent,
     ManagementCommentListComponent,
     VerticalsListComponent,
     AddVerticalComponent
