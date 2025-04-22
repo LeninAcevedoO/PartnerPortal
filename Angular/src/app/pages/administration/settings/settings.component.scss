@@ -46,6 +46,13 @@
   bottom: 1rem;
 }
 
+.cardSubtitle {
+  color: lightgray;
+  margin-bottom: -2rem;
+  translate: 0 -1rem;
+  text-align: center;
+}
+
 @media screen and (max-width: 768px) {
   .CardsContainer {
     margin-top: 2rem;

@@ -8,13 +8,16 @@ import { Router } from '@angular/router';
 })
 export class SettingsComponent {
 
-  options = [
-    {title: 'Catalogs', icon: 'menu_book', route: '/settings/catalogs', badge: 0},
+  options: any[] = [
+    // {title: 'Catalogs', icon: 'menu_book', route: '/settings/catalogs', badge: 0},
     {title: 'Users', icon: 'groups', route: '/settings/users', badge: 0},
     // {title: 'Links', icon: 'link', route: '/settings/links', badge: 0},
     {title: 'Product details', icon: 'inbox', route: '/settings/product-details', badge: 0},
     {title: 'Manager comments', icon: 'report', route: '/settings/management-comments', badge: 0},
     {title: 'Demos', icon: 'view_column', route: '/settings/verticals', badge: 0},
+    {title: 'Roles', subtitle: 'Catalog', icon: 'badge', route: '/settings/catalogs/roles', badge: 0},
+    {title: 'Companies', subtitle: 'Catalog',icon: 'apartment', route: '/settings/catalogs/companies', badge: 0},
+    {title: 'Attention status', subtitle: 'Catalog',icon: 'play_lesson', route: '/settings/catalogs/attention', badge: 0},
   ];
 
   catsOptions = [
@@ -23,14 +26,14 @@ export class SettingsComponent {
     {title: 'Attention status', icon: 'play_lesson', route: '/settings/catalogs/attention', badge: 0},
   ];
 
-  isCat = false;
+  // isCat = false;
 
   constructor(private router: Router) { }
 
   navigate(route: any) {
-    if (route === '/settings/catalogs') {
-      this.isCat = true;
-    } else 
+    // if (route === '/settings/catalogs') {
+    //   this.isCat = true;
+    // } else 
       this.router.navigate([route]);
   }
 
