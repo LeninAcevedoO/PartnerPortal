@@ -231,8 +231,8 @@ export class MainService {
     
     //#region Demos
     
-    getDemos = async(vertix: string) => {
-      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/demos/${vertix}`);
+    getDemos = async() => {
+      return this.http.get<Resultado>(`${this.UrlBase}/api/pp/v1/demos`);
     }
 
     getDemosByVertical = async(vertix: number) => {
