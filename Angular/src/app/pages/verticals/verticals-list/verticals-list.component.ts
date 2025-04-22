@@ -4,6 +4,7 @@ import { ToastrService } from "ngx-toastr";
 import { MainService } from "src/app/services/services/main.service";
 import { Resultado } from "src/app/shared/models/general.model";
 import { AddVerticalComponent } from "../add-vertical/add-vertical.component";
+import { MultimediaViewerComponent } from "src/app/shared/components/multimedia-viewer/multimedia-viewer.component";
 
 @Component({
   selector: "app-verticals-list",
@@ -65,5 +66,13 @@ export class VerticalsListComponent {
       .subscribe((x: boolean) => {
         if (x) this.getdemos();
       });
+  }
+
+  openViewer(demo: any) {
+    const data = { b64: demo.multimedia_link, mimeType: "img" };
+    this.dialog.open(MultimediaViewerComponent, {
+      panelClass: "post-dialog-container",
+      data: data,
+    });
   }
 }

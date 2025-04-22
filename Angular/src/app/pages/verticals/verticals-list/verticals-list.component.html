@@ -1,106 +1,118 @@
 <div class="w-full flex-center min-h-full">
-    <mat-card class="MainCard">
-      <mat-card-title>
-        <div class="w-full flex-center title-container">
-          <h1 class="MainTitle">Demos</h1>
-          <mat-form-field appearance="outline" class="finder" *ngIf="Verticals.length > 0" >
-            <mat-label>Finder</mat-label>
-            <input
-              type="text"
-              matInput
-              placeholder="Let's find something"
-              [(ngModel)]="buscador"
-            />
-            <button mat-icon-button matPrefix>
-              <mat-icon>search</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              matSuffix
-              color="warn"
-              *ngIf="buscador"
-              (click)="buscador = ''"
-            >
-              <mat-icon>close</mat-icon>
-            </button>
-          </mat-form-field>
-        </div>
-      </mat-card-title>
-      <mat-card-content>
-        <table class="MainTable" *ngIf="Verticals.length > 0">
-          <thead style="border-bottom: 1px solid black">
-            <th>Demo id</th>
-            <th>Demo name</th>
-            <th>Realease date</th>
-            <th>Vertical</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </thead>
-          <tbody>
-            <tr
-              *ngFor="let vertical of Verticals | buscadorGenerico : buscador"
-              class="hvrPush"
-            >
-              <td>{{ vertical.demo_id }}</td>
-              <td>{{ vertical.demo_name }}</td>
-              <td>{{ vertical.release_date }}</td>
-              <td>{{ vertical.vertical_desc }}</td>
-              <td>
-                <mat-slide-toggle
-                  [checked]="vertical.status_id ? true : false"
-                  (change)="changedemoStatus(vertical, $event)"
-                >
-                  {{
-                    vertical.status_id ? "enabled" : "disabled"
-                  }}</mat-slide-toggle
-                >
-              </td>
-              <td>
-                <button
-                  mat-icon-button
-                  matTooltip="Edit"
-                  class="editBtn"
-                  (click)="openAddEditdemo(vertical)"
-                >
-                  <mat-icon>edit</mat-icon>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div *ngIf="!Verticals" class="w-full flex-center">
-          <h1 class="noDataText">There's no information</h1>
-        </div>
-      </mat-card-content>
-      <mat-card-actions>
-        <button
-          mat-icon-button
-          matTooltip="Refresh information"
-          (click)="getdemos()"
+  <mat-card class="MainCard">
+    <mat-card-title>
+      <div class="w-full flex-center title-container">
+        <h1 class="MainTitle">Demos</h1>
+        <mat-form-field
+          appearance="outline"
+          class="finder"
+          *ngIf="Verticals.length > 0"
         >
-          <mat-icon>refresh</mat-icon>
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-  
-  <button
-    mat-fab
-    color="warn"
-    class="downLButton"
-    routerLink="/settings"
-    matTooltip="Back to settings"
-  >
-    <mat-icon>arrow_back</mat-icon>
-  </button>
-  
-  <button
-    mat-fab
-    color="primary"
-    class="downRButton"
-    (click)="openAddEditdemo()"
-    matTooltip="Add demo"
-  >
-    +<mat-icon>route</mat-icon>
-  </button>
-  
+          <mat-label>Finder</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Let's find something"
+            [(ngModel)]="buscador"
+          />
+          <button mat-icon-button matPrefix>
+            <mat-icon>search</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            matSuffix
+            color="warn"
+            *ngIf="buscador"
+            (click)="buscador = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+    </mat-card-title>
+    <mat-card-content>
+      <table class="MainTable" *ngIf="Verticals.length > 0">
+        <thead style="border-bottom: 1px solid black">
+          <th>Demo id</th>
+          <th>Demo name</th>
+          <th>Realease date</th>
+          <th>Vertical</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let vertical of Verticals | buscadorGenerico : buscador"
+            class="hvrPush"
+          >
+            <td>{{ vertical.demo_id }}</td>
+            <td>{{ vertical.demo_name }}</td>
+            <td>{{ vertical.release_date }}</td>
+            <td>{{ vertical.vertical_desc }}</td>
+            <td>
+              <mat-slide-toggle
+                [checked]="vertical.status_id ? true : false"
+                (change)="changedemoStatus(vertical, $event)"
+              >
+                {{
+                  vertical.status_id ? "enabled" : "disabled"
+                }}</mat-slide-toggle
+              >
+            </td>
+            <td>
+              <button
+                mat-icon-button
+                matTooltip="Edit"
+                class="editBtn"
+                (click)="openAddEditdemo(vertical)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                [disabled]="!vertical.multimedia_link"
+                matTooltip="Show demo multimedia"
+                (click)="openViewer(vertical)"
+                color="accent"
+              >
+                <mat-icon>image</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="!Verticals" class="w-full flex-center">
+        <h1 class="noDataText">There's no information</h1>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-icon-button
+        matTooltip="Refresh information"
+        (click)="getdemos()"
+      >
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+<button
+  mat-fab
+  color="warn"
+  class="downLButton"
+  routerLink="/settings"
+  matTooltip="Back to settings"
+>
+  <mat-icon>arrow_back</mat-icon>
+</button>
+
+<button
+  mat-fab
+  color="primary"
+  class="downRButton"
+  (click)="openAddEditdemo()"
+  matTooltip="Add demo"
+>
+  +<mat-icon>route</mat-icon>
+</button>

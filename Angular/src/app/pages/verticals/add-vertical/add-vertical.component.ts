@@ -59,8 +59,7 @@ export class AddVerticalComponent {
 
   ngOnInit() {
     if (this.data?.demo_id) {
-      console.log(this.data);
-      this.formDemo.patchValue(this.data);
+      this.formDemo.patchValue({...this.data, miniature: this.data.multimedia_link});
       this.titulo = "Edit demo";
     }
   }
