@@ -37,18 +37,17 @@ export class HomeOnlineComponent {
     // this.getVerticals(5, "PublicSector");
     this.getVerticals(7, "PrivateSector");
     this.getVerticals(6, "Others");
-
-    this.fillFullCarousel();
   }
 
   async getVerticals(idVertical: number, vertical: string) {
     (await this._serice.getDemosByVertical(idVertical)).subscribe(
       (resp: Resultado) => {
         if (resp.success == "true") {
+          this.demosLoaded.push(vertical);
           if (resp.data.length > 0) {
-            this.demosLoaded.push(vertical);
             this.cdRef.detectChanges();
-            if (idVertical == 6) this.fillFullCarousel();
+
+            if (this.demosLoaded.length >= 6) this.fillFullCarousel();
           }
           this.demos[vertical] = resp.data;
         } else this.toastr.error(resp.message);
