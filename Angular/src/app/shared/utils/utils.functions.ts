@@ -88,3 +88,39 @@ export function getMimeTypeFromBase64(base64: string): string | null {
   const match = base64.match(/^data:([a-zA-Z0-9-+/]+);base64,/);
   return match ? match[1] : null;
 }
+
+export function getMultimediaType(mimeType: string): number {
+  switch (mimeType.split("/")[0]) {
+    case "image":
+      return 1;
+    case "video":
+      return 2;
+    case "audio":
+      return 3;
+    default:
+      return 4;
+  }
+}
+
+export function convertBase64ToWebP(base64: string, quality: number = 0.8): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        reject('No se pudo obtener el contexto del canvas');
+        return;
+      }
+
+      ctx.drawImage(img, 0, 0);
+      const webpBase64 = canvas.toDataURL('image/webp', quality);
+      resolve(webpBase64);
+    };
+    img.onerror = () => reject('Error cargando la imagen');
+    img.src = base64;
+  });
+}
