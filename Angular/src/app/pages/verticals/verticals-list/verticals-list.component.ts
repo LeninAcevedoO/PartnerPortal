@@ -1,17 +1,17 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
-import { MainService } from 'src/app/services/services/main.service';
-import { Resultado } from 'src/app/shared/models/general.model';
-import { AddVerticalComponent } from '../add-vertical/add-vertical.component';
+import { ChangeDetectorRef, Component } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { ToastrService } from "ngx-toastr";
+import { MainService } from "src/app/services/services/main.service";
+import { Resultado } from "src/app/shared/models/general.model";
+import { AddVerticalComponent } from "../add-vertical/add-vertical.component";
 
 @Component({
-  selector: 'app-verticals-list',
-  templateUrl: './verticals-list.component.html',
-  styleUrls: ['./verticals-list.component.scss']
+  selector: "app-verticals-list",
+  templateUrl: "./verticals-list.component.html",
+  styleUrls: ["./verticals-list.component.scss"],
 })
 export class VerticalsListComponent {
-buscador = "";
+  buscador = "";
   Verticals: any[] = [];
 
   constructor(
@@ -26,7 +26,7 @@ buscador = "";
   }
 
   async getdemos() {
-    (await this._service.getDemos('1')).subscribe((resp: Resultado) => {
+    (await this._service.getDemos()).subscribe((resp: Resultado) => {
       if (resp.success == "true") {
         this.Verticals = resp.data;
         this.cdRef.detectChanges();
