@@ -1031,6 +1031,7 @@ const setDemos = async (req, res) => {
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .input("multimedia_link", gcloud_url)
       .input("multimedia_type_id", req.body.multimedia_type_id)
+      .input("isMainCarusel", req.body.isMainCarusel)
       .execute("spr_pp_insertdemos");
     return ApiResponse(result, res);
   } catch (e) {
@@ -1058,8 +1059,6 @@ const updateDemos = async (req, res) => {
         console.log(e);
       }
     }
-    console.log("gcloud_url", gcloud_url);
-    console.log("req.body", req.body);
     await insertActivity(req, res);
     const pool = await sql.connect(dbConfig);
     const result = await pool
@@ -1073,6 +1072,7 @@ const updateDemos = async (req, res) => {
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .input("multimedia_link", gcloud_url)
       .input("multimedia_type_id", req.body.multimedia_type_id)
+      .input("isMainCarusel", req.body.isMainCarusel)
       .execute("spr_pp_updatedemos");
     return ApiResponse(result, res);
   } catch (e) {

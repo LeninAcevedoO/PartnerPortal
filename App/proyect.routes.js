@@ -72,7 +72,6 @@ router.get(`${urlBase}/catalogs/media-types`, authValidator, getCatMediaType);
 
     //#endregion
 
-
     //#region Attentions Status
 
     router.get(`${urlBase}/attention`, authValidator, getAllAttentionStatus);
@@ -113,7 +112,7 @@ router.put(`${urlBase}/favorites`, updateFavorites);
 
 //#region Demos
 
-router.get(`${urlBase}/demos/:demo_id`, getDemos);
+router.get(`${urlBase}/demos`, getDemos);
 router.get(`${urlBase}/demos/verticals/:vertical_id`, getDemosByVertical);
 router.post(`${urlBase}/demos`,authValidator, setDemos);
 router.put(`${urlBase}/demos`, authValidator, updateDemos);
