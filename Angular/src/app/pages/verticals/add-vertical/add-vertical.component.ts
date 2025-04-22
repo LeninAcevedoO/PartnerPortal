@@ -87,7 +87,7 @@ export class AddVerticalComponent {
 
   AddVertical = async () => {
     const mimeT = getMimeTypeFromBase64(this.formDemo.value.miniature || "");
-    if (mimeT?.includes("image")) {
+    if (mimeT?.includes("image") && !mimeT?.includes("gif") ) {
       this.formDemo.patchValue({
         miniature: convertBase64ToWebP(
           this.formDemo.value.miniature || "",
