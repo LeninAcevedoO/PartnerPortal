@@ -12,7 +12,7 @@ import { SpinnerService } from '../services/spinner.service';
 
 @Injectable()
 export class HandleErrorInterceptor implements HttpInterceptor {
-  private readonly REQUEST_TIMEOUT = 15000;
+  private REQUEST_TIMEOUT = 15000;
   
   constructor(
     private toastr: ToastrService, 
@@ -20,9 +20,7 @@ export class HandleErrorInterceptor implements HttpInterceptor {
     private router: Router,
     private _context: ContextService,
     private _spinnerSvr: SpinnerService
-  ) {
-    this._spinnerSvr.llamarSpiner();
-  }
+  ) {}
 
   private async getClientIp(): Promise<string> {
     try {
@@ -36,6 +34,7 @@ export class HandleErrorInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this._spinnerSvr.llamarSpiner();
     const currentRoute = this.router.url || 'unknown';
 
     const usuario = sessionStorage.getItem('mat__resultant__pp__id') || '';
@@ -58,6 +57,7 @@ export class HandleErrorInterceptor implements HttpInterceptor {
         });
 
         if (request.body) {
+          if(request.body.multimedia_type_id == 2) this.REQUEST_TIMEOUT = 300000;
           if (!environment.production) console.log(request.body);
           const encryptedBody = this._utilsSvc.encryptAES(JSON.stringify(request.body));
           modifiedRequest = modifiedRequest.clone({ body: { "data": encryptedBody } });

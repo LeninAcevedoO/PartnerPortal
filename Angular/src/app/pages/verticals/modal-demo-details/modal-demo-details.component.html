@@ -1,29 +1,51 @@
 <mat-dialog-component>
-    <div class="w-full flex-center mainContainer">
-        <div class="w-full">
-            <h1 style="color: var(--primary-color);">{{data.demo_name}}</h1>
-        </div>
-        <div class="w-full">
-            <img [src]="data.multimedia_link" class="imgSt">
-        </div>
-        <div class="w-full">
-            <h3 class="txtInfo" style="color: var(--primary-color);">{{ data.information }}</h3>
-        </div>
-        <div class="w-full">
-            <h2 style="color: var(--primary-color);">Solution Assets</h2>
-            <div class="w-full flex-center dattatchContainer">
-                <div class="itemIcon" *ngFor="let item of data.links">
-                    <a [href]="item.URI" target="_blank" matTooltip="Go to {{item.URI}}" style="text-decoration: none;">
-                        <div class="assetBox">
-                            <h3>{{ getLabelAssetsBox(item.link_type) }}</h3>
-                        </div>
-                    </a>
-                    
-                </div>
-            </div>
-        </div>
-        <div class="w-full flex-center">
-            <button type="button" mat-button color="primary" (click)="onNoclick()"><mat-icon>close</mat-icon>Close</button>
-        </div>
+  <div class="w-full flex-center mainContainer">
+    <div class="w-full">
+      <h1 style="color: var(--primary-color)">{{ data.demo_name }}</h1>
     </div>
+    <div class="w-full">
+      <img
+        *ngIf="data.multimedia_type_id == 1"
+        [src]="data.poster_url ? data.poster_url : data.multimedia_link"
+        class="imgSt"
+      />
+      <video
+        *ngIf="data.multimedia_type_id == 2"
+        class="imgSt"
+        controls
+        preload="auto"
+        autoplay
+      >
+        <source [src]="data.multimedia_link" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <div class="w-full">
+      <h3 class="txtInfo" style="color: var(--primary-color)">
+        {{ data.information }}
+      </h3>
+    </div>
+    <div class="w-full">
+      <h2 style="color: var(--primary-color)">Solution Assets</h2>
+      <div class="w-full flex-center dattatchContainer">
+        <div class="itemIcon" *ngFor="let item of data.links">
+          <a
+            [href]="item.URI"
+            target="_blank"
+            matTooltip="Go to {{ item.URI }}"
+            style="text-decoration: none"
+          >
+            <div class="assetBox">
+              <h3>{{ getLabelAssetsBox(item.link_type) }}</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="w-full flex-center">
+      <button type="button" mat-button color="primary" (click)="onNoclick()">
+        <mat-icon>close</mat-icon>Close
+      </button>
+    </div>
+  </div>
 </mat-dialog-component>

@@ -34,7 +34,9 @@ export class AddVerticalComponent {
     miniature: new FormControl<any>(""),
     fileName: new FormControl<string>(""),
     isMainCarusel: new FormControl<boolean>(false),
-    multimedia_type_id: new FormControl<string>(""),
+    multimedia_type_id: new FormControl<number>(0),
+    mimeType: new FormControl<string>(""),
+    poster_url: new FormControl<string>(""),
   });
   today = new Date();
   cats: any = {
@@ -86,8 +88,10 @@ export class AddVerticalComponent {
   };
 
   AddVertical = async () => {
-    const mimeT = getMimeTypeFromBase64(this.formDemo.value.miniature || "");
-    if (mimeT?.includes("image") && !mimeT?.includes("gif") ) {
+    const mimeT = this.formDemo.value.mimeType;
+    const mt_id = getMultimediaType(mimeT || "");
+    console.log(mt_id);
+    if (mimeT?.includes("image") && !mimeT?.includes("gif") && mt_id == 1) {
       this.formDemo.patchValue({
         miniature: convertBase64ToWebP(
           this.formDemo.value.miniature || "",
@@ -100,7 +104,7 @@ export class AddVerticalComponent {
       release_date: moment(this.formDemo.value.release_date).format(
         "YYYY-MM-DD"
       ),
-      multimedia_type_id: getMultimediaType(mimeT || ""),
+      multimedia_type_id: mt_id,
       mimeType: mimeT,
       fileName: this.formDemo.value.demo_name,
     };
@@ -131,14 +135,17 @@ export class AddVerticalComponent {
         this.formDemo.patchValue({
           miniature: String(reader.result),
           fileName: file.name,
+          mimeType: file.type // <- aquí se agrega el MIME type
         });
       };
     }
   }
+  
 
   openVisualizer() {
     const info = {
       mimeType: "img",
+      multimedia_type_id: this.formDemo.value.multimedia_type_id,
       b64: this.formDemo.value.miniature,
     };
     this.dialog.open(MultimediaViewerComponent, {

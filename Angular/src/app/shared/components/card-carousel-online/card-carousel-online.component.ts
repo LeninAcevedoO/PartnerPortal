@@ -78,4 +78,8 @@ export class CardCarouselOnlineComponent implements OnChanges {
       width: "80%",
     });
   }
+
+  getBackImg(slide: any) {
+    return slide.poster_url.lenght > 0 ? slide.poster_url : slide.multimedia_link
+  }
 }

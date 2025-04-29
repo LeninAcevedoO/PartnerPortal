@@ -1,27 +1,36 @@
 .buttonsContainer {
-    gap: 1rem;
-    margin-top: 1.2rem;
+  gap: 1rem;
+  margin-top: 1.2rem;
 }
 
 .formClass {
-    justify-content: space-between;
-    margin-top: 1.5rem;
+  justify-content: space-between;
+  margin-top: 1.5rem;
 }
 
 .btnUpload {
-    scale: 1.2;
-    margin-left: 2.5rem;
+  scale: 1.2;
+  margin-left: 2.5rem;
 }
 
 .verticalImg {
-    height: 6rem;
-    object-fit: contain;
+  height: 6rem;
+  object-fit: contain;
 }
 
 .verticalImg:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tggl {
-    margin-top: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.txtVideoLabel {
+  text-align: center;
+  color: green;
+
+  &:hover {
+    cursor: pointer;
+  }
 }

@@ -17,7 +17,7 @@
           </h3>
         </div>
         <img
-          [src]="slide.multimedia_link"
+          [src]="slide.poster_url ? slide.poster_url : slide.multimedia_link"
           class="imgSt"
           [routerLink]="slide.link"
         />

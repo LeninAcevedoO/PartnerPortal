@@ -3,7 +3,7 @@ const utils = require("./utils.js");
 const sql = require("mssql");
 const { token } = require("morgan");
 const { randomUUID } = require("crypto");
-const { v4: uuidv4 } = require('uuid'); 
+const { v4: uuidv4 } = require("uuid");
 const dbConfig =
   "Data Source=34.67.138.191,1433;Initial Catalog=pp_db;User ID=sqlserver2;Password=Infomedia123;Trusted_Connection=True;TrustServerCertificate=True;";
 
@@ -961,7 +961,7 @@ const getDemosByVertical = async (req, res) => {
       );
       rsp.push(...results);
     }
-    const rs = {recordset: rsp};
+    const rs = { recordset: rsp };
     console.log(rs);
     return ApiResponse(rs, res);
   } catch (e) {
@@ -1007,9 +1007,38 @@ const setDemos = async (req, res) => {
   try {
     if (req.body.miniature) {
       const base64String = req.body.miniature;
-      const base64Data = base64String.split(",")[1];
-      const mimeType = req.body.mimeType;
+      const mimeType = req.body.mimeType.split("/")[1];
       const fileName = `${uuidv4()}.${req.body.mimeType}`;
+      let base64Data;
+      let gcloud_poster_url = "";
+      switch (req.body.multimedia_type_id) {
+        case 1:
+          base64Data = base64String.split(",")[1];
+          break;
+        case 2:
+          if (mimeType.includes("mp4"))
+            base64Data = await utils.convertBase64ToMp4(base64String, mimeType);
+          base64Data = base64String.split(",")[1];
+          const posterPath = path.join(__dirname, "temp_poster.jpg");
+          const posterBuffer = await extractPosterFromVideo(
+            outputPath,
+            posterPath
+          );
+          const posterBase64 = `data:image/jpeg;base64,${posterBuffer.toString(
+            "base64"
+          )}`;
+          try {
+            await utils
+              .uploadBase64File(posterBase64, `poster_${fileName}`, mimeType)
+              .then((url) => (gcloud_poster_url = url))
+              .catch((err) => console.error("Error:", err));
+          } catch (e) {
+            console.log(e);
+          }
+          break;
+        default:
+          break;
+      }
       try {
         await utils
           .uploadBase64File(base64Data, fileName, mimeType)
@@ -1030,6 +1059,7 @@ const setDemos = async (req, res) => {
       .input("vertical_id", req.body.vertical_id)
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .input("multimedia_link", gcloud_url)
+      .input("poster_url", gcloud_poster_url)
       .input("multimedia_type_id", req.body.multimedia_type_id)
       .input("isMainCarusel", req.body.isMainCarusel)
       .execute("spr_pp_insertdemos");
@@ -1043,13 +1073,36 @@ const setDemos = async (req, res) => {
 
 const updateDemos = async (req, res) => {
   let gcloud_url = "";
-  console.log("req.body", req.body);
+  let gcloud_poster_url = "";
   try {
     if (req.body.miniature) {
       const base64String = req.body.miniature;
-      const base64Data = base64String.split(",")[1];
-      const mimeType = req.body.mimeType;
+      const mimeType = req.body.mimeType.split("/")[1];
       const fileName = `${uuidv4()}.${req.body.mimeType}`;
+      let base64Data;
+      let posterBase64;
+      switch (req.body.multimedia_type_id) {
+        case 1:
+          base64Data = base64String.split(",")[1];
+          break;
+        case 2:
+          if (mimeType.includes("mp4"))
+            base64Data = await utils.convertBase64ToMp4(base64String, mimeType);
+          base64Data = base64String.split(",")[1];
+          posterBase64 = await utils.getPosterFromVideo(base64String);
+          posterBase64 = posterBase64.split(",")[1];
+          try {
+            await utils
+              .uploadBase64File(posterBase64, `poster_${uuidv4()}.jpeg`, 'image/jpeg')
+              .then((url) => (gcloud_poster_url = url))
+              .catch((err) => console.error("Error:", err));
+          } catch (e) {
+            console.log(e);
+          }
+          break;
+        default:
+          break;
+      }
       try {
         await utils
           .uploadBase64File(base64Data, fileName, mimeType)
@@ -1071,6 +1124,7 @@ const updateDemos = async (req, res) => {
       .input("vertical_id", req.body.vertical_id)
       .input("modified_by", utils.decryptAES(req.headers["x-user"]))
       .input("multimedia_link", gcloud_url)
+      .input("poster_url", gcloud_poster_url)
       .input("multimedia_type_id", req.body.multimedia_type_id)
       .input("isMainCarusel", req.body.isMainCarusel)
       .execute("spr_pp_updatedemos");

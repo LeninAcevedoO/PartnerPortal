@@ -64,12 +64,12 @@ export class VerticalsListComponent {
       })
       .afterClosed()
       .subscribe((x: boolean) => {
-        if (x) this.getdemos();
+        // if (x) this.getdemos();
       });
   }
 
   openViewer(demo: any) {
-    const data = { b64: demo.multimedia_link, mimeType: "img" };
+    const data = { b64: demo.multimedia_link, multimedia_type_id: demo.multimedia_type_id, mimeType: "img" };
     this.dialog.open(MultimediaViewerComponent, {
       panelClass: "post-dialog-container",
       data: data,

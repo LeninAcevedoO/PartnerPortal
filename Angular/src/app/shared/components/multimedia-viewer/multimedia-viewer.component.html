@@ -1,8 +1,8 @@
-<mat-dialog-content>
-  <mat-card class="w-full flex-center" *ngIf="data">
+<!-- <mat-dialog-content> -->
+  <mat-card class="w-full flex-center" *ngIf="data" style="">
     <mat-card-content>
       <div class="w-full flex-center topContainer">
-        <h1>Multimedia viwer</h1>
+        <h1>Multimedia viewer</h1>
         <div class="zoom-buttons">
           <button mat-icon-button (click)="zoomIn()">
             <mat-icon>zoom_in</mat-icon>
@@ -21,13 +21,17 @@
         </button>
       </div>
       <img
-        *ngIf="data.mimeType == 'img'"
+        *ngIf="data.mimeType == 'img'" || multimedia_type_id == 1
         [src]="data.b64"
         alt=""
         class="viewersStyle"
         [style.transform]="'scale(' + zoom + ')'"
         width="100%"
       />
+      <video *ngIf="data.multimedia_type_id == 2" class="viewersStyle" controls preload="auto" autoplay>
+        <source [src]="data.b64" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </mat-card-content>
   </mat-card>
-</mat-dialog-content>
+<!-- </mat-dialog-content> -->

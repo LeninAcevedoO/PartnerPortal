@@ -83,16 +83,25 @@
           <div
             class="w-full flex-center"
             style="margin-top: 5px"
-            *ngIf="formDemo.value.miniature"
+            *ngIf="formDemo.value.multimedia_type_id == 1 || formDemo.value.poster_url"
           >
             <img
-              [src]="formDemo.value.miniature"
+              [src]="formDemo.value.poster_url ? formDemo.value.poster_url : formDemo.value.miniature"
               alt=""
               class="verticalImg"
               (click)="openVisualizer()"
             />
             <span class="w-full" style="text-align: center"
               >Click to open bigger</span
+            >
+          </div>
+          <div
+            class="w-full flex-center"
+            style="margin-top: 5px"
+            *ngIf="formDemo.value.multimedia_type_id == 2"
+          >
+            <span class="w-full txtVideoLabel" (click)="openVisualizer()"
+              >Video Source uploaded, click to open</span
             >
           </div>
           <input

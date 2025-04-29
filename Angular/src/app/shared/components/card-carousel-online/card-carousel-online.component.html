@@ -8,7 +8,7 @@
       <div
         class="img-style flex-center"
         matTooltip="More details"
-        [ngStyle]="{'background-image': 'url(' + slide.multimedia_link + ')'}"
+        [ngStyle]="{'background-image': 'url(' + getBackImg(slide) + ')'}"
         (click)="openDialogDetails(slide)"
       >
         <h3 class="title w-full">{{ slide.demo_name }}</h3>
